@@ -6,29 +6,25 @@ body{
     background-color: #fc5258;
 }
 .A1{
-    width: 1200px;
     margin: 0px auto;
     background-color: brown;
 }
 .B1{
-    width: 20%;
-    height: 100%;
     margin: 0px auto;
     background-color: darkturquoise;
     float: left;
 }
 .B2{
-    width: 80%;
     margin: 0px auto;
     background-color: blueviolet;
     float: right;
 }
 .B13{
-    width: 90%;
-    height: 300px;
+    width: 85%;
     margin: 0px auto;
-    background-color: darkseagreen;
-    border-radius: 5%;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
     margin-top: 50px;
 }
 
@@ -50,29 +46,39 @@ body{
 }
 .T2{
     width: 100%;
+    margin-top: 30px;
+    /* 文字距离上面 */
 }
 
 .Y1{
     width: 50%;
     height: 100px;
+    float: left;
+    text-align: center;
 }
 
 .Y2{
     width: 50%;
     height: 100px;
+    float: right;
+    text-align: center;
 }
 
 
-.B12{
+/* .B12{
     width: 90%;
     height: 200px;
     margin: 0px auto;
     background-color: dodgerblue;
 
-}
+} */
 #Q1{
     margin: 0px;
     padding: 0px;
+    border: 0px;
     height: 50px;
     width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: white;
 }
