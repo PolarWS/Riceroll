@@ -25,7 +25,7 @@ export default {
         return {
             titleData: [
                 { id: "1101", title: "主页主页", link: "homepage" },
-                { id: "1102", title: "文章", link: "article" },
+                { id: "1102", title: "文章章", link: "article" },
                 { id: "1103", title: "搜索", link: "search" },
                 { id: "1104", title: "留言言", link: "leaveAMessage" },
                 { id: "1105", title: "音乐", link: "music" },
