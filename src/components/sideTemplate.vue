@@ -56,7 +56,6 @@
 
     50% {
         transform: translateY(-0.15rem);
-        /* 向上浮动的距离 */
     }
 
     100% {
