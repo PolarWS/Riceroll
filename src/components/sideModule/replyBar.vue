@@ -18,9 +18,9 @@ export default {
         return {
             // 此处数据后端请务必做msg截取处理，为了减少带宽和防止页面变形
             msgData: [
-                { id: "dsfsdf", msg: "Anonymous：码农路过，留...", url: "#" },
-                { id: "dfsdff", msg: "千羽：鼠标点击特效好像有b...", url: "#" },
-                { id: "xcvdfg", msg: "neko：欢迎交换友链,请留言...", url: "#" },
+                { id: "dsfsdf", msg: "Anonymous：码农路过，留农路过，", url: "#" },
+                { id: "dfsdff", msg: "千羽：鼠标点击特效好像：鼠标点击特效", url: "#" },
+                { id: "xcvdfg", msg: "neko：欢迎交换友链,请留言过，", url: "#" },
                 { id: "hgfhfg", msg: "夏目：新的主题还行", url: "#" },
             ]
         }
@@ -33,5 +33,10 @@ export default {
 <style scoped>
 .replyList {
     margin: 0.3rem 0;
+    width: 14rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #8A8E90;
 }
 </style>

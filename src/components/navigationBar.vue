@@ -24,10 +24,10 @@ export default {
     data() {
         return {
             titleData: [
-                { id: "1101", title: "主页主页", link: "homepage" },
-                { id: "1102", title: "文章章", link: "article" },
+                { id: "1101", title: "主页", link: "homepage" },
+                { id: "1102", title: "文章", link: "article" },
                 { id: "1103", title: "搜索", link: "search" },
-                { id: "1104", title: "留言言", link: "leaveAMessage" },
+                { id: "1104", title: "留言", link: "leaveAMessage" },
                 { id: "1105", title: "音乐", link: "music" },
                 { id: "1106", title: "归档", link: "file" },
                 { id: "1107", title: "友链", link: "friendChain" },
@@ -58,7 +58,11 @@ export default {
                     // 非ASCII字符，通常是中文字符
                     length += 2;
                 }
-            }
+            };
+            if (length > 12) {
+                length = 12;
+            };
+
             this.selectedItemsWidth = 4.5 + length * 0.8;
         }
     },
