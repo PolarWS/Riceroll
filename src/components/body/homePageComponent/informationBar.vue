@@ -106,7 +106,7 @@ export default {
 
 .blogInformation span {
     margin: 0 0 0 1rem;
-    color: #D1D2D2;
+    color: #8A8E90;
     font-size: 1.2rem;
 }
 

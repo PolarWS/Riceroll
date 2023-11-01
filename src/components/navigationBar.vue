@@ -15,7 +15,6 @@
 </template>
 <script>
 import sideItem from './sideItem.vue';
-import iconHomepage from './icon/iconHomepage.vue';
 export default {
     data() {
         return {
@@ -26,7 +25,6 @@ export default {
         }
     },
     components: {
-        iconHomepage,
         sideItem,
     },
     methods: {
