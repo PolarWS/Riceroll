@@ -5,7 +5,7 @@
             {{ date }}
         </template>
         <template #content>
-            <span>{{ title }}</span>
+            <span>{{ announcementBoard.title }}</span>
             <br><br>
             <span>#字数统计：{{ numberOfWords }}</span>
             <br>
@@ -30,6 +30,6 @@ export default {
     },
     components: {
         sideTemplate,
-    },
+    }, props: ["announcementBoard"]
 }
 </script>

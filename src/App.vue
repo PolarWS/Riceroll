@@ -6,7 +6,7 @@
     <homePage />
   </div>
   <!-- 侧边栏 -->
-  <informationBar />
+  <informationBar :informationBarData="informationBarData" />
 </template>
 
 <script>
@@ -17,7 +17,8 @@ import config from './config.json';
 export default {
   data() {
     return {
-      navigationBarData: config.sideItem
+      navigationBarData: config.navigationBarData,
+      informationBarData: config.informationBarData,
     }
   },
   components: {

@@ -50,17 +50,17 @@ export default {
         // 判断热度并且返回class颜色
         labelHeat(numberOfPages, numberOfViews) {
             const heatIndex = numberOfPages * numberOfViews;
-            if (heatIndex < 400) {
+            if (heatIndex < this.labelBar.heatNode.firstGear) {
                 return "hotG";
-            } else if (heatIndex < 1600) {
+            } else if (heatIndex < this.labelBar.heatNode.secondGear) {
                 return "hotY";
-            } else if (heatIndex < 6400) {
+            } else if (heatIndex < this.labelBar.heatNode.thirdGear) {
                 return "hotO";
             } else {
                 return "hotR";
             }
         }
-    }
+    }, props: ["labelBar"]
 }
 </script>
 <style scoped>

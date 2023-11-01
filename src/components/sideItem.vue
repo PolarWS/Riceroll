@@ -57,11 +57,11 @@ export default {
   }
 
   50% {
-    transform: translateY(-0.15rem);
+    transform: translateY(-0.2rem);
   }
 
   100% {
-    transform: translateY(-0.2rem);
+    transform: translateY(-0.25rem);
   }
 }
 </style>

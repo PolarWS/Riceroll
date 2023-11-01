@@ -2,11 +2,21 @@
 <template>
     <div class="informationBar">
         <!-- 侧边栏组件 -->
-        <announcementBoard />
-        <labelBar />
-        <replyBar />
+        <announcementBoard v-if="informationBarData.default.announcementBoard.display"
+            :announcementBoard="informationBarData.default.announcementBoard" />
+        <labelBar v-if="informationBarData.default.labelBar.display" :labelBar="informationBarData.default.labelBar" />
+        <replyBar v-if="informationBarData.default.replyBar.display" />
+        <!-- 自定义组件 -->
+        <sideTemplate v-if="informationBarData.custom.display" v-for="item in informationBarData.custom.content">
+            <template #title>
+                {{ item.title }}
+            </template>
+            <template #content>
+                <div v-html="item.html"></div>
+            </template>
+        </sideTemplate>
         <!-- 脚标 -->
-        <div v-for="(item, index) in footmarkData" class="footmark">
+        <div v-for="item in informationBarData.footmark" class="footmark">
             <a :href="item.url">{{ item.title }}</a>
         </div>
     </div>
@@ -15,23 +25,14 @@
 import announcementBoard from './sideModule/announcementBoard.vue';
 import labelBar from './sideModule/labelBar.vue';
 import replyBar from './sideModule/replyBar.vue';
+import sideTemplate from './sideTemplate.vue';
 export default {
-    data() {
-        return {
-            // 脚标数据
-            footmarkData: [
-                { title: "由 Riceroll 框架驱动", url: "#" },
-                { title: "这是渡鸦的小窝哟!", url: "#" },
-                { title: "萌备案号23333333", url: "#" },
-                { title: "©2020 - 2023 By PolarWS", url: "#" }
-            ]
-        }
-    },
     components: {
         announcementBoard,
         labelBar,
         replyBar,
-    },
+        sideTemplate,
+    }, props: ["informationBarData"]
 }
 </script>
 <style scoped>
