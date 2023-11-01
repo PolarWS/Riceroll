@@ -1,17 +1,20 @@
 <!-- 导航栏模板 -->
 <template>
   <div class="item">
-    <div class="icon">
-      <slot name="icon"></slot>
+    <div class="icon" v-html="iconSvg">
     </div>
     <div class="title">
       <span>
         <slot name="title"></slot>
       </span>
-
     </div>
   </div>
 </template>
+<script>
+export default {
+  props: ["iconSvg"]
+}
+</script>
 <style scoped>
 .icon,
 .title {

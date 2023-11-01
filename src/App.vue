@@ -1,26 +1,33 @@
-<script>
-import navigationBar from './components/navigationBar.vue';
-import informationBar from './components/informationBar.vue';
-import bodyArticle from './components/body/bodyArticle.vue';
-export default {
-  components: {
-    navigationBar,
-    informationBar,
-    bodyArticle,
-  },
-}
-</script>
-
 <template>
   <!-- 导航栏 -->
-  <navigationBar />
+  <navigationBar :navigationBarData="navigationBarData" />
   <!-- 中心内容页 -->
   <div class="centralFramework">
-    <bodyArticle />
+    <homePage />
   </div>
   <!-- 侧边栏 -->
   <informationBar />
 </template>
+
+<script>
+import navigationBar from '@/components/navigationBar.vue';
+import informationBar from '@/components/informationBar.vue';
+import homePage from '@/components/body/homePage.vue';
+import config from './config.json';
+export default {
+  data() {
+    return {
+      navigationBarData: config.sideItem
+    }
+  },
+  components: {
+    navigationBar,
+    informationBar,
+    homePage,
+  },
+}
+</script>
+
 <style scoped>
 .centralFramework {
   width: 100%;

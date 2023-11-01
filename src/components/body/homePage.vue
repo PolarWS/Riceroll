@@ -4,8 +4,8 @@
     <articleList />
 </template>
 <script>
-import informationBar from './bodyArticleComponent/informationBar.vue';
-import articleList from './bodyArticleComponent/articleList.vue';
+import informationBar from './homePageComponent/informationBar.vue';
+import articleList from './homePageComponent/articleList.vue';
 export default {
     components: {
         informationBar,
