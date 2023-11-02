@@ -11,7 +11,7 @@ export default {
         informationBar,
         articleList,
     }, props: {
-        
+        itemData: Object
     }
 }
 </script>

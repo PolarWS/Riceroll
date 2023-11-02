@@ -2,7 +2,7 @@
 <template>
     <div class="navigationBar">
         <sideItem v-for="(item, index) in navigationBarData.titleData" :key="index"
-            @click.prevent="handleClick(item.title, index, item.id, item.url, item.data)" :iconSvg="item.icon">
+            @click.prevent="handleClick(item.title, index, item.id, item.url)" :iconSvg="item.icon">
             <template #title>
                 {{ item.title }}
             </template>
@@ -19,7 +19,7 @@ export default {
     data() {
         return {
             // 选中条长度
-            selectedItemsWidth: 8,
+            selectedItemsWidth: Number,
             // 选中条与顶部距离
             clickItem: (this.navigationBarData.defaultSelected - 1) * 5 + 3,
         }
@@ -29,9 +29,9 @@ export default {
     },
     methods: {
         // 判断选中条长度selectedItemsWidth和到顶部的距离clickItem
-        handleClick(title, index, id, url, data) {
+        handleClick(title, index, id, url) {
             if (url === undefined) {
-                this.$emit('handleClick', { id: id, data: data });
+                this.$emit('handleClick', { id: id, data: index });
                 this.clickItem = index * 5 + 3;
                 const text = title;
                 let length = 0;
@@ -58,7 +58,8 @@ export default {
     created() {
         const titleData = this.navigationBarData.titleData[this.navigationBarData.defaultSelected - 1];
         if (titleData.url === undefined) {
-            this.$emit('handleClick', { id: titleData.id, data: titleData.data });
+            // this.$emit('handleClick', { id: titleData.id, data: titleData.data });
+            this.$emit('handleClick', { id: titleData.id, data: this.navigationBarData.defaultSelected - 1 });
             // 预渲染阶段，默认选中第二个的文字标题，获取第二个标题的长度
             const textlen = titleData.title;
 

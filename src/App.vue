@@ -3,7 +3,7 @@
   <navigationBar @handleClick="handleClick" :navigationBarData="navigationBarData" />
   <!-- 中心内容页 -->
   <div class="centralFramework">
-    <component :is="showBody"></component>
+    <component :is="showBody" :itemData="itemData"></component>
   </div>
   <!-- 侧边栏 -->
   <informationBar :informationBarData="informationBarData" />
@@ -22,9 +22,9 @@ import config from '@/config.json';
 export default {
   data() {
     return {
-      showBody: "articlePage",
-      showBodyDisplay: true,
-      itemData: "这是从父组件传递的消息",
+      showBody: String,
+      showBodyDisplay: Boolean,
+      itemData: Object,
       navigationBarData: config.navigationBarData,
       informationBarData: config.informationBarData,
     }
@@ -43,7 +43,7 @@ export default {
       let defaultVue = ["articlePage", "searchPage", "musicPage", "filePage", "friendLinkPage", "aboutPage"]
       if (defaultVue.includes(event.id)) {
         this.showBody = event.id;
-        this.itemData = event.data;
+        this.itemData = this.navigationBarData.titleData[event.data].data;
       } else {
         this.showBodyDisplay = false;
       }
