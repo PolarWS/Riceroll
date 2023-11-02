@@ -2,7 +2,7 @@
 <template>
     <div class="navigationBar">
         <sideItem v-for="(item, index) in navigationBarData.titleData" :key="index"
-            @click.prevent="handleClick(item.title, index)" :iconSvg="item.icon">
+            @click.prevent="handleClick(item.title, index, item.id, item.url, item.data)" :iconSvg="item.icon">
             <template #title>
                 {{ item.title }}
             </template>
@@ -29,12 +29,42 @@ export default {
     },
     methods: {
         // 判断选中条长度selectedItemsWidth和到顶部的距离clickItem
-        handleClick(title, data) {
-            this.clickItem = data * 5 + 3;
-            const text = title;
+        handleClick(title, index, id, url, data) {
+            if (url === undefined) {
+                this.$emit('handleClick', { id: id, data: data });
+                this.clickItem = index * 5 + 3;
+                const text = title;
+                let length = 0;
+                for (let i = 0; i < text.length; i++) {
+                    const char = text.charAt(i);
+                    if (char <= '\x7F') {
+                        // ASCII字符，通常是英文字符
+                        length += 1;
+                    } else {
+                        // 非ASCII字符，通常是中文字符
+                        length += 2;
+                    }
+                };
+                if (length > 12) {
+                    length = 12;
+                };
+
+                this.selectedItemsWidth = 4.5 + length * 0.8;
+            } else {
+                location.replace(url)
+            }
+        }
+    },
+    created() {
+        const titleData = this.navigationBarData.titleData[this.navigationBarData.defaultSelected - 1];
+        if (titleData.url === undefined) {
+            this.$emit('handleClick', { id: titleData.id, data: titleData.data });
+            // 预渲染阶段，默认选中第二个的文字标题，获取第二个标题的长度
+            const textlen = titleData.title;
+
             let length = 0;
-            for (let i = 0; i < text.length; i++) {
-                const char = text.charAt(i);
+            for (let i = 0; i < textlen.length; i++) {
+                const char = textlen.charAt(i);
                 if (char <= '\x7F') {
                     // ASCII字符，通常是英文字符
                     length += 1;
@@ -42,29 +72,13 @@ export default {
                     // 非ASCII字符，通常是中文字符
                     length += 2;
                 }
-            };
-            if (length > 12) {
-                length = 12;
-            };
-
-            this.selectedItemsWidth = 4.5 + length * 0.8;
-        }
-    },
-    created() {
-        // 预渲染阶段，默认选中第二个的文字标题，获取第二个标题的长度
-        const textlen = this.navigationBarData.titleData[this.navigationBarData.defaultSelected - 1].title;
-        let length = 0;
-        for (let i = 0; i < textlen.length; i++) {
-            const char = textlen.charAt(i);
-            if (char <= '\x7F') {
-                // ASCII字符，通常是英文字符
-                length += 1;
-            } else {
-                // 非ASCII字符，通常是中文字符
-                length += 2;
             }
+            this.selectedItemsWidth = 4.5 + length * 0.8;
+        } else {
+            // 我真不信有人这样干，开局就跳转url
+            location.replace(titleData.url)
         }
-        this.selectedItemsWidth = 4.5 + length * 0.8;
+
     },
     props: ['navigationBarData']
 }

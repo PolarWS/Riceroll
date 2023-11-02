@@ -1,9 +1,9 @@
 <template>
   <!-- 导航栏 -->
-  <navigationBar :navigationBarData="navigationBarData" />
+  <navigationBar @handleClick="handleClick" :navigationBarData="navigationBarData" />
   <!-- 中心内容页 -->
   <div class="centralFramework">
-    <homePage />
+    <component :is="showBody"></component>
   </div>
   <!-- 侧边栏 -->
   <informationBar :informationBarData="informationBarData" />
@@ -12,11 +12,19 @@
 <script>
 import navigationBar from '@/components/navigationBar.vue';
 import informationBar from '@/components/informationBar.vue';
-import homePage from '@/components/body/homePage.vue';
-import config from './config.json';
+import articlePage from '@/components/body/articlePage.vue';
+import filePage from '@/components/body/filePage.vue';
+import aboutPage from '@/components/body/aboutPage.vue';
+import friendLinkPage from '@/components/body/friendLinkPage.vue';
+import musicPage from '@/components/body/musicPage.vue';
+import searchPage from '@/components/body/searchPage.vue';
+import config from '@/config.json';
 export default {
   data() {
     return {
+      showBody: "articlePage",
+      showBodyDisplay: true,
+      itemData: "这是从父组件传递的消息",
       navigationBarData: config.navigationBarData,
       informationBarData: config.informationBarData,
     }
@@ -24,7 +32,22 @@ export default {
   components: {
     navigationBar,
     informationBar,
-    homePage,
+    articlePage,
+    filePage,
+    aboutPage,
+    friendLinkPage,
+    musicPage,
+    searchPage,
+  }, methods: {
+    handleClick(event) {
+      let defaultVue = ["articlePage", "searchPage", "musicPage", "filePage", "friendLinkPage", "aboutPage"]
+      if (defaultVue.includes(event.id)) {
+        this.showBody = event.id;
+        this.itemData = event.data;
+      } else {
+        this.showBodyDisplay = false;
+      }
+    }
   },
 }
 </script>

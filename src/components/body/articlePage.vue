@@ -4,13 +4,15 @@
     <articleList />
 </template>
 <script>
-import informationBar from './homePageComponent/informationBar.vue';
-import articleList from './homePageComponent/articleList.vue';
+import informationBar from './articlePageComponent/informationBar.vue';
+import articleList from './articlePageComponent/articleList.vue';
 export default {
     components: {
         informationBar,
         articleList,
-    },
+    }, props: {
+        
+    }
 }
 </script>
 <style scoped></style>
