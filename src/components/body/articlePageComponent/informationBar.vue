@@ -1,19 +1,18 @@
 <template>
     <div class="informationBar">
         <div class="topImg">
-            <img :src="topimg.src" :alt="topimg.alt">
+            <img :src="informationBarData.topimg.src" :alt="informationBarData.topimg.alt">
         </div>
         <div class="avatarImg">
-            <img :src="avatar.src" :alt="avatar.alt">
+            <img :src="informationBarData.avatar.src" :alt="informationBarData.avatar.alt">
             <div class="blogInformation">
-                <h1>{{ blogInformation.name }}</h1>
-                <span>#{{ blogInformation.introduction }}</span>
+                <h1>{{ informationBarData.blogInformation.name }}</h1>
+                <span>#{{ informationBarData.blogInformation.introduction }}</span>
             </div>
         </div>
         <div class="webLink">
-            <div class="webLinkItem" v-for="(item, index) in  linkData " :key="index"
-                :style="{ backgroundColor: '#' + item.color }">
-                <component :is="item.alt"></component>
+            <div class="webLinkItem" v-for="(item, index) in  informationBarData.linkData " :key="index"
+                :style="{ backgroundColor: '#' + item.color }" v-html="item.svg">
             </div>
         </div>
     </div>
@@ -25,39 +24,15 @@ import cloudMusicLink from "./linkIcon/cloudMusicLink.vue";
 export default {
     data() {
         return {
-            topimg: {
-                src: "/src/components/img/zhuye.png",
-                alt: "topimg",
-            },
-            avatar: {
-                src: "/src/components/img/avatar.jpg",
-                alt: "avatar",
-            },
-            blogInformation: {
-                name: "鸦鸦不是鸭鸭",
-                introduction: "恭喜你发现了一只鸦",
-            },
-            linkData: [{
-                src: "/src/components/img/github.svg",
-                alt: "githubLink",
-                color: "000000",
-            },
-            {
-                src: "/src/components/img/github.svg",
-                alt: "bilibiliLink",
-                color: "fb7299",
-            },
-            {
-                src: "/src/components/img/github.svg",
-                alt: "cloudMusicLink",
-                color: "ec4141",
-            }]
+
         }
     },
     components: {
         githubLink,
         bilibiliLink,
         cloudMusicLink,
+    }, props: {
+        informationBarData: Object
     }
 }
 </script>

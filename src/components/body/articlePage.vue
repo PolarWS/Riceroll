@@ -1,6 +1,6 @@
 <!-- 最新回复组件 -->
 <template>
-    <informationBar />
+    <informationBar :informationBarData="itemData.informationBarData" />
     <articleList />
 </template>
 <script>

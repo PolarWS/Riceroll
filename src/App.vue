@@ -3,7 +3,7 @@
   <navigationBar @handleClick="handleClick" :navigationBarData="navigationBarData" />
   <!-- 中心内容页 -->
   <div class="centralFramework">
-    <component :is="showBody" :itemData="itemData"></component>
+    <component :is="showBody" :itemData="itemData" v-if="showBodyDisplay"></component>
   </div>
   <!-- 侧边栏 -->
   <informationBar :informationBarData="informationBarData" />
@@ -42,6 +42,7 @@ export default {
     handleClick(event) {
       let defaultVue = ["articlePage", "searchPage", "musicPage", "filePage", "friendLinkPage", "aboutPage"]
       if (defaultVue.includes(event.id)) {
+        this.showBodyDisplay = true;
         this.showBody = event.id;
         this.itemData = this.navigationBarData.titleData[event.data].data;
       } else {
