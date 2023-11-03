@@ -17,7 +17,7 @@
         </div>
     </div>
 </template>
-<script>
+<script> 
 import githubLink from "./linkIcon/githubLink.vue";
 import bilibiliLink from "./linkIcon/bilibiliLink.vue";
 import cloudMusicLink from "./linkIcon/cloudMusicLink.vue";
