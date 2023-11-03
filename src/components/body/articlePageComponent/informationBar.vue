@@ -11,32 +11,26 @@
             </div>
         </div>
         <div class="webLink">
-            <div class="webLinkItem" v-for="(item, index) in  informationBarData.linkData " :key="index"
-                :style="{ backgroundColor: '#' + item.color }" v-html="item.svg">
-            </div>
+            <a class="webLinkItem" v-for="(item, index) in  informationBarData.linkData " :key="index"
+                :style="{ backgroundColor: '#' + item.color }" v-html="item.svg" :href="item.url">
+            </a>
         </div>
     </div>
 </template>
-<script> 
-import githubLink from "./linkIcon/githubLink.vue";
-import bilibiliLink from "./linkIcon/bilibiliLink.vue";
-import cloudMusicLink from "./linkIcon/cloudMusicLink.vue";
+<script>
 export default {
-    data() {
-        return {
-
-        }
-    },
-    components: {
-        githubLink,
-        bilibiliLink,
-        cloudMusicLink,
-    }, props: {
+    props: {
         informationBarData: Object
     }
 }
 </script>
 <style scoped>
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .informationBar {
     height: auto;
     border-bottom: 2px solid #F4F4F4;
@@ -67,6 +61,10 @@ export default {
     justify-content: center;
 }
 
+.webLinkItem:hover {
+    animation: floatUp 0.5s ease-in-out forwards;
+}
+
 .avatarImg img {
     width: 10rem;
     height: 10rem;
@@ -85,9 +83,17 @@ export default {
     font-size: 1.2rem;
 }
 
-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+@keyframes floatUp {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-0.15rem);
+    }
+
+    100% {
+        transform: translateY(-0.2rem);
+    }
 }
 </style>
