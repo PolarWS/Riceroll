@@ -71,6 +71,14 @@ img {
     margin-left: 2rem;
     border-radius: 50%;
     border: 0.35rem solid #fff;
+
+    transform-origin: center;
+    transform: rotate(0deg);
+    transition: transform 0.5s ease-in-out;
+}
+
+.avatarImg img:hover {
+    transform: rotate(360deg);
 }
 
 .blogInformation h1 {

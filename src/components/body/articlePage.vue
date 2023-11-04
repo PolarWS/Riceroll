@@ -1,4 +1,4 @@
-<!-- 最新回复组件 -->
+<!-- 主页组件 -->
 <template>
     <informationBar :informationBarData="itemData.informationBarData" />
     <articleList />
@@ -15,4 +15,3 @@ export default {
     }
 }
 </script>
-<style scoped></style>
