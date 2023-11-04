@@ -69,6 +69,7 @@ export default {
     height: 16rem;
     border-radius: 0.75rem;
     background-size: cover;
+    background-position: center center;
 
     transition: transform 0.25s, box-shadow 0.25s;
 }
