@@ -43,25 +43,15 @@ export default {
   font-weight: 600;
 }
 
+.item .icon {
+  transition: transform 0.2s;
+}
+
 .item:hover .icon {
-  animation: floatUp 0.5s ease-in-out forwards;
+  transform: translateY(-0.25rem);
 }
 
 .item:active {
   color: #74E4FB;
-}
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-0.2rem);
-  }
-
-  100% {
-    transform: translateY(-0.25rem);
-  }
 }
 </style>

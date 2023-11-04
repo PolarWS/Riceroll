@@ -57,7 +57,7 @@ export default {
 }
 
 .articleListCard {
-    height: 13rem;
+    height: 16rem;
     display: grid;
     grid-template-columns: 1fr;
     padding: 1.5rem 5% 0 5%;
@@ -66,12 +66,11 @@ export default {
 
 .articleListCardImg {
     box-shadow: 0 0 0.5rem #eeeeee;
-    height: 13rem;
+    height: 16rem;
     border-radius: 0.75rem;
     background-size: cover;
 
-    transition-property: transform, box-shadow;
-    transition-duration: .25s, 1s;
+    transition: transform 0.25s, box-shadow 0.25s;
 }
 
 .articleListCardImg:hover {
@@ -80,11 +79,11 @@ export default {
 }
 
 .articleListCardTitle {
-    margin-top: 7rem;
+    margin-top: 10rem;
     height: 5rem;
     color: white;
     padding: 1rem 0 0 1.5rem;
     border-radius: 0 0 0.75rem 0.75rem;
-    background-color: rgba(0, 0, 0, 0.200);
+    background-color: rgba(0, 0, 0, 0.300);
 }
 </style>

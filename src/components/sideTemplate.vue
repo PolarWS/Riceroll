@@ -19,6 +19,8 @@
     margin: 1rem 1.5rem;
     padding: 0.75rem 1.5rem 1.5rem 1.5rem;
     border-radius: 0.75rem;
+
+    transition: transform 0.25s, box-shadow 0.25s;
 }
 
 .announcementBoard a {
@@ -37,7 +39,7 @@
 
 .announcementBoard:hover {
     box-shadow: 0 0 0.5rem #e0e0e0;
-    animation: floatUp 0.5s ease-in-out forwards;
+    transform: translateY(-0.2rem);
 }
 
 
@@ -47,19 +49,5 @@
 
 .announcementBoardTitleContent {
     margin: 0.5rem;
-}
-
-@keyframes floatUp {
-    0% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-0.15rem);
-    }
-
-    100% {
-        transform: translateY(-0.2rem);
-    }
 }
 </style>

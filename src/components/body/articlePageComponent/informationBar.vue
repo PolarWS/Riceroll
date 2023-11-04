@@ -59,10 +59,12 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    transition: transform 0.2s;
 }
 
 .webLinkItem:hover {
-    animation: floatUp 0.5s ease-in-out forwards;
+    transform: translateY(-0.16rem);
 }
 
 .avatarImg img {
@@ -89,19 +91,5 @@ img {
     margin: 0 0 0 1rem;
     color: #8A8E90;
     font-size: 1.2rem;
-}
-
-@keyframes floatUp {
-    0% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-0.15rem);
-    }
-
-    100% {
-        transform: translateY(-0.2rem);
-    }
 }
 </style>
