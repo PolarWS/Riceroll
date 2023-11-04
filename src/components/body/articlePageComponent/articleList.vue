@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             articleListData: [{
-                title: "标题标题标题标题",
+                title: "标题标题标题标题2",
                 date: "2020-01-01",
                 label: ["日常"],
                 img: "文章链接",
