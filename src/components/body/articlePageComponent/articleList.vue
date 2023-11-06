@@ -1,7 +1,7 @@
 <!-- 第一版，感觉没那么好看后面改 -->
 <template>
     <div class="articleListCard" v-for="index in articleListData">
-        <div class="articleListCardImg" :style="{ backgroundImage: 'url(' + index.url + ')' }">
+        <div class="articleListCardImg" :style="{ backgroundImage: 'url(' + index.img + ')' }">
             <div class="articleListCardTitle">
                 <div id="title">{{ index.title }}</div>
                 <span class="date">{{ index.date }}</span>
@@ -18,29 +18,29 @@ export default {
                 title: "标题标题标题标题2",
                 date: "2020-01-01",
                 label: ["日常"],
-                img: "文章链接",
-                url: "src/components/img/3.jpg",
+                url: "文章链接",
+                img: "src/components/img/3.jpg",
             },
             {
                 title: "标题标题标题",
                 date: "2020-01-01",
                 label: ["代码", "计算机"],
-                img: "文章链接",
-                url: "src/components/img/4.png",
+                url: "文章链接",
+                img: "src/components/img/4.png",
             },
             {
                 title: "标题标题2标题23",
                 date: "2020-01-01",
                 label: ["相机", "数码"],
-                img: "文章链接",
-                url: "src/components/img/1.jpg",
+                url: "文章链接",
+                img: "src/components/img/1.jpg",
             },
             {
                 title: "标题4",
                 date: "2020-01-01",
                 label: ["日常"],
-                img: "文章链接",
-                url: "src/components/img/2.png",
+                url: "文章链接",
+                img: "src/components/img/2.png",
             }]
         }
     },

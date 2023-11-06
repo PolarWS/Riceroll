@@ -1,11 +1,13 @@
 <template>
-    <div class="father_box" id="pressed">
-        <div class="card_box" v-for="(card, index) in cardList" :key="index">
-            <img class="card_img" :src="(card.src)" />
-            <div class="card-content">
-                <h3 class="title">{{ card.title }}</h3>
-                <p class="content">{{ card.content }}</p>
-                <div class="status-bar" :class="{ 'inaccessible': card.inaccessible }"></div>
+    <div id="pressed">
+        <div class="cardBox" v-for="item in cardList" @click="linkClick(item.url)">
+            <div class="cardImg">
+                <img :src="(item.src)" />
+                <div class="state" :class="item.inaccessible"></div>
+            </div>
+            <div class="cardContent">
+                <div class="title">{{ item.title }}</div>
+                <span class="content">{{ item.content }}</span>
             </div>
         </div>
     </div>
@@ -13,101 +15,155 @@
 
 <script>
 export default {
-    data(){
-        return{
-            cardList:[
+    data() {
+        return {
+            cardList: [
                 {
-                    src:"/src/components/img/zhuye.png",
-                    title:"只是标题1",
-                    content:"看什么看，内容没见过啊！",
-                    inaccessible:true
+                    src: "/src/components/img/1.jpg",
+                    title: "PolarWS",
+                    content: "看什么看，内容没见过啊！",
+                    url: "https://www.bilibili.com",
+                    inaccessible: "stateG"
                 },
                 {
-                    src:"/src/components/img/zhuye.png",
-                    title:"2号标题",
-                    content:"看什么看，内容没见过啊！是不是没见过！是不是没见过！是不是没见过！是不是没见过！",
-                    inaccessible:false
+                    src: "/src/components/img/avatar.jpg",
+                    title: "PolarWS",
+                    content: "看什么看，内容没见过啊！",
+                    url: "",
+                    inaccessible: "stateG"
                 },
                 {
-                    src:"/src/components/img/zhuye.png",
-                    title:"怎么看也就只是标题啊",
-                    content:"看什么看，内容没见过啊！",
-                    inaccessible:false
+                    src: "/src/components/img/avatar.jpg",
+                    title: "PolarWS",
+                    content: "看什么看，内容没见过啊！",
+                    url: "",
+                    inaccessible: "stateY"
                 },
                 {
-                    src:"/src/components/img/zhuye.png",
-                    title:"怎么看也就只是标题啊对吧对吧",
-                    content:"看什么看，内容没见过啊！",
-                    inaccessible:false
+                    src: "/src/components/img/avatar.jpg",
+                    title: "PolarWS",
+                    content: "看什么看，内容没见过啊！",
+                    url: "",
+                    inaccessible: "stateR"
                 },
                 {
-                    src:"/src/components/img/zhuye.png",
-                    title:"怎么看也就只是标题啊对吧对吧",
-                    content:"看什么看，内容没见过啊！是不是没见过！是不是没见过！是不是没见过！是不是没见过！！",
-                    inaccessible:false
+                    src: "/src/components/img/avatar.jpg",
+                    title: "PolarWSPolarWSPolarWS",
+                    content: "看什么看内容没见过啊内容没见过啊内容没见过啊！",
+                    url: "",
+                    inaccessible: "stateO"
                 }
             ]
+        }
+    },methods:{
+        linkClick(url){
+            window.open(url);
         }
     }
 }
 </script>
-<style>
-    .father_box {
-        display: flex;
-        flex-wrap: wrap;
+<style scoped>
+.content {
+    width: 9rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+}
+
+.title {
+    font-size: 1.35rem;
+    font-weight: 520;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    width: 9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.state {
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 50%;
+    border: 0.25rem solid #fff;
+    position: absolute;
+    margin-top: 5rem;
+    /* 处于底部 */
+}
+
+.stateR {
+    background-color: #FF5F5F;
+}
+
+.stateO {
+    background-color: #F8A978;
+}
+
+.stateY {
+    background-color: #FFD65F;
+}
+
+.stateG {
+    background-color: #8AFF5F;
+}
+
+.content {
+    color: #8A8E90;
+}
+
+#pressed {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1.5rem;
+}
+
+@media (max-width: 1200px) {
+    #pressed {
+        grid-template-columns: 1fr;
     }
 
-    .card_box {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 20px 16px 0px 16px;
-        width: 45%;
-        height: auto;
-        background-color: #F4F4F4;
-        border-radius: 15px;
-        position: relative; /* Add this to make the status bar relative to the card */
-    }
-
-    .card_img {
-        margin: auto auto;
-        height: 85px;
-        width: 85px;
-        border-radius: 50px;
-    }
-
-    .card-content {
-        margin-left: 10px;
-    }
-
+    .content,
     .title {
-        max-width: 190px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        width: 10rem;
     }
+}
 
-    .content {
-        height: 45px;
-        width: 200px;
-        word-break: break-all;
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-    }
 
-    .status-bar {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 10px;
-        background-color: aqua;
-        border-bottom-left-radius: 15px; 
-        border-bottom-right-radius: 15px; 
-    }
+.cardBox {
+    display: grid;
+    border-radius: 0.55rem;
+    height: 9.5rem;
+    grid-template-columns: 2fr 3fr;
+    justify-content: center;
+    border: 2px solid #F4F4F4;
+    cursor: pointer;
 
-    .status-bar.inaccessible {
-        background-color: red;
-    }
+    transition: box-shadow 0.25s;
+}
+
+.cardBox:hover {
+    box-shadow: 0 0 0.75rem 0.02rem #eeeeee;
+}
+
+.cardBox img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.cardImg {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
 </style>

@@ -19,7 +19,7 @@ import aboutPage from '@/components/body/aboutPage.vue';
 import friendLinkPage from '@/components/body/friendLinkPage.vue';
 import musicPage from '@/components/body/musicPage.vue';
 import searchPage from '@/components/body/searchPage.vue';
-import bodyItem from './components/bodyItem.vue';
+import bodyItem from '@/components/bodyItem.vue';
 import config from '@/config.json';
 export default {
   data() {

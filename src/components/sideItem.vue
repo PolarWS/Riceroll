@@ -36,7 +36,6 @@ export default {
   width: 100%;
   height: 5rem;
   cursor: pointer;
-
 }
 
 .item:hover {

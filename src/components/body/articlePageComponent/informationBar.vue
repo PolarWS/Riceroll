@@ -41,11 +41,6 @@ img {
     height: 20rem;
 }
 
-.avatarImg {
-    margin-top: -5rem;
-    display: flex;
-}
-
 .webLink {
     display: flex;
     margin: 1.5rem 0 1.5rem 3rem;
@@ -65,6 +60,11 @@ img {
 
 .webLinkItem:hover {
     transform: translateY(-0.16rem);
+}
+
+.avatarImg {
+    margin-top: -5rem;
+    display: flex;
 }
 
 .avatarImg img {
