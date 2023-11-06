@@ -3,7 +3,7 @@
         <div class="cardBox" v-for="item in cardList" @click="linkClick(item.url)">
             <div class="cardImg">
                 <img :src="(item.src)" />
-                <div class="state" :class="item.inaccessible"></div>
+                <div class="state" :class="statePing(item.delay)"></div>
             </div>
             <div class="cardContent">
                 <div class="title">{{ item.title }}</div>
@@ -23,41 +23,52 @@ export default {
                     title: "PolarWS",
                     content: "看什么看，内容没见过啊！",
                     url: "https://www.bilibili.com",
-                    inaccessible: "stateG"
+                    delay: 51
                 },
                 {
                     src: "/src/components/img/avatar.jpg",
                     title: "PolarWS",
                     content: "看什么看，内容没见过啊！",
-                    url: "",
-                    inaccessible: "stateG"
+                    url: "https://www.bilibili.com",
+                    delay: 23
                 },
                 {
                     src: "/src/components/img/avatar.jpg",
                     title: "PolarWS",
                     content: "看什么看，内容没见过啊！",
-                    url: "",
-                    inaccessible: "stateY"
+                    url: "https://www.bilibili.com",
+                    delay: 44
                 },
                 {
                     src: "/src/components/img/avatar.jpg",
                     title: "PolarWS",
                     content: "看什么看，内容没见过啊！",
-                    url: "",
-                    inaccessible: "stateR"
+                    url: "https://www.bilibili.com",
+                    delay: 332
                 },
                 {
                     src: "/src/components/img/avatar.jpg",
                     title: "PolarWSPolarWSPolarWS",
                     content: "看什么看内容没见过啊内容没见过啊内容没见过啊！",
-                    url: "",
-                    inaccessible: "stateO"
+                    url: "https://www.bilibili.com",
+                    delay: 999
                 }
             ]
         }
-    },methods:{
-        linkClick(url){
+    }, methods: {
+        linkClick(url) {
             window.open(url);
+        },
+        statePing(delay) {
+            if (delay < 50) {
+                return "stateG";
+            } else if (delay < 200) {
+                return "stateY";
+            } else if (delay < 998) {
+                return "stateO";
+            } else {
+                return "stateR";
+            }
         }
     }
 }
