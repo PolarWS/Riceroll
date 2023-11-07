@@ -53,33 +53,69 @@ export default {
             } else {
                 location.replace(url)
             }
+
+
         }
     },
     created() {
-        const titleData = this.navigationBarData.titleData[this.navigationBarData.defaultSelected - 1];
-        if (titleData.url === undefined) {
-            // this.$emit('handleClick', { id: titleData.id, data: titleData.data });
-            this.$emit('handleClick', { id: titleData.id, data: this.navigationBarData.defaultSelected - 1 });
-            // 预渲染阶段，默认选中第二个的文字标题，获取第二个标题的长度
-            const textlen = titleData.title;
+        //获取this.$route.path的第一个/到/的字符串
 
-            let length = 0;
-            for (let i = 0; i < textlen.length; i++) {
-                const char = textlen.charAt(i);
-                if (char <= '\x7F') {
-                    // ASCII字符，通常是英文字符
-                    length += 1;
-                } else {
-                    // 非ASCII字符，通常是中文字符
-                    length += 2;
+        const titles = this.navigationBarData.titleData.map(title => title.id);
+        const path = this.$route.path;
+        const parts = path.split('/');
+        console.log(path);
+        console.log(parts.length);
+        console.log(titles.includes(parts[1]));
+        if (parts.length >= 2 && titles.includes(parts[1])) {
+            //查找parts[1]在titles中的位置
+            const index = titles.indexOf(parts[1]);
+            const titleData = this.navigationBarData.titleData[index];
+            console.log(titleData);
+            if (titleData.url === undefined) {
+                this.$emit('handleClick', { id: titleData.id, data: index });
+                // 预渲染阶段，默认选中第二个的文字标题，获取第二个标题的长度
+                const textlen = titleData.title;
+
+                let length = 0;
+                for (let i = 0; i < textlen.length; i++) {
+                    const char = textlen.charAt(i);
+                    if (char <= '\x7F') {
+                        // ASCII字符，通常是英文字符
+                        length += 1;
+                    } else {
+                        // 非ASCII字符，通常是中文字符
+                        length += 2;
+                    }
                 }
+                this.selectedItemsWidth = 4.5 + length * 0.8;
+            } else {
+                // 我真不信有人这样干，开局就跳转url
+                location.replace(titleData.url)
             }
-            this.selectedItemsWidth = 4.5 + length * 0.8;
         } else {
-            // 我真不信有人这样干，开局就跳转url
-            location.replace(titleData.url)
-        }
+            const titleData = this.navigationBarData.titleData[this.navigationBarData.defaultSelected - 1];
+            if (titleData.url === undefined) {
+                this.$emit('handleClick', { id: titleData.id, data: this.navigationBarData.defaultSelected - 1 });
+                // 预渲染阶段，默认选中第二个的文字标题，获取第二个标题的长度
+                const textlen = titleData.title;
 
+                let length = 0;
+                for (let i = 0; i < textlen.length; i++) {
+                    const char = textlen.charAt(i);
+                    if (char <= '\x7F') {
+                        // ASCII字符，通常是英文字符
+                        length += 1;
+                    } else {
+                        // 非ASCII字符，通常是中文字符
+                        length += 2;
+                    }
+                }
+                this.selectedItemsWidth = 4.5 + length * 0.8;
+            } else {
+                // 我真不信有人这样干，开局就跳转url
+                location.replace(titleData.url)
+            }
+        }
     },
     props: ['navigationBarData']
 }

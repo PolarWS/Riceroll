@@ -27,6 +27,8 @@ export default {
     handleClick(event) {
       this.$router.push('/' + event.id);
     }
+  },created(){
+    console.log(this.$route.path);
   }
 }
 </script>

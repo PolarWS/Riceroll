@@ -6,6 +6,9 @@
                 <div id="title">{{ index.title }}</div>
                 <span class="date">{{ index.date }}</span>
                 <span class="date" v-for="label in index.label">#{{ label }}</span>
+                <div>
+                    <span class="date" id="content">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+                </div>
             </div>
         </div>
     </div>
@@ -50,10 +53,12 @@ export default {
 #title {
     font-size: 1.75rem;
     margin-bottom: 0.3rem;
+    color: white;
 }
 
 .date {
     margin-right: 0.75rem;
+    color: rgb(240, 240, 240);
 }
 
 .articleListCard {
@@ -71,20 +76,37 @@ export default {
     background-size: cover;
     background-position: center center;
 
-    transition: transform 0.25s, box-shadow 0.25s;
+    transition: box-shadow 0.25s;
 }
 
 .articleListCardImg:hover {
-    transform: translateY(-0.2rem);
     box-shadow: 0 0 0.75rem 0.5rem #e5e5e5;
+    /* transform: scale(1.2); */
+}
+
+.articleListCardImg:hover .articleListCardTitle {
+    margin-top: 8.75rem;
+    height: 6.25rem;
 }
 
 .articleListCardTitle {
     margin-top: 10rem;
     height: 5rem;
-    color: white;
     padding: 1rem 0 0 1.5rem;
     border-radius: 0 0 0.75rem 0.75rem;
     background-color: rgba(0, 0, 0, 0.300);
+    overflow: hidden;
+    right: 0;
+
+    transition: margin-top 0.25s, height 0.25s;
+}
+
+.articleListCardImg:hover #content {
+    line-height: 1rem;
+}
+
+#content {
+    line-height: 2.5rem;
+    transition: line-height 0.5s;
 }
 </style>

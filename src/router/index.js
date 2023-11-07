@@ -22,7 +22,6 @@ if (navigationBarData.titleData[navigationBarData.defaultSelected - 1].url === u
     }];
 }
 
-
 for (const allocation of navigationBarData.titleData) {
     if (allocation.url === undefined && defaultVue.includes(allocation.id)) {
         pages.push({
@@ -34,6 +33,7 @@ for (const allocation of navigationBarData.titleData) {
         pages.push({
             path: '/' + allocation.id,
             props: { itemData: allocation.data },
+            
             component: bodyItem
         });
     }
