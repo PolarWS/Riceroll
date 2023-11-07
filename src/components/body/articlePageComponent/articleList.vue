@@ -1,13 +1,14 @@
 <!-- 第一版，感觉没那么好看后面改 -->
 <template>
     <div class="articleListCard" v-for="index in articleListData">
-        <div class="articleListCardImg" :style="{ backgroundImage: 'url(' + index.img + ')' }">
+        <div class="articleListCardBox" :style="{ backgroundImage: 'url(' + index.img + ')' }">
+            <div class="articleListCardImg"></div>
             <div class="articleListCardTitle">
                 <div id="title">{{ index.title }}</div>
                 <span class="date">{{ index.date }}</span>
                 <span class="date" v-for="label in index.label">#{{ label }}</span>
-                <div>
-                    <span class="date" id="content">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+                <div id="content">
+                    <span class="date">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
                 </div>
             </div>
         </div>
@@ -18,7 +19,7 @@ export default {
     data() {
         return {
             articleListData: [{
-                title: "标题标题标题标题2",
+                title: "标题标题标题标题标题标题标题标题标题标题标题标题标题2标题2标题2标题2",
                 date: "2020-01-01",
                 label: ["日常"],
                 url: "文章链接",
@@ -51,9 +52,15 @@ export default {
 </script>
 <style scoped>
 #title {
-    font-size: 1.75rem;
+    font-size: 1.65rem;
     margin-bottom: 0.3rem;
     color: white;
+
+    width: 35rem;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .date {
@@ -69,7 +76,7 @@ export default {
 
 }
 
-.articleListCardImg {
+.articleListCardBox {
     box-shadow: 0 0 0.5rem #eeeeee;
     height: 16rem;
     border-radius: 0.75rem;
@@ -79,12 +86,12 @@ export default {
     transition: box-shadow 0.25s;
 }
 
-.articleListCardImg:hover {
+.articleListCardBox:hover {
     box-shadow: 0 0 0.75rem 0.5rem #e5e5e5;
     /* transform: scale(1.2); */
 }
 
-.articleListCardImg:hover .articleListCardTitle {
+.articleListCardBox:hover .articleListCardTitle {
     margin-top: 8.75rem;
     height: 6.25rem;
 }
@@ -101,12 +108,20 @@ export default {
     transition: margin-top 0.25s, height 0.25s;
 }
 
-.articleListCardImg:hover #content {
+.articleListCardBox:hover #content {
     line-height: 1rem;
 }
 
 #content {
-    line-height: 2.5rem;
+    width: 35rem;
+    line-height: 3rem;
     transition: line-height 0.5s;
+}
+
+#content span{
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>
