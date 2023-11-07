@@ -1,7 +1,8 @@
 <!-- 第一版，感觉没那么好看后面改 -->
 <template>
     <div class="articleListCard" v-for="index in articleListData">
-        <div class="articleListCardBox" :style="{ backgroundImage: 'url(' + index.img + ')' }">
+        <div class="articleListCardBox">
+            <div class="articleListCardImg" :style="{ backgroundImage: 'url(' + index.img + ')' }"></div>
             <div class="articleListCardImg"></div>
             <div class="articleListCardTitle">
                 <div id="title">{{ index.title }}</div>
@@ -23,7 +24,7 @@ export default {
                 date: "2020-01-01",
                 label: ["日常"],
                 url: "文章链接",
-                content:"文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容",
+                content: "文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容",
                 img: "src/components/img/3.jpg",
             },
             {
@@ -31,7 +32,7 @@ export default {
                 date: "2020-01-01",
                 label: ["代码", "计算机"],
                 url: "文章链接",
-                content:"文章内容",
+                content: "文章内容",
                 img: "src/components/img/4.png",
             },
             {
@@ -39,7 +40,7 @@ export default {
                 date: "2020-01-01",
                 label: ["相机", "数码"],
                 url: "文章链接",
-                content:"文章内容",
+                content: "文章内容",
                 img: "src/components/img/1.jpg",
             },
             {
@@ -47,7 +48,7 @@ export default {
                 date: "2020-01-01",
                 label: ["日常"],
                 url: "文章链接",
-                content:"文章内容",
+                content: "文章内容",
                 img: "src/components/img/2.png",
             }]
         }
@@ -87,13 +88,29 @@ export default {
     border-radius: 0.75rem;
     background-size: cover;
     background-position: center center;
+    position: relative;
+    overflow: hidden; /* 控制内容溢出的部分被遮住 */
 
     transition: box-shadow 0.25s;
 }
 
+.articleListCardImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+
+    transition: transform 0.4s;
+    /* transform: scale(1.2); */
+}
+
 .articleListCardBox:hover {
     box-shadow: 0 0 0.75rem 0.5rem #e5e5e5;
-    /* transform: scale(1.2); */
 }
 
 .articleListCardBox:hover .articleListCardTitle {
@@ -102,13 +119,16 @@ export default {
     height: 6.25rem;
 }
 
+.articleListCardBox:hover .articleListCardImg{
+    transform: scale(1.05);
+}
+
 .articleListCardTitle {
     margin-top: 10rem;
     height: 5rem;
     padding: 1rem 0 0 1.5rem;
     border-radius: 0 0 0.75rem 0.75rem;
     background-color: rgba(0, 0, 0, 0.25);
-    overflow: hidden;
     right: 0;
 
     transition: margin-top 0.2s, height 0.2s, background-color 0.2s;
