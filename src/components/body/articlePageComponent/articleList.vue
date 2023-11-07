@@ -8,7 +8,7 @@
                 <span class="date">{{ index.date }}</span>
                 <span class="date" v-for="label in index.label">#{{ label }}</span>
                 <div id="content">
-                    <span class="date">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span>
+                    <span class="date">{{ index.content }}</span>
                 </div>
             </div>
         </div>
@@ -23,6 +23,7 @@ export default {
                 date: "2020-01-01",
                 label: ["日常"],
                 url: "文章链接",
+                content:"文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容",
                 img: "src/components/img/3.jpg",
             },
             {
@@ -30,6 +31,7 @@ export default {
                 date: "2020-01-01",
                 label: ["代码", "计算机"],
                 url: "文章链接",
+                content:"文章内容",
                 img: "src/components/img/4.png",
             },
             {
@@ -37,6 +39,7 @@ export default {
                 date: "2020-01-01",
                 label: ["相机", "数码"],
                 url: "文章链接",
+                content:"文章内容",
                 img: "src/components/img/1.jpg",
             },
             {
@@ -44,6 +47,7 @@ export default {
                 date: "2020-01-01",
                 label: ["日常"],
                 url: "文章链接",
+                content:"文章内容",
                 img: "src/components/img/2.png",
             }]
         }
@@ -65,7 +69,7 @@ export default {
 
 .date {
     margin-right: 0.75rem;
-    color: rgb(240, 240, 240);
+    color: rgb(235, 235, 235);
 }
 
 .articleListCard {
@@ -77,6 +81,7 @@ export default {
 }
 
 .articleListCardBox {
+    cursor: pointer;
     box-shadow: 0 0 0.5rem #eeeeee;
     height: 16rem;
     border-radius: 0.75rem;
@@ -92,6 +97,7 @@ export default {
 }
 
 .articleListCardBox:hover .articleListCardTitle {
+    background-color: rgba(0, 0, 0, 0.38);
     margin-top: 8.75rem;
     height: 6.25rem;
 }
@@ -101,24 +107,24 @@ export default {
     height: 5rem;
     padding: 1rem 0 0 1.5rem;
     border-radius: 0 0 0.75rem 0.75rem;
-    background-color: rgba(0, 0, 0, 0.300);
+    background-color: rgba(0, 0, 0, 0.25);
     overflow: hidden;
     right: 0;
 
-    transition: margin-top 0.25s, height 0.25s;
+    transition: margin-top 0.2s, height 0.2s, background-color 0.2s;
 }
 
 .articleListCardBox:hover #content {
-    line-height: 1rem;
+    line-height: 1.25rem;
 }
 
 #content {
     width: 35rem;
-    line-height: 3rem;
-    transition: line-height 0.5s;
+    line-height: 4.5rem;
+    transition: line-height 0.3s;
 }
 
-#content span{
+#content span {
     display: block;
     overflow: hidden;
     white-space: nowrap;
