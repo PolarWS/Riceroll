@@ -6,7 +6,9 @@
     <router-view></router-view>
   </div>
   <!-- 侧边栏 -->
-  <informationBar :informationBarData="informationBarData" />
+  <div>
+    <informationBar :informationBarData="informationBarData"/>
+  </div>
 </template>
 
 <script>
@@ -18,6 +20,7 @@ export default {
     return {
       navigationBarData: config.navigationBarData,
       informationBarData: config.informationBarData,
+      
     }
   },
   components: {
@@ -26,9 +29,7 @@ export default {
   }, methods: {
     handleClick(event) {
       this.$router.push('/' + event.id);
-    }
-  },created(){
-    console.log(this.$route.path);
+    },
   }
 }
 </script>
@@ -39,6 +40,13 @@ export default {
   height: 100%;
   border-left: 2px solid #F4F4F4;
   border-right: 2px solid #F4F4F4;
+}
+
+.informationBar,
+.navigationBar {
+  /* position: sticky;
+  top: 0;
+  max-height: 100vh; */
 }
 </style>
 

@@ -16,7 +16,7 @@
 <style>
 .announcementBoard {
     background-color: #F4F4F4;
-    margin: 1rem 1.5rem;
+    margin: 0 1.5rem 1rem 1.5rem;
     padding: 0.75rem 1.5rem 1.5rem 1.5rem;
     border-radius: 0.75rem;
 

@@ -44,6 +44,22 @@ export default {
                 img: "src/components/img/1.jpg",
             },
             {
+                title: "标题标题标题",
+                date: "2020-01-01",
+                label: ["代码", "计算机"],
+                url: "文章链接",
+                content: "文章内容",
+                img: "src/components/img/4.png",
+            },
+            {
+                title: "标题标题2标题23",
+                date: "2020-01-01",
+                label: ["相机", "数码"],
+                url: "文章链接",
+                content: "文章内容",
+                img: "src/components/img/1.jpg",
+            },
+            {
                 title: "标题4",
                 date: "2020-01-01",
                 label: ["日常"],
@@ -89,7 +105,8 @@ export default {
     background-size: cover;
     background-position: center center;
     position: relative;
-    overflow: hidden; /* 控制内容溢出的部分被遮住 */
+    overflow: hidden;
+    /* 控制内容溢出的部分被遮住 */
 
     transition: box-shadow 0.25s;
 }
@@ -119,7 +136,7 @@ export default {
     height: 6.25rem;
 }
 
-.articleListCardBox:hover .articleListCardImg{
+.articleListCardBox:hover .articleListCardImg {
     transform: scale(1.05);
 }
 

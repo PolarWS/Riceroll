@@ -1,6 +1,6 @@
 <!-- 信息栏 -->
 <template>
-    <div class="informationBar">
+    <div class="informationBar" ref="informationBar" @scroll="handleScroll">
         <!-- 侧边栏组件 -->
         <announcementBoard v-if="informationBarData.default.announcementBoard.display"
             :announcementBoard="informationBarData.default.announcementBoard" />
@@ -27,15 +27,94 @@ import labelBar from './sideModule/labelBar.vue';
 import replyBar from './sideModule/replyBar.vue';
 import sideTemplate from './sideTemplate.vue';
 export default {
+    data() {
+        return {
+            screenYAxis: 0,
+            stickyBool: true,
+            changeDirection: false,
+            topBoolean: true,
+            fixedDivDigits: 0,
+            XscreenYAxis: 0,
+            divHeight: 0,
+            pageHeight: window.innerHeight,
+        }
+    },
     components: {
         announcementBoard,
         labelBar,
         replyBar,
         sideTemplate,
-    }, props: ["informationBarData"]
+    },
+    computed: {
+
+    },
+    methods: {
+        handleScroll() {
+            if (this.divHeight > this.pageHeight) {
+                if (this.XscreenYAxis < this.screenYAxis && window.scrollY < this.screenYAxis) {
+                    this.changeDirection = true;
+                } else if (this.XscreenYAxis > this.screenYAxis && window.scrollY > this.screenYAxis) {
+                    this.changeDirection = true;
+                }
+                else {
+                    this.changeDirection = false;
+                }
+                this.XscreenYAxis = this.screenYAxis
+                this.screenYAxis = window.scrollY;
+                if (window.scrollY < this.fixedDivDigits && this.stickyBool) {
+                    this.$refs.informationBar.style.top = "0px";
+                    this.$refs.informationBar.style.position = 'sticky';
+                    this.stickyBool = false;
+                    this.topBoolean = true;
+                } else if (this.screenYAxis > this.fixedDivDigits + this.divHeight - this.pageHeight && this.stickyBool) {
+
+                    this.$refs.informationBar.style.top = (this.pageHeight - this.divHeight) + "px";
+                    this.$refs.informationBar.style.position = 'sticky';
+                    this.stickyBool = false;
+                    this.topBoolean = false;
+                }
+                if (!this.stickyBool && this.changeDirection && !this.topBoolean) {
+                    this.fixedDivDigits = this.screenYAxis + this.pageHeight - this.divHeight;
+                    this.$refs.informationBar.style.top = (this.screenYAxis + this.pageHeight - this.divHeight - 16) + "px";
+                    this.$refs.informationBar.style.position = 'relative';
+                    this.stickyBool = true;
+                } else if (!this.stickyBool && this.changeDirection && this.topBoolean) {
+                    this.fixedDivDigits = this.screenYAxis - 16;
+                    this.$refs.informationBar.style.top = (this.screenYAxis - 16) + "px";
+                    this.$refs.informationBar.style.position = 'relative';
+                    this.stickyBool = true;
+                }
+            } else {
+                this.$refs.informationBar.style.top = "0px";
+            }
+        },
+        handleResize() {
+            this.pageHeight = window.innerHeight;
+        },
+    },
+    mounted() {
+        window.addEventListener('resize', this.handleResize);
+        window.addEventListener('scroll', this.handleScroll);
+        const computedStyle = window.getComputedStyle(this.$refs.informationBar);
+        this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.marginTop) + parseFloat(computedStyle.marginBottom);
+    },
+    updated() {
+        const computedStyle = window.getComputedStyle(this.$refs.informationBar);
+        this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.marginTop) + parseFloat(computedStyle.marginBottom);
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.handleResize);
+        window.removeEventListener('scroll', this.handleScroll);
+    },
+    props: ["informationBarData"]
 }
 </script>
 <style scoped>
+.informationBar {
+    position: sticky;
+    margin-top: 1rem;
+}
+
 .footmark a {
     text-decoration: none;
     cursor: pointer;
