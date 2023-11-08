@@ -41,12 +41,5 @@ export default {
   border-left: 2px solid #F4F4F4;
   border-right: 2px solid #F4F4F4;
 }
-
-.informationBar,
-.navigationBar {
-  /* position: sticky;
-  top: 0;
-  max-height: 100vh; */
-}
 </style>
 
