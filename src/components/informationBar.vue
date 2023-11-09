@@ -75,12 +75,12 @@ export default {
                 }
                 if (!this.stickyBool && this.changeDirection && !this.topBoolean) {
                     this.fixedDivDigits = this.screenYAxis + this.pageHeight - this.divHeight;
-                    this.$refs.informationBar.style.top = (this.screenYAxis + this.pageHeight - this.divHeight - 16) + "px";
+                    this.$refs.informationBar.style.top = (this.screenYAxis + this.pageHeight - this.divHeight) + "px";
                     this.$refs.informationBar.style.position = 'relative';
                     this.stickyBool = true;
                 } else if (!this.stickyBool && this.changeDirection && this.topBoolean) {
-                    this.fixedDivDigits = this.screenYAxis - 16;
-                    this.$refs.informationBar.style.top = (this.screenYAxis - 16) + "px";
+                    this.fixedDivDigits = this.screenYAxis;
+                    this.$refs.informationBar.style.top = (this.screenYAxis) + "px";
                     this.$refs.informationBar.style.position = 'relative';
                     this.stickyBool = true;
                 }
@@ -96,11 +96,11 @@ export default {
         window.addEventListener('resize', this.handleResize);
         window.addEventListener('scroll', this.handleScroll);
         const computedStyle = window.getComputedStyle(this.$refs.informationBar);
-        this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.marginTop) + parseFloat(computedStyle.marginBottom);
+        this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
     },
     updated() {
         const computedStyle = window.getComputedStyle(this.$refs.informationBar);
-        this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.marginTop) + parseFloat(computedStyle.marginBottom);
+        this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
     },
     beforeDestroy() {
         window.removeEventListener('resize', this.handleResize);
@@ -112,7 +112,8 @@ export default {
 <style scoped>
 .informationBar {
     position: sticky;
-    margin-top: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .footmark a {

@@ -1,6 +1,6 @@
 <template>
     <div id="pressed">
-        <div class="cardBox" v-for="item in cardList" @click="linkClick(item.url)">
+        <div class="cardBox" v-for="item in itemData.cardList" @click="linkClick(item.url)">
             <div class="cardImg">
                 <img :src="(item.src)" />
                 <div class="state" :class="statePing(item.delay)"></div>
@@ -14,46 +14,11 @@
 </template>
 
 <script>
+import { useCounterStore } from '../../store/friendLink.js';
 export default {
     data() {
         return {
-            cardList: [
-                {
-                    src: "/src/components/img/1.jpg",
-                    title: "PolarWS",
-                    content: "看什么看，内容没见过啊！",
-                    url: "https://www.bilibili.com",
-                    delay: 51
-                },
-                {
-                    src: "/src/components/img/avatar.jpg",
-                    title: "PolarWS",
-                    content: "看什么看，内容没见过啊！",
-                    url: "https://www.bilibili.com",
-                    delay: 23
-                },
-                {
-                    src: "/src/components/img/avatar.jpg",
-                    title: "PolarWS",
-                    content: "看什么看，内容没见过啊！",
-                    url: "https://www.bilibili.com",
-                    delay: 44
-                },
-                {
-                    src: "/src/components/img/avatar.jpg",
-                    title: "PolarWS",
-                    content: "看什么看，内容没见过啊！",
-                    url: "https://www.bilibili.com",
-                    delay: 332
-                },
-                {
-                    src: "/src/components/img/avatar.jpg",
-                    title: "PolarWSPolarWSPolarWS",
-                    content: "看什么看内容没见过啊内容没见过啊内容没见过啊！",
-                    url: "https://www.bilibili.com",
-                    delay: 999
-                }
-            ]
+
         }
     }, methods: {
         linkClick(url) {
@@ -70,6 +35,11 @@ export default {
                 return "stateR";
             }
         }
+    }, mounted() {
+        console.log(useCounterStore().urlPing("http://127.0.0.1:5000/"));
+    },
+    props: {
+        itemData: Object,
     }
 }
 </script>
@@ -131,7 +101,7 @@ export default {
     margin: 1.5rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 80rem) {
     #pressed {
         grid-template-columns: 1fr;
     }
