@@ -1,9 +1,9 @@
 <template>
     <div id="pressed">
-        <div class="cardBox" v-for="item in itemData.cardList" @click="linkClick(item.url)">
+        <div class="cardBox" v-for="(item, index) in itemData.cardList" @click="linkClick(item.url)">
             <div class="cardImg">
                 <img :src="(item.src)" />
-                <div class="state" :class="statePing(item.delay)"></div>
+                <div class="state" :class="statePing(this.pingData[index])"></div>
             </div>
             <div class="cardContent">
                 <div class="title">{{ item.title }}</div>
@@ -18,9 +18,10 @@ import { useCounterStore } from '../../store/friendLink.js';
 export default {
     data() {
         return {
-
+            pingData: Object
         }
-    }, methods: {
+    },
+    methods: {
         linkClick(url) {
             window.open(url);
         },
@@ -35,12 +36,15 @@ export default {
                 return "stateR";
             }
         }
-    }, mounted() {
-        console.log(useCounterStore().urlPing("http://127.0.0.1:5000/"));
-    },
-    props: {
+    }, created() {
+        useCounterStore().urlPing(this.api.url + this.api.frindLinkPage).then(data => {
+            if (data.status == 200) {
+                this.pingData = data.ping;
+            }
+        });
+    }, props: {
         itemData: Object,
-    }
+    }, inject: ['api'],
 }
 </script>
 <style scoped>

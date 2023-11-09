@@ -7,7 +7,7 @@
   </div>
   <!-- 侧边栏 -->
   <div>
-    <informationBar :informationBarData="informationBarData"/>
+    <informationBar :informationBarData="informationBarData" />
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
     return {
       navigationBarData: config.navigationBarData,
       informationBarData: config.informationBarData,
-      
+
     }
   },
   components: {
@@ -30,6 +30,8 @@ export default {
     handleClick(event) {
       this.$router.push('/' + event.id);
     },
+  }, provide: {
+    api: config.api,
   }
 }
 </script>

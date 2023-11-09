@@ -48,24 +48,17 @@ export default {
                 if (length > 12) {
                     length = 12;
                 };
-
                 this.selectedItemsWidth = 4.5 + length * 0.8;
             } else {
                 location.replace(url)
             }
-
-
         }
     },
     created() {
         //获取this.$route.path的第一个/到/的字符串
-
         const titles = this.navigationBarData.titleData.map(title => title.id);
         const path = this.$route.path;
         const parts = path.split('/');
-        console.log(path);
-        console.log(parts.length);
-        console.log(titles.includes(parts[1]));
         if (parts.length >= 2 && titles.includes(parts[1])) {
             //查找parts[1]在titles中的位置
             const index = titles.indexOf(parts[1]);
@@ -127,6 +120,10 @@ export default {
     padding: 0;
     display: flex;
     flex-direction: column;
+
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
 }
 
 #selectedItems {

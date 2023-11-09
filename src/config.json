@@ -182,5 +182,10 @@
                 "url": "#"
             }
         ]
+    },
+    "api":{
+        "_comment": "这里是api配置，除非后端配合请勿轻易改动",
+        "url":"http://127.0.0.1:5000/",
+        "frindLinkPage":"frindLinkPage"
     }
 }

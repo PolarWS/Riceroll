@@ -85,7 +85,7 @@ export default {
                     this.stickyBool = true;
                 }
             } else {
-                this.$refs.informationBar.style.top = "0px";
+                this.$refs.informationBar.style.top = "0";
             }
         },
         handleResize() {
