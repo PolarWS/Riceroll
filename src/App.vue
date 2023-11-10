@@ -20,7 +20,6 @@ export default {
     return {
       navigationBarData: config.navigationBarData,
       informationBarData: config.informationBarData,
-
     }
   },
   components: {
