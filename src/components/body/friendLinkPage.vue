@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { useCounterStore } from '../../store/friendLink.js';
+import { useCounterStore } from '../../store/axiosStore.js';
 export default {
     data() {
         return {
@@ -37,7 +37,7 @@ export default {
             }
         }
     }, created() {
-        useCounterStore().urlPing(this.api.url + this.api.frindLinkPage).then(data => {
+        useCounterStore().apiRequest(this.api.url + this.api.frindLinkPage).then(data => {
             if (data.status == 200) {
                 this.pingData = data.ping;
             }

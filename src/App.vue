@@ -31,6 +31,7 @@ export default {
     },
   }, provide: {
     api: config.api,
+  }, created() {
   }
 }
 </script>

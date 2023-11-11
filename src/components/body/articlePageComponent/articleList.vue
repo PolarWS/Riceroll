@@ -1,74 +1,34 @@
-<!-- 第一版，感觉没那么好看后面改 -->
 <template>
-    <div class="articleListCard" v-for="index in articleListData">
+    <div class="articleListCard" v-for="(item, index) in this.articleListData">
         <div class="articleListCardBox">
-            <div class="articleListCardImg" :style="{ backgroundImage: 'url(' + index.img + ')' }"></div>
+            <div class="articleListCardImg" :style="{ backgroundImage: 'url(' + item.img + ')' }"></div>
             <div class="articleListCardImg"></div>
             <div class="articleListCardTitle">
-                <div id="title">{{ index.title }}</div>
-                <span class="date">{{ index.date }}</span>
-                <span class="date" v-for="label in index.label">#{{ label }}</span>
+                <div id="title">{{ item.title }}</div>
+                <span class="date">{{ item.date }}</span>
+                <span class="date" v-for="label in item.label">#{{ label }}</span>
                 <div id="content">
-                    <span class="date">{{ index.content }}</span>
+                    <span class="date">{{ item.content }}</span>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+import { useCounterStore } from '../../../store/axiosStore.js';
 export default {
     data() {
         return {
-            articleListData: [{
-                title: "标题标题标题标题标题标题标题标题标题标题标题标题标题2标题2标题2标题2",
-                date: "2020-01-01",
-                label: ["日常"],
-                url: "文章链接",
-                content: "文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容",
-                img: "src/components/img/3.jpg",
-            },
-            {
-                title: "标题标题标题",
-                date: "2020-01-01",
-                label: ["代码", "计算机"],
-                url: "文章链接",
-                content: "文章内容",
-                img: "src/components/img/4.png",
-            },
-            {
-                title: "标题标题2标题23",
-                date: "2020-01-01",
-                label: ["相机", "数码"],
-                url: "文章链接",
-                content: "文章内容",
-                img: "src/components/img/1.jpg",
-            },
-            {
-                title: "标题标题标题",
-                date: "2020-01-01",
-                label: ["代码", "计算机"],
-                url: "文章链接",
-                content: "文章内容",
-                img: "src/components/img/4.png",
-            },
-            {
-                title: "标题标题2标题23",
-                date: "2020-01-01",
-                label: ["相机", "数码"],
-                url: "文章链接",
-                content: "文章内容",
-                img: "src/components/img/1.jpg",
-            },
-            {
-                title: "标题4",
-                date: "2020-01-01",
-                label: ["日常"],
-                url: "文章链接",
-                content: "文章内容",
-                img: "src/components/img/2.png",
-            }]
+            articleListData: Object,
         }
+    }, created() {
+        useCounterStore().apiRequest(this.api.url + this.api.articlePage).then(data => {
+            if (data.status == 200) {
+                this.articleListData = data.data;
+            }
+        });
     },
+    inject: ['api'],
 }
 </script>
 <style scoped>

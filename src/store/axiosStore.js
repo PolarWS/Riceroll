@@ -6,7 +6,7 @@ export const useCounterStore = defineStore('counter', {
 
     }),
     actions: {
-        async urlPing(url) {
+        async apiRequest(url) {
             const res = await axios.get(url)
             return res.data;
         },
