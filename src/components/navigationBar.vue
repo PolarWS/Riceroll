@@ -128,8 +128,8 @@ export default {
 
 #selectedItems {
     position: absolute;
-    height: 0.75rem;
-    background-color: #74E4FB;
+    height: 0.8rem;
+    background-color: #44bbff;
     z-index: -1;
 }
 

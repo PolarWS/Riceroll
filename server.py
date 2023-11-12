@@ -17,7 +17,7 @@ def hello_world2():
 @app.route('/articlePage')
 def hello_world3():
     return {"status":200,"data":[{
-                "title": "标题标题标题标题标题标题标题标题标题标题标题标题标题2标题2标题2标题2",
+                "title": "标题标题标题标题标题标题",
                 "date": "2020-01-01",
                 "label": ["日常"],
                 "url": "文章链接",
