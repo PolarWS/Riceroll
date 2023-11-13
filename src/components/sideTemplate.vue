@@ -15,7 +15,7 @@
 </template>
 <style>
 .announcementBoard {
-    background-color: #F4F4F4;
+    background-color: var(--color-theme-grayscale1);
     margin: 0 1.5rem 1rem 1.5rem;
     padding: 0.75rem 1.5rem 1.5rem 1.5rem;
     border-radius: 0.75rem;
@@ -25,26 +25,26 @@
 
 .announcementBoard a {
     text-decoration: none;
-    color: #8A8E90;
+    color: var(--color-theme-grayscale5);
     cursor: pointer;
 }
 
 .announcementBoard a:hover {
-    color: #575757;
+    color: var(--color-theme-grayscale6);
 }
 
 .announcementBoard a:active {
-    color: #74E4FB;
+    color: var(--color-theme-blue-2);
 }
 
 .announcementBoard:hover {
-    box-shadow: 0 0 0.5rem #e0e0e0;
+    box-shadow: 0 0 0.5rem var(--color-theme-grayscale3);
     transform: translateY(-0.2rem);
 }
 
 
 .announcementBoard span {
-    color: #8A8E90;
+    color: var(--color-theme-grayscale5);
 }
 
 .announcementBoardTitleContent {

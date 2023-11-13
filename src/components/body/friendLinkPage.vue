@@ -72,26 +72,26 @@ export default {
     width: 0.85rem;
     height: 0.85rem;
     border-radius: 50%;
-    border: 0.25rem solid #fff;
+    border: 0.25rem solid var(--color-theme-white);
     position: absolute;
     margin-top: 5rem;
     /* 处于底部 */
 }
 
-.stateR {
-    background-color: #FF5F5F;
-}
-
-.stateO {
-    background-color: #F8A978;
+.stateG {
+    background-color: var(--color-theme-G);
 }
 
 .stateY {
-    background-color: #FFD65F;
+    background-color: var(--color-theme-Y);
 }
 
-.stateG {
-    background-color: #8AFF5F;
+.stateO {
+    background-color: var(--color-theme-O);
+}
+
+.stateR {
+    background-color: var(--color-theme-R);
 }
 
 .content {
@@ -123,14 +123,14 @@ export default {
     height: 9.5rem;
     grid-template-columns: 2fr 3fr;
     justify-content: center;
-    border: 2px solid #F4F4F4;
+    border: 2px solid var(--color-theme-grayscale1);
     cursor: pointer;
 
     transition: box-shadow 0.25s;
 }
 
 .cardBox:hover {
-    box-shadow: 0 0 0.75rem 0.02rem #eeeeee;
+    box-shadow: 0 0 0.5rem 0.02rem var(--color-theme-grayscale2);
 }
 
 .cardBox img {

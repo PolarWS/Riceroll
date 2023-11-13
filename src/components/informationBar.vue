@@ -121,14 +121,14 @@ export default {
     cursor: pointer;
     margin: 1rem 1.5rem;
     padding: 0 1.5rem;
-    color: #D1D2D2;
+    color: var(--color-theme-grayscale4);
 }
 
 .footmark a:hover {
-    color: #8A8E90;
-}
+    color: var(--color-theme-grayscale5);
+}   
 
 .footmark a:active {
-    color: #74E4FB;
+    color: var(--color-theme-blue-2);
 }
 </style>

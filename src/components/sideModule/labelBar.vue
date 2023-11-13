@@ -11,9 +11,9 @@
                     <span>文章量{{ item.numberOfPages }}/</span>
                     <span>浏览量{{ item.numberOfViews }}</span>
                 </div>
-                <div>
+                <div class="hot">
                     <!-- 调用labelheat进行热度统计同时改变这个·的颜色 -->
-                    <h1 :class="labelHeat(item.numberOfPages, item.numberOfViews)">·</h1>
+                    <div :class="labelHeat(item.numberOfPages, item.numberOfViews)"></div>
                 </div>
             </div>
         </template>
@@ -78,12 +78,12 @@ h3 {
 }
 
 .labelBar:hover {
-    background-color: #e0e0e07e;
+    background-color: var(--color-theme-grayscale2);
     border-radius: 0.25rem;
 }
 
 .labelBar:active {
-    background-color: #bbbbbb7e;
+    background-color: var(--color-theme-grayscale3);
     border-radius: 0.25rem;
     transition: background-color 0.1s;
 }
@@ -100,18 +100,33 @@ h3 {
 }
 
 .hotG {
-    color: #8AFF5F;
+    background-color: var(--color-theme-G);
 }
 
 .hotY {
-    color: #FFD65F;
+    background-color: var(--color-theme-Y);
 }
 
 .hotO {
-    color: #F8A978;
+    background-color: var(--color-theme-O);
 }
 
 .hotR {
-    color: #FF5F5F;
+    background-color: var(--color-theme-R);
+}
+
+.hotG,
+.hotY,
+.hotO,
+.hotR {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+}
+
+.hot{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>

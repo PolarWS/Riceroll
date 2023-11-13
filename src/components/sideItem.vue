@@ -51,6 +51,6 @@ export default {
 }
 
 .item:active {
-  color: #74E4FB;
+  color: var(--color-theme-blue-1);
 }
 </style>

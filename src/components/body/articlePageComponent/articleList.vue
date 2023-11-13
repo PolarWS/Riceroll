@@ -35,7 +35,7 @@ export default {
 #title {
     font-size: 1.65rem;
     margin-bottom: 0.3rem;
-    color: white;
+    color: var(--color-theme-white);
 
     width: 35rem;
     display: block;
@@ -46,7 +46,7 @@ export default {
 
 .date {
     margin-right: 0.75rem;
-    color: rgb(235, 235, 235);
+    color: var(--color-theme-grayscale1);
 }
 
 .articleListCard {
@@ -59,7 +59,6 @@ export default {
 
 .articleListCardBox {
     cursor: pointer;
-    box-shadow: 0 0 0.5rem #eeeeee;
     height: 16rem;
     border-radius: 0.75rem;
     background-size: cover;
@@ -87,11 +86,11 @@ export default {
 }
 
 .articleListCardBox:hover {
-    box-shadow: 0 0 0.75rem 0.5rem #e5e5e5;
+    box-shadow: 0 0 0.75rem 0.5rem var(--color-theme-grayscale2);
 }
 
 .articleListCardBox:hover .articleListCardTitle {
-    background-color: rgba(0, 0, 0, 0.38);
+    background-color: var(--color-theme-black2);
     margin-top: 8.75rem;
     height: 6.25rem;
 }
@@ -105,7 +104,7 @@ export default {
     height: 5rem;
     padding: 1rem 0 0 1.5rem;
     border-radius: 0 0 0.75rem 0.75rem;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: var(--color-theme-black1);
     right: 0;
 
     transition: margin-top 0.2s, height 0.2s, background-color 0.2s;

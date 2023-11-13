@@ -129,7 +129,7 @@ export default {
 #selectedItems {
     position: absolute;
     height: 0.8rem;
-    background-color: #44bbff;
+    background-color: var(--color-theme-blue-1);
     z-index: -1;
 }
 

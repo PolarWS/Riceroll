@@ -37,6 +37,6 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #8A8E90;
+    color: var(--color-theme-grayscale5);
 }
 </style>

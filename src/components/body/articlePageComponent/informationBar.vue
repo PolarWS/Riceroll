@@ -33,7 +33,7 @@ img {
 
 .informationBar {
     height: auto;
-    border-bottom: 2px solid #F4F4F4;
+    border-bottom: 2px solid var(--color-theme-grayscale1);
 }
 
 .topImg {
@@ -72,7 +72,7 @@ img {
     height: 10rem;
     margin-left: 2rem;
     border-radius: 50%;
-    border: 0.35rem solid #fff;
+    border: 0.35rem solid var(--color-theme-white);
 
     transform-origin: center;
     transform: rotate(0deg);
@@ -89,7 +89,7 @@ img {
 
 .blogInformation span {
     margin: 0 0 0 1rem;
-    color: #8A8E90;
+    color: var(--color-theme-grayscale5);
     font-size: 1.2rem;
 }
 </style>
