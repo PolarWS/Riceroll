@@ -48,7 +48,7 @@ export default {
                 if (length > 12) {
                     length = 12;
                 };
-                this.selectedItemsWidth = 4.5 + length * 0.8;
+                this.selectedItemsWidth = 5.25 + length * 0.8;
             } else {
                 location.replace(url)
             }
@@ -80,7 +80,7 @@ export default {
                         length += 2;
                     }
                 }
-                this.selectedItemsWidth = 4.5 + length * 0.8;
+                this.selectedItemsWidth = 5.25 + length * 0.8;
             } else {
                 // 我真不信有人这样干，开局就跳转url
                 location.replace(titleData.url)

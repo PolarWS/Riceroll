@@ -2,13 +2,12 @@
     <div class="articleListCard" v-for="(item, index) in this.articleListData">
         <div class="articleListCardBox">
             <div class="articleListCardImg" :style="{ backgroundImage: 'url(' + item.img + ')' }"></div>
-            <div class="articleListCardImg"></div>
             <div class="articleListCardTitle">
                 <div id="title">{{ item.title }}</div>
                 <span class="date">{{ item.date }}</span>
                 <span class="date" v-for="label in item.label">#{{ label }}</span>
                 <div id="content">
-                    <span class="date">{{ item.content }}</span>
+                    <span>{{ item.content }}</span>
                 </div>
             </div>
         </div>
@@ -37,7 +36,7 @@ export default {
     margin-bottom: 0.3rem;
     color: var(--color-theme-white);
 
-    width: 35rem;
+    width: 100%;
     display: block;
     overflow: hidden;
     white-space: nowrap;
@@ -47,10 +46,16 @@ export default {
 .date {
     margin-right: 0.75rem;
     color: var(--color-theme-grayscale1);
+    line-height: 1rem;
+    transition: line-height 0.15s;
+}
+
+.articleListCardBox:hover .date {
+    line-height: 2rem;
 }
 
 .articleListCard {
-    height: 16rem;
+    height: 18rem;
     display: grid;
     grid-template-columns: 1fr;
     padding: 1.5rem 5% 0 5%;
@@ -59,11 +64,12 @@ export default {
 
 .articleListCardBox {
     cursor: pointer;
-    height: 16rem;
+    height: 18rem;
     border-radius: 0.75rem;
     background-size: cover;
     background-position: center center;
     position: relative;
+
     overflow: hidden;
     /* 控制内容溢出的部分被遮住 */
 
@@ -81,8 +87,7 @@ export default {
     background-repeat: no-repeat;
     z-index: -1;
 
-    transition: transform 0.4s;
-    /* transform: scale(1.2); */
+    transition: transform 0.4s, filter 0.4s;
 }
 
 .articleListCardBox:hover {
@@ -91,17 +96,18 @@ export default {
 
 .articleListCardBox:hover .articleListCardTitle {
     background-color: var(--color-theme-black2);
-    margin-top: 8.75rem;
-    height: 6.25rem;
+    margin-top: 10.5rem;
+    height: 7.5rem;
 }
 
 .articleListCardBox:hover .articleListCardImg {
+    filter: blur(2px);
     transform: scale(1.05);
 }
 
 .articleListCardTitle {
-    margin-top: 10rem;
-    height: 5rem;
+    margin-top: 12rem;
+    height: 6rem;
     padding: 1rem 0 0 1.5rem;
     border-radius: 0 0 0.75rem 0.75rem;
     background-color: var(--color-theme-black1);
@@ -111,13 +117,14 @@ export default {
 }
 
 .articleListCardBox:hover #content {
-    line-height: 1.25rem;
+    line-height: 1rem;
 }
 
 #content {
-    width: 35rem;
+    width: 100%;
     line-height: 4.5rem;
     transition: line-height 0.3s;
+    color: var(--color-theme-grayscale1);
 }
 
 #content span {

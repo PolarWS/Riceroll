@@ -1,24 +1,30 @@
 html {
-  font-size: 16px;
+  font-size: 15px;
   /* 设置根元素的字体大小 */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+/* 改变选中状态的颜色 */
 }
 
 body {
   margin: 0;
 }
 
+::selection {
+  color: var(--color-theme-white);
+  background: var(--color-theme-selected);
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.2fr 3fr 1.5fr;
+  grid-template-columns: 1.2fr 3fr 1.4fr;
 }
 
 :root {
   --color-theme-white: #fff;
-  --color-theme-blue-1: #44bbff;
-  --color-theme-blue-2: #74E4FB;
+  --color-theme-blue-1: #66bbff;
+  --color-theme-blue-2: #66ccff;
 
   --color-theme-grayscale1: #F4F4F4;
   --color-theme-grayscale2: #e9e9e9;
@@ -34,6 +40,7 @@ body {
   --color-theme-Y: #FFD65F;
   --color-theme-O: #F8A978;
   --color-theme-R: #FF5F5F;
+  --color-theme-selected: #FF7070;
 }
 
 

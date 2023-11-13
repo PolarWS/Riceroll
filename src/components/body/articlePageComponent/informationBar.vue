@@ -43,13 +43,13 @@ img {
 
 .webLink {
     display: flex;
-    margin: 1.5rem 0 1.5rem 3rem;
+    margin: 1.8rem 0 1.8rem 3.2rem;
 }
 
 .webLinkItem {
     width: 2rem;
     height: 2rem;
-    margin: 0 2rem 0 0;
+    margin: 0 2.5rem 0 0;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -70,7 +70,7 @@ img {
 .avatarImg img {
     width: 10rem;
     height: 10rem;
-    margin-left: 2rem;
+    margin-left: 2.5rem;
     border-radius: 50%;
     border: 0.35rem solid var(--color-theme-white);
 
@@ -84,12 +84,13 @@ img {
 }
 
 .blogInformation h1 {
+    font-size: 2.35rem;
     margin: 5rem 0 0 1rem;
 }
 
 .blogInformation span {
     margin: 0 0 0 1rem;
     color: var(--color-theme-grayscale5);
-    font-size: 1.2rem;
+    font-size: 1.25rem;
 }
 </style>

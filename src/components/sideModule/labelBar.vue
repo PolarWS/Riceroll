@@ -71,7 +71,7 @@ h3 {
 .labelBar {
     display: grid;
     cursor: pointer;
-    grid-template-columns: 5fr 1fr;
+    grid-template-columns: 3.5fr 1fr;
 
     border-radius: 0.25rem;
     transition: font-weight 0s;
