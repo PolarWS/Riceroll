@@ -1,12 +1,14 @@
 <!-- 导航栏 -->
 <template>
     <div class="navigationBar">
-        <sideItem v-for="(item, index) in navigationBarData.titleData" :key="index"
-            @click.prevent="handleClick(item.title, index, item.id, item.url)" :iconSvg="item.icon">
-            <template #title>
-                {{ item.title }}
-            </template>
-        </sideItem>
+        <div class="sideItems">
+            <sideItem v-for="(item, index) in navigationBarData.titleData" :key="index"
+                @click.prevent="handleClick(item.title, index, item.id, item.url)" :iconSvg="item.icon">
+                <template #title>
+                    {{ item.title }}
+                </template>
+            </sideItem>
+        </div>
         <!-- 选中条 -->
         <div id="selectedItems"
             :style="{ margin: clickItem + 'rem 0rem 1.5rem 2.15rem', width: selectedItemsWidth + 'rem' }">
@@ -136,6 +138,12 @@ export default {
 
 @media screen and (max-width: 1280px) {
     #selectedItems {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .sideItems {
         display: none;
     }
 }

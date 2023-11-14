@@ -3,6 +3,7 @@
   <navigationBar @handleClick="handleClick" :navigationBarData="navigationBarData" />
   <!-- 中心内容页 -->
   <div class="centralFramework">
+    <messagePopup />
     <router-view></router-view>
   </div>
   <!-- 侧边栏 -->
@@ -14,6 +15,7 @@
 <script>
 import navigationBar from '@/components/navigationBar.vue';
 import informationBar from '@/components/informationBar.vue';
+import messagePopup from './components/messagePopup.vue';
 import config from '@/config.json';
 export default {
   data() {
@@ -25,6 +27,7 @@ export default {
   components: {
     navigationBar,
     informationBar,
+    messagePopup,
   }, methods: {
     handleClick(event) {
       this.$router.push('/' + event.id);
@@ -40,8 +43,10 @@ export default {
 .centralFramework {
   width: 100%;
   height: 100%;
-  border-left: 2px solid #F4F4F4;
-  border-right: 2px solid #F4F4F4;
+  border-left: 2px solid var(--color-theme-grayscale1);
+  border-right: 2px solid var(--color-theme-grayscale1);
+  /* position: relative; */
+  
 }
 </style>
 

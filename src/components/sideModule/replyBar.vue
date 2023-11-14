@@ -42,7 +42,7 @@ export default {
 
 @media screen and (max-width: 1280px) {
     .replyList {
-        width: 12rem;
+        width: 13rem;
     }
 }
 </style>

@@ -20,4 +20,3 @@ export default {
     }, inject: ['api'],
 }
 </script>
-<style></style>

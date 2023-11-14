@@ -30,7 +30,7 @@ export default {
 
 @media screen and (max-width: 1280px) {
     .markdown-body {
-        width: 14rem;
+        width: 13rem;
     }
 }
 </style>

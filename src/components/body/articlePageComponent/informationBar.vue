@@ -1,5 +1,5 @@
 <template>
-    <div class="informationBar">
+    <div class="informationBarToc">
         <div class="topImg">
             <img :src="informationBarData.topimg.src" :alt="informationBarData.topimg.alt">
         </div>
@@ -31,7 +31,7 @@ img {
     object-fit: cover;
 }
 
-.informationBar {
+.informationBarToc {
     height: auto;
     border-bottom: 2px solid var(--color-theme-grayscale1);
 }
@@ -92,5 +92,37 @@ img {
     margin: 0 0 0 1rem;
     color: var(--color-theme-grayscale5);
     font-size: 1.25rem;
+}
+
+@media screen and (max-width: 600px) {
+    .webLink {
+        display: flex;
+        margin: 1.2rem 0 1.2rem 2.5rem;
+    }
+
+    .topImg {
+        height: 15rem;
+    }
+
+    .blogInformation h1 {
+        font-size: 2rem;
+    }
+
+    .blogInformation span {
+        font-size: 1rem;
+    }
+
+    .avatarImg img {
+        margin-top: 2rem;
+        width: 7rem;
+        height: 7rem;
+        margin-left: 1.5rem;
+    }
+
+    .webLinkItem {
+        width: 2rem;
+        height: 2rem;
+        margin: 0 2rem 0 0;
+    }
 }
 </style>

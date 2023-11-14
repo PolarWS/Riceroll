@@ -2,7 +2,7 @@ html {
   font-size: 15px;
   /* 设置根元素的字体大小 */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-/* 改变选中状态的颜色 */
+  /* 改变选中状态的颜色 */
 }
 
 body {
@@ -24,9 +24,28 @@ body {
 /* 轮询小于1280px */
 @media screen and (max-width: 1280px) {
   #app {
-    grid-template-columns: 5rem 5fr 19rem;
+    grid-template-columns: 5rem 5fr 20rem;
   }
 }
+
+/* 轮询小于1280px并且大于1000px */
+@media screen and (max-width: 1024px) {
+  #app {
+    grid-template-columns: 5rem 5fr 0rem;
+  }
+
+  .informationBar {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #app {
+    grid-template-columns: 0rem 1fr 0rem;
+  }
+}
+
+
 
 :root {
   --color-theme-white: #fff;

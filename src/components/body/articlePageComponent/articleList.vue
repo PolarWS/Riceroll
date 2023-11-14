@@ -137,4 +137,28 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+@media screen and (max-width: 600px) {
+    #title {
+        font-size: 1.5rem;
+    }
+
+    .articleListCard {
+        height: 14rem;
+    }
+
+    .articleListCardTitle {
+        margin-top: 8.5rem;
+        height: 5.5rem;
+    }
+
+    .articleListCardBox {
+        height: 14rem;
+    }
+
+    .articleListCardBox:hover .articleListCardTitle {
+        margin-top: 6.5rem;
+        height: 7.5rem;
+    }
+}
 </style>
