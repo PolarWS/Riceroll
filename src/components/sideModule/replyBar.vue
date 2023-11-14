@@ -39,4 +39,10 @@ export default {
     white-space: nowrap;
     color: var(--color-theme-grayscale5);
 }
+
+@media screen and (max-width: 1280px) {
+    .replyList {
+        width: 12rem;
+    }
+}
 </style>

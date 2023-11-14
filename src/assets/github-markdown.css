@@ -143,6 +143,8 @@
     --color-attention-subtle: #fff8c5;
     --color-danger-fg: #d1242f;
     --color-done-fg: #8250df;
+
+    --color-blockquote: #50BFFF;
   }
 }
 
@@ -457,7 +459,8 @@
   padding: .85em 1.2em;
   color: var(--color-fg-muted);
   border: .1em solid var(--color-border-default);
-  border-left: .28em solid #50BFFF;
+  /* border-left: .28em solid #50BFFF; */
+  border-left: .28em solid var(--color-blockquote);
 }
 
 .markdown-body ul,

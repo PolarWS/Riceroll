@@ -1,6 +1,6 @@
 <!-- 信息栏 -->
 <template>
-    <div class="informationBar" ref="informationBar" @scroll="handleScroll">
+    <div class="informationBar" ref="informationBar" @scroll="handleScroll" v-if="!markDownDisplay">
         <!-- 侧边栏组件 -->
         <announcementBoard v-if="informationBarData.default.announcementBoard.display"
             :announcementBoard="informationBarData.default.announcementBoard" />
@@ -20,8 +20,13 @@
             <a :href="item.url">{{ item.title }}</a>
         </div>
     </div>
+    <!-- markDown[toc]组件 -->
+    <div class="informationBar" ref="informationBar" v-if="markDownDisplay">
+        <markDownToc />
+    </div>
 </template>
 <script>
+import markDownToc from './sideModule/markDownToc.vue';
 import announcementBoard from './sideModule/announcementBoard.vue';
 import labelBar from './sideModule/labelBar.vue';
 import replyBar from './sideModule/replyBar.vue';
@@ -37,13 +42,20 @@ export default {
             XscreenYAxis: 0,
             divHeight: 0,
             pageHeight: window.innerHeight,
+            markDownDisplay: false,
         }
+    },
+    watch: {
+        markDownDisplay(newVal, oldVal) {
+            this.updateComponent();
+        },
     },
     components: {
         announcementBoard,
         labelBar,
         replyBar,
         sideTemplate,
+        markDownToc,
     },
     computed: {
 
@@ -93,10 +105,12 @@ export default {
         },
     },
     mounted() {
-        window.addEventListener('resize', this.handleResize);
-        window.addEventListener('scroll', this.handleScroll);
-        const computedStyle = window.getComputedStyle(this.$refs.informationBar);
-        this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+        this.$nextTick(() => {
+            window.addEventListener('resize', this.handleResize);
+            window.addEventListener('scroll', this.handleScroll);
+            const computedStyle = window.getComputedStyle(this.$refs.informationBar);
+            this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+        });
     },
     updated() {
         const computedStyle = window.getComputedStyle(this.$refs.informationBar);
@@ -126,7 +140,7 @@ export default {
 
 .footmark a:hover {
     color: var(--color-theme-grayscale5);
-}   
+}
 
 .footmark a:active {
     color: var(--color-theme-blue-2);

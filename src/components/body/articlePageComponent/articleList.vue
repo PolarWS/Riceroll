@@ -59,10 +59,13 @@ export default {
     display: grid;
     grid-template-columns: 1fr;
     padding: 1.5rem 5% 0 5%;
-
+    max-width: 45rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .articleListCardBox {
+
     cursor: pointer;
     height: 18rem;
     border-radius: 0.75rem;
@@ -72,6 +75,7 @@ export default {
 
     overflow: hidden;
     /* 控制内容溢出的部分被遮住 */
+
 
     transition: box-shadow 0.25s;
 }

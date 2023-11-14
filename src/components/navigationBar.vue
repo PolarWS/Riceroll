@@ -131,9 +131,12 @@ export default {
     height: 0.8rem;
     background-color: var(--color-theme-blue-1);
     z-index: -1;
+    transition: margin 0.35s cubic-bezier(0, 0, .58, 1), width 0.35s;
 }
 
-#selectedItems {
-    transition: margin 0.35s cubic-bezier(0, 0, .58, 1), width 0.35s;
+@media screen and (max-width: 1280px) {
+    #selectedItems {
+        display: none;
+    }
 }
 </style>

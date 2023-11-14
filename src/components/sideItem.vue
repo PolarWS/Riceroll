@@ -53,4 +53,14 @@ export default {
 .item:active {
   color: var(--color-theme-blue-1);
 }
+
+@media screen and (max-width: 1280px) {
+  .title {
+    display: none;
+  }
+
+  .item {
+    grid-template-columns: 1fr 0;
+  }
+}
 </style>
