@@ -62,42 +62,45 @@ export default {
     },
     methods: {
         handleScroll() {
-            if (this.divHeight > this.pageHeight) {
-                if (this.XscreenYAxis < this.screenYAxis && window.scrollY < this.screenYAxis) {
-                    this.changeDirection = true;
-                } else if (this.XscreenYAxis > this.screenYAxis && window.scrollY > this.screenYAxis) {
-                    this.changeDirection = true;
-                }
-                else {
-                    this.changeDirection = false;
-                }
-                this.XscreenYAxis = this.screenYAxis
-                this.screenYAxis = window.scrollY;
-                if (window.scrollY < this.fixedDivDigits && this.stickyBool) {
-                    this.$refs.informationBar.style.top = "0px";
-                    this.$refs.informationBar.style.position = 'sticky';
-                    this.stickyBool = false;
-                    this.topBoolean = true;
-                } else if (this.screenYAxis > this.fixedDivDigits + this.divHeight - this.pageHeight && this.stickyBool) {
+            const informationBar = this.$refs.informationBar;
+            if (informationBar) {
+                if (this.divHeight > this.pageHeight) {
+                    if (this.XscreenYAxis < this.screenYAxis && window.scrollY < this.screenYAxis) {
+                        this.changeDirection = true;
+                    } else if (this.XscreenYAxis > this.screenYAxis && window.scrollY > this.screenYAxis) {
+                        this.changeDirection = true;
+                    }
+                    else {
+                        this.changeDirection = false;
+                    }
+                    this.XscreenYAxis = this.screenYAxis
+                    this.screenYAxis = window.scrollY;
+                    if (window.scrollY < this.fixedDivDigits && this.stickyBool) {
+                        this.$refs.informationBar.style.top = "0px";
+                        this.$refs.informationBar.style.position = 'sticky';
+                        this.stickyBool = false;
+                        this.topBoolean = true;
+                    } else if (this.screenYAxis > this.fixedDivDigits + this.divHeight - this.pageHeight && this.stickyBool) {
 
-                    this.$refs.informationBar.style.top = (this.pageHeight - this.divHeight) + "px";
-                    this.$refs.informationBar.style.position = 'sticky';
-                    this.stickyBool = false;
-                    this.topBoolean = false;
+                        this.$refs.informationBar.style.top = (this.pageHeight - this.divHeight) + "px";
+                        this.$refs.informationBar.style.position = 'sticky';
+                        this.stickyBool = false;
+                        this.topBoolean = false;
+                    }
+                    if (!this.stickyBool && this.changeDirection && !this.topBoolean) {
+                        this.fixedDivDigits = this.screenYAxis + this.pageHeight - this.divHeight;
+                        this.$refs.informationBar.style.top = (this.screenYAxis + this.pageHeight - this.divHeight) + "px";
+                        this.$refs.informationBar.style.position = 'relative';
+                        this.stickyBool = true;
+                    } else if (!this.stickyBool && this.changeDirection && this.topBoolean) {
+                        this.fixedDivDigits = this.screenYAxis;
+                        this.$refs.informationBar.style.top = (this.screenYAxis) + "px";
+                        this.$refs.informationBar.style.position = 'relative';
+                        this.stickyBool = true;
+                    }
+                } else {
+                    this.$refs.informationBar.style.top = "0";
                 }
-                if (!this.stickyBool && this.changeDirection && !this.topBoolean) {
-                    this.fixedDivDigits = this.screenYAxis + this.pageHeight - this.divHeight;
-                    this.$refs.informationBar.style.top = (this.screenYAxis + this.pageHeight - this.divHeight) + "px";
-                    this.$refs.informationBar.style.position = 'relative';
-                    this.stickyBool = true;
-                } else if (!this.stickyBool && this.changeDirection && this.topBoolean) {
-                    this.fixedDivDigits = this.screenYAxis;
-                    this.$refs.informationBar.style.top = (this.screenYAxis) + "px";
-                    this.$refs.informationBar.style.position = 'relative';
-                    this.stickyBool = true;
-                }
-            } else {
-                this.$refs.informationBar.style.top = "0";
             }
         },
         handleResize() {
@@ -117,6 +120,7 @@ export default {
         this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
     },
     beforeDestroy() {
+        console.log("window.innerWidth");
         window.removeEventListener('resize', this.handleResize);
         window.removeEventListener('scroll', this.handleScroll);
     },

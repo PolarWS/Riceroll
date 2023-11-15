@@ -10,8 +10,7 @@
             </sideItem>
         </div>
         <!-- 选中条 -->
-        <div id="selectedItems"
-            :style="{ margin: clickItem + 'rem 0rem 1.5rem 2.15rem', width: selectedItemsWidth + 'rem' }">
+        <div id="selectedItems" :style="{ marginTop: clickItem + 'rem', width: selectedItemsWidth + 'rem' }">
         </div>
     </div>
 </template>
@@ -22,8 +21,10 @@ export default {
         return {
             // 选中条长度
             selectedItemsWidth: Number,
+            selectedItemsWidthAdaptation: Number,
             // 选中条与顶部距离
             clickItem: (this.navigationBarData.defaultSelected - 1) * 5 + 3,
+            selectedItemsIco: true,
         }
     },
     components: {
@@ -50,13 +51,30 @@ export default {
                 if (length > 12) {
                     length = 12;
                 };
-                this.selectedItemsWidth = 5.25 + length * 0.8;
+                if (this.selectedItemsIco) {
+                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                    this.selectedItemsWidth = this.selectedItemsWidthAdaptation
+                } else {
+                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                }
             } else {
                 location.replace(url)
             }
-        }
+        },
+        checkScreenSize() {
+            if (window.innerWidth <= 1280) {
+                this.selectedItemsIco = false;
+                this.selectedItemsWidth = 3
+            } else {
+                this.selectedItemsWidth = this.selectedItemsWidthAdaptation
+            }
+        },
     },
-    created() {
+    mounted() {
+        this.checkScreenSize();
+        window.addEventListener('resize', this.checkScreenSize);
+        this.selectedItemsIco = window.innerWidth > 1280;
+        console.log(this.selectedItemsIco);
         //获取this.$route.path的第一个/到/的字符串
         const titles = this.navigationBarData.titleData.map(title => title.id);
         const path = this.$route.path;
@@ -82,7 +100,12 @@ export default {
                         length += 2;
                     }
                 }
-                this.selectedItemsWidth = 5.25 + length * 0.8;
+                if (this.selectedItemsIco) {
+                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                    this.selectedItemsWidth = this.selectedItemsWidthAdaptation
+                } else {
+                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                }
             } else {
                 // 我真不信有人这样干，开局就跳转url
                 location.replace(titleData.url)
@@ -105,12 +128,20 @@ export default {
                         length += 2;
                     }
                 }
-                this.selectedItemsWidth = 4.5 + length * 0.8;
+                if (this.selectedItemsIco) {
+                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                    this.selectedItemsWidth = this.selectedItemsWidthAdaptation
+                } else {
+                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                }
             } else {
                 // 我真不信有人这样干，开局就跳转url
                 location.replace(titleData.url)
             }
         }
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.checkScreenSize);
     },
     props: ['navigationBarData']
 }
@@ -129,6 +160,8 @@ export default {
 }
 
 #selectedItems {
+    margin-bottom: 1.5rem;
+    margin-left: 2.15rem;
     position: absolute;
     height: 0.8rem;
     background-color: var(--color-theme-blue-1);
@@ -138,12 +171,18 @@ export default {
 
 @media screen and (max-width: 1280px) {
     #selectedItems {
-        display: none;
+        margin-left: 1rem;
+        /* display: none; */
+        /* margin-left: 0; */
     }
 }
 
 @media screen and (max-width: 600px) {
     .sideItems {
+        display: none;
+    }
+
+    #selectedItems {
         display: none;
     }
 }

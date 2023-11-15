@@ -3,39 +3,50 @@
   <navigationBar @handleClick="handleClick" :navigationBarData="navigationBarData" />
   <!-- 中心内容页 -->
   <div class="centralFramework">
-    <messagePopup />
+    <messagePopups />
     <router-view></router-view>
   </div>
   <!-- 侧边栏 -->
   <div>
-    <informationBar :informationBarData="informationBarData" />
+    <informationBar v-if="!isMobile" :informationBarData="informationBarData" />
   </div>
 </template>
 
 <script>
 import navigationBar from '@/components/navigationBar.vue';
 import informationBar from '@/components/informationBar.vue';
-import messagePopup from './components/messagePopup.vue';
+import messagePopups from '@/components/messagePopups.vue';
 import config from '@/config.json';
 export default {
   data() {
     return {
       navigationBarData: config.navigationBarData,
       informationBarData: config.informationBarData,
+      isMobile: true,
     }
   },
   components: {
     navigationBar,
     informationBar,
-    messagePopup,
+    messagePopups,
   }, methods: {
     handleClick(event) {
       this.$router.push('/' + event.id);
     },
-  }, provide: {
+    checkScreenSize() {
+      this.isMobile = window.innerWidth <= 1024;
+    },
+  },
+  provide: {
     api: config.api,
-  }, created() {
-  }
+  },
+  mounted() {
+    this.checkScreenSize();
+    window.addEventListener('resize', this.checkScreenSize);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.checkScreenSize);
+  },
 }
 </script>
 
@@ -45,8 +56,6 @@ export default {
   height: 100%;
   border-left: 2px solid var(--color-theme-grayscale1);
   border-right: 2px solid var(--color-theme-grayscale1);
-  /* position: relative; */
-  
 }
 </style>
 

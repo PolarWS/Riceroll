@@ -1,9 +1,14 @@
 <template>
-    <div class="messagePopup">
-        这是一个消息弹窗
+    <div class="messagePopup" :class="messageData.Color">
+        {{ messageData.message }}
     </div>
 </template>
-
+<script>
+import { dataRelay } from '../store/dataRelay.js';
+export default {
+    props: ["messageData"]
+}
+</script>
 <style>
 .messagePopup {
     position: fixed;
@@ -16,8 +21,23 @@
     padding: 1rem 1.5rem;
     border-radius: 0.5rem;
     color: var(--color-theme-white);
-    background-color: var(--color-theme-selected);
     animation: fadeInOut 3s ease-in-out;
+}
+
+.messageG {
+    background-color: var(--color-theme-G);
+}
+
+.messageY {
+    background-color: var(--color-theme-Y);
+}
+
+.messageO {
+    background-color: var(--color-theme-O);
+}
+
+.messageR {
+    background-color: var(--color-theme-R);
 }
 
 @keyframes fadeInOut {
