@@ -66,6 +66,7 @@ export default {
                 this.selectedItemsIco = false;
                 this.selectedItemsWidth = 3
             } else {
+                this.selectedItemsIco = true;
                 this.selectedItemsWidth = this.selectedItemsWidthAdaptation
             }
         },
