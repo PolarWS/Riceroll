@@ -15,7 +15,6 @@ def hello_world2():
     a2 = [random.randint(1, 510) for _ in range(5)]
     return {"status":200,"ping":a2}
 
-
 @app.route('/md')
 def hello_world4():
     with open('test.md', 'r', encoding='utf-8') as file:

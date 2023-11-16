@@ -12,7 +12,7 @@ export default {
             popupsUniqueIdentifier: 0,
             messageData: {
                 message: 'Your message',
-                Color: 'messageY',
+                Color: 'messageR',
             }
         }
     }, components: {
@@ -31,4 +31,3 @@ export default {
     },
 }
 </script>
-<style></style>
