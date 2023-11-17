@@ -16,6 +16,7 @@
 </template>
 <script>
 import sideItem from './sideItem.vue';
+import { dataRelay } from '@/store/dataRelay.js';
 export default {
     data() {
         return {
@@ -75,7 +76,6 @@ export default {
         this.checkScreenSize();
         window.addEventListener('resize', this.checkScreenSize);
         this.selectedItemsIco = window.innerWidth > 1280;
-        console.log(this.selectedItemsIco);
         //获取this.$route.path的第一个/到/的字符串
         const titles = this.navigationBarData.titleData.map(title => title.id);
         const path = this.$route.path;

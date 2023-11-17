@@ -6,6 +6,7 @@
             :announcementBoard="informationBarData.default.announcementBoard" />
         <labelBar v-if="informationBarData.default.labelBar.display" :labelBar="informationBarData.default.labelBar" />
         <replyBar v-if="informationBarData.default.replyBar.display" />
+        <replyBar v-if="informationBarData.default.replyBar.display" />
         <!-- 自定义组件 -->
         <sideTemplate v-if="informationBarData.custom.display" v-for="item in informationBarData.custom.content">
             <template #title>
@@ -31,6 +32,7 @@ import announcementBoard from './sideModule/announcementBoard.vue';
 import labelBar from './sideModule/labelBar.vue';
 import replyBar from './sideModule/replyBar.vue';
 import sideTemplate from './sideTemplate.vue';
+import { dataRelay } from '@/store/dataRelay.js';
 export default {
     data() {
         return {
@@ -43,11 +45,12 @@ export default {
             divHeight: 0,
             pageHeight: window.innerHeight,
             markDownDisplay: false,
+            closingOrNot: false,
         }
     },
     watch: {
         markDownDisplay(newVal, oldVal) {
-            this.updateComponent();
+            // this.updateComponent();
         },
     },
     components: {
@@ -57,50 +60,44 @@ export default {
         sideTemplate,
         markDownToc,
     },
-    computed: {
-
-    },
     methods: {
         handleScroll() {
-            const informationBar = this.$refs.informationBar;
-            if (informationBar) {
-                if (this.divHeight > this.pageHeight) {
-                    if (this.XscreenYAxis < this.screenYAxis && window.scrollY < this.screenYAxis) {
-                        this.changeDirection = true;
-                    } else if (this.XscreenYAxis > this.screenYAxis && window.scrollY > this.screenYAxis) {
-                        this.changeDirection = true;
-                    }
-                    else {
-                        this.changeDirection = false;
-                    }
-                    this.XscreenYAxis = this.screenYAxis
-                    this.screenYAxis = window.scrollY;
-                    if (window.scrollY < this.fixedDivDigits && this.stickyBool) {
-                        this.$refs.informationBar.style.top = "0px";
-                        this.$refs.informationBar.style.position = 'sticky';
-                        this.stickyBool = false;
-                        this.topBoolean = true;
-                    } else if (this.screenYAxis > this.fixedDivDigits + this.divHeight - this.pageHeight && this.stickyBool) {
-
-                        this.$refs.informationBar.style.top = (this.pageHeight - this.divHeight) + "px";
-                        this.$refs.informationBar.style.position = 'sticky';
-                        this.stickyBool = false;
-                        this.topBoolean = false;
-                    }
-                    if (!this.stickyBool && this.changeDirection && !this.topBoolean) {
-                        this.fixedDivDigits = this.screenYAxis + this.pageHeight - this.divHeight;
-                        this.$refs.informationBar.style.top = (this.screenYAxis + this.pageHeight - this.divHeight) + "px";
-                        this.$refs.informationBar.style.position = 'relative';
-                        this.stickyBool = true;
-                    } else if (!this.stickyBool && this.changeDirection && this.topBoolean) {
-                        this.fixedDivDigits = this.screenYAxis;
-                        this.$refs.informationBar.style.top = (this.screenYAxis) + "px";
-                        this.$refs.informationBar.style.position = 'relative';
-                        this.stickyBool = true;
-                    }
-                } else {
-                    this.$refs.informationBar.style.top = "0";
+            if (this.divHeight > this.pageHeight) {
+                if (this.XscreenYAxis < this.screenYAxis && window.scrollY < this.screenYAxis) {
+                    this.changeDirection = true;
+                } else if (this.XscreenYAxis > this.screenYAxis && window.scrollY > this.screenYAxis) {
+                    this.changeDirection = true;
                 }
+                else {
+                    this.changeDirection = false;
+                }
+                this.XscreenYAxis = this.screenYAxis
+                this.screenYAxis = window.scrollY;
+                if (window.scrollY < this.fixedDivDigits && this.stickyBool) {
+                    this.$refs.informationBar.style.top = "0px";
+                    this.$refs.informationBar.style.position = 'sticky';
+                    this.stickyBool = false;
+                    this.topBoolean = true;
+                } else if (this.screenYAxis > this.fixedDivDigits + this.divHeight - this.pageHeight && this.stickyBool) {
+
+                    this.$refs.informationBar.style.top = (this.pageHeight - this.divHeight) + "px";
+                    this.$refs.informationBar.style.position = 'sticky';
+                    this.stickyBool = false;
+                    this.topBoolean = false;
+                }
+                if (!this.stickyBool && this.changeDirection && !this.topBoolean) {
+                    this.fixedDivDigits = this.screenYAxis + this.pageHeight - this.divHeight;
+                    this.$refs.informationBar.style.top = (this.screenYAxis + this.pageHeight - this.divHeight) + "px";
+                    this.$refs.informationBar.style.position = 'relative';
+                    this.stickyBool = true;
+                } else if (!this.stickyBool && this.changeDirection && this.topBoolean) {
+                    this.fixedDivDigits = this.screenYAxis;
+                    this.$refs.informationBar.style.top = (this.screenYAxis) + "px";
+                    this.$refs.informationBar.style.position = 'relative';
+                    this.stickyBool = true;
+                }
+            } else {
+                this.$refs.informationBar.style.top = "0";
             }
         },
         handleResize() {
@@ -111,23 +108,20 @@ export default {
         this.$nextTick(() => {
             window.addEventListener('resize', this.handleResize);
             window.addEventListener('scroll', this.handleScroll);
-            if (this.$refs.informationBar instanceof Element) {
-                const computedStyle = window.getComputedStyle(this.$refs.informationBar);
-                this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
-            }
+            const computedStyle = window.getComputedStyle(this.$refs.informationBar);
+            this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
         });
     },
     updated() {
-        if (this.$refs.informationBar instanceof Element) {
-            const computedStyle = window.getComputedStyle(this.$refs.informationBar);
-            this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
-        }
+        const computedStyle = window.getComputedStyle(this.$refs.informationBar);
+        this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+        this.closingOrNot = true;
     },
-    beforeDestroy() {
+    unmounted() {
         window.removeEventListener('resize', this.handleResize);
         window.removeEventListener('scroll', this.handleScroll);
     },
-    props: ["informationBarData"]
+    props: ["informationBarData"],
 }
 </script>
 <style scoped>

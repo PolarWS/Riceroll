@@ -12,7 +12,7 @@ import markDown from '../markDown.vue';
 export default {
     data() {
         return {
-            markDownData: "23333333",
+            markDownData: "",
         }
     },
     components: {

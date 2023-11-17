@@ -3,13 +3,13 @@
   <navigationBar @handleClick="handleClick" :navigationBarData="navigationBarData" />
   <!-- 中心内容页 -->
   <div class="centralFramework">
-    <topMenuBar v-if="isMobile600" />
+    <topMenuBar v-if="widthLevel < 3" />
     <messagePopups />
     <router-view></router-view>
   </div>
   <!-- 侧边栏 -->
   <div>
-    <informationBar v-if="isMobile1024" :informationBarData="informationBarData" />
+    <informationBar v-if="widthLevel > 3" :informationBarData="informationBarData" />
   </div>
 </template>
 
@@ -18,14 +18,14 @@ import navigationBar from '@/components/navigationBar.vue';
 import informationBar from '@/components/informationBar.vue';
 import messagePopups from '@/components/messagePopups.vue';
 import topMenuBar from '@/components/topMenuBar.vue';
+import { dataRelay } from '@/store/dataRelay.js';
 import config from '@/config.json';
 export default {
   data() {
     return {
       navigationBarData: config.navigationBarData,
       informationBarData: config.informationBarData,
-      isMobile1024: true,
-      isMobile600: false,
+      widthLevel: 0,
     }
   },
   components: {
@@ -38,19 +38,26 @@ export default {
       this.$router.push('/' + event.id);
     },
     checkScreenSize() {
-      this.isMobile1024 = window.innerWidth > 1024;
-      this.isMobile600 = window.innerWidth <= 600;
+      dataRelay().winWidth();
+      this.widthLevel = dataRelay().widthLevel;
     },
   },
-  provide: {
-    api: config.api,
+  watch: {
+
+  },
+  created() {
+    this.checkScreenSize();
   },
   mounted() {
-    this.checkScreenSize();
     window.addEventListener('resize', this.checkScreenSize);
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.checkScreenSize);
+  },
+  provide() {
+    return {
+      api: config.api
+    }
   },
 }
 </script>

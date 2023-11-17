@@ -12,6 +12,6 @@ export default {
         articleList,
     }, props: {
         itemData: Object,
-    }
+    },
 }
 </script>

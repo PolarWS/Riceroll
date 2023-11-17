@@ -40,9 +40,8 @@ export default {
     },
     mounted() {
         window.addEventListener('scroll', this.handleScroll);
-
     },
-    beforeDestroy() {
+    unmounted() {
         window.removeEventListener('scroll', this.handleScroll);
     },
 }
