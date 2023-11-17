@@ -22,19 +22,18 @@
 </template>
 <script>
 export default {
-    // 监视滚轮往下滑动和往上滑动
     data() {
         return {
-            aaa: 0,
+            scrollY: 0,
         }
     },
     methods: {
         handleScroll() {
-            if (window.scrollY > this.aaa) {
-                this.aaa = window.scrollY;
+            if (window.scrollY > this.scrollY) {
+                this.scrollY = window.scrollY;
                 document.getElementById("topMenuBarBox").style.top = "-73px";
             } else {
-                this.aaa = window.scrollY;
+                this.scrollY = window.scrollY;
                 document.getElementById("topMenuBarBox").style.top = "0px";
             }
         },

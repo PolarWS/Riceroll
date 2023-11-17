@@ -173,8 +173,6 @@ export default {
 @media screen and (max-width: 1280px) {
     #selectedItems {
         margin-left: 1rem;
-        /* display: none; */
-        /* margin-left: 0; */
     }
 }
 

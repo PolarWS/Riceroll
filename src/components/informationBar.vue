@@ -111,16 +111,19 @@ export default {
         this.$nextTick(() => {
             window.addEventListener('resize', this.handleResize);
             window.addEventListener('scroll', this.handleScroll);
-            const computedStyle = window.getComputedStyle(this.$refs.informationBar);
-            this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+            if (this.$refs.informationBar instanceof Element) {
+                const computedStyle = window.getComputedStyle(this.$refs.informationBar);
+                this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+            }
         });
     },
     updated() {
-        const computedStyle = window.getComputedStyle(this.$refs.informationBar);
-        this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+        if (this.$refs.informationBar instanceof Element) {
+            const computedStyle = window.getComputedStyle(this.$refs.informationBar);
+            this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+        }
     },
     beforeDestroy() {
-        console.log("window.innerWidth");
         window.removeEventListener('resize', this.handleResize);
         window.removeEventListener('scroll', this.handleScroll);
     },
