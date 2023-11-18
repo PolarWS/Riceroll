@@ -1,6 +1,6 @@
 <template>
     <div id="topMenuBarBox">
-        <div id="topMenuBarIcon">
+        <div id="topMenuBarIcon" @click="navigationBarMobOpen">
             <svg t="1700135227298" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                 p-id="7094" width="30" height="30">
                 <path
@@ -25,9 +25,13 @@ export default {
     data() {
         return {
             scrollY: 0,
+            navigationBarData: this.navigationBarData,
         }
     },
     methods: {
+        navigationBarMobOpen() {
+            this.$emit('navigationBarMobSwitch',true);
+        },
         handleScroll() {
             if (window.scrollY > this.scrollY) {
                 this.scrollY = window.scrollY;

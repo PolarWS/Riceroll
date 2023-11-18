@@ -1,20 +1,23 @@
 <template>
   <!-- 导航栏 -->
-  <navigationBar @handleClick="handleClick" :navigationBarData="navigationBarData" />
+  <navigationBar v-if="widthLevel >= 3" @handleClick="handleClick" :navigationBarData="navigationBarData" />
   <!-- 中心内容页 -->
   <div class="centralFramework">
-    <topMenuBar v-if="widthLevel < 3" />
+    <navigationBarMob v-if="widthLevel < 3" @handleClick="handleClick" @navigationBarMobSwitch="navigationBarMobSwitch"
+      :navigationBarData="navigationBarData" :style="{ right: navigationBarMobRight + 'rem' }" />
+    <topMenuBar v-if="widthLevel < 3" @navigationBarMobSwitch="navigationBarMobSwitch" />
     <messagePopups />
     <router-view></router-view>
   </div>
   <!-- 侧边栏 -->
-  <div>
-    <informationBar v-if="widthLevel > 3" :informationBarData="informationBarData" />
+  <div v-if="widthLevel > 3">
+    <informationBar :informationBarData="informationBarData" />
   </div>
 </template>
 
 <script>
 import navigationBar from '@/components/navigationBar.vue';
+import navigationBarMob from '@/components/navigationBarMob.vue';
 import informationBar from '@/components/informationBar.vue';
 import messagePopups from '@/components/messagePopups.vue';
 import topMenuBar from '@/components/topMenuBar.vue';
@@ -25,11 +28,13 @@ export default {
     return {
       navigationBarData: config.navigationBarData,
       informationBarData: config.informationBarData,
+      navigationBarMobRight: 38,
       widthLevel: 0,
     }
   },
   components: {
     navigationBar,
+    navigationBarMob,
     informationBar,
     messagePopups,
     topMenuBar,
@@ -37,9 +42,24 @@ export default {
     handleClick(event) {
       this.$router.push('/' + event.id);
     },
+    navigationBarMobSwitch(event) {
+      if (event) {
+        this.navigationBarMobRight = 0;
+      } else {
+        this.navigationBarMobRight = 38;
+      }
+    },
     checkScreenSize() {
-      dataRelay().winWidth();
-      this.widthLevel = dataRelay().widthLevel;
+      if (window.innerWidth > 1280) {
+        this.widthLevel = 5;
+      } else if (window.innerWidth > 1024) {
+        this.widthLevel = 4;
+      } else if (window.innerWidth > 600) {
+        this.widthLevel = 3;
+      } else {
+        this.widthLevel = 2;
+      }
+      dataRelay().widthLevel = this.widthLevel;
     },
   },
   watch: {

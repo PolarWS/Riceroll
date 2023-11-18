@@ -12,7 +12,7 @@
 </template>
 <script>
 export default {
-  props: ["iconSvg"]
+  props: ["iconSvg"],
 }
 </script>
 <style scoped>
@@ -61,6 +61,17 @@ export default {
 
   .item {
     grid-template-columns: 1fr 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .title {
+    display: flex;
+    ;
+  }
+
+  .item {
+    grid-template-columns: 1fr 1fr;
   }
 }
 </style>

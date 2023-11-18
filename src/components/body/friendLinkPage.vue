@@ -1,13 +1,13 @@
 <template>
-    <div id="pressed">
+    <div id="pressed" :style="cardBoxAdaptation.grid">
         <div class="cardBox" v-for="(item, index) in itemData.cardList" @click="linkClick(item.url)">
             <div class="cardImg">
                 <img :src="(item.src)" />
                 <div class="state" :class="statePing(this.pingData[index])"></div>
             </div>
             <div class="cardContent">
-                <div class="title">{{ item.title }}</div>
-                <span class="content">{{ item.content }}</span>
+                <div class="title" :style="cardBoxAdaptation.width">{{ item.title }}</div>
+                <span class="content" :style="cardBoxAdaptation.width">{{ item.content }}</span>
             </div>
         </div>
     </div>
@@ -18,7 +18,15 @@ import { useCounterStore } from '../../store/axiosStore.js';
 export default {
     data() {
         return {
-            pingData: Object
+            pingData: Object,
+            cardBoxAdaptation: {
+                'grid': {
+                    'grid-template-columns': '',
+                },
+                'width': {
+                    width: '',
+                },
+            },
         }
     },
     methods: {
@@ -35,13 +43,29 @@ export default {
             } else {
                 return "stateR";
             }
-        }
+        },
+        checkWidth() {
+            const element = document.querySelector('#pressed');
+            if (element.offsetWidth < 600) {
+                this.cardBoxAdaptation.grid['grid-template-columns'] = '1fr';
+                this.cardBoxAdaptation.width.width = '10rem';
+            } else {
+                this.cardBoxAdaptation.grid['grid-template-columns'] = 'repeat(2, 1fr)';
+                this.cardBoxAdaptation.width.width = '9rem';
+            }
+        },
+    }, mounted() {
+        this.checkWidth();
+        window.addEventListener('resize', this.checkWidth);
     }, created() {
         useCounterStore().apiRequest(this.api.url + this.api.frindLinkPage).then(data => {
             if (data.status == 200) {
                 this.pingData = data.ping;
             }
         });
+    }, unmounted() {
+        // 在组件销毁前移除事件监听器
+        window.removeEventListener('resize', this.checkWidth);
     }, props: {
         itemData: Object,
     }, inject: ['api'],
@@ -62,7 +86,6 @@ export default {
     font-weight: 520;
     margin-top: 0;
     margin-bottom: 0.5rem;
-    width: 9rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -75,7 +98,6 @@ export default {
     border: 0.25rem solid var(--color-theme-white);
     position: absolute;
     margin-top: 5rem;
-    /* 处于底部 */
 }
 
 .stateG {
@@ -100,22 +122,9 @@ export default {
 
 #pressed {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin: 1.5rem;
 }
-
-@media (max-width: 80rem) {
-    #pressed {
-        grid-template-columns: 1fr;
-    }
-
-    .content,
-    .title {
-        width: 10rem;
-    }
-}
-
 
 .cardBox {
     display: grid;

@@ -33,15 +33,11 @@ body {
   #app {
     grid-template-columns: 5rem 5fr 0rem;
   }
-
-  .informationBar {
-    display: none;
-  }
 }
 
 @media screen and (max-width: 600px) {
   #app {
-    grid-template-columns: 0rem 1fr 0rem;
+    display: flex;
   }
 }
 
@@ -50,6 +46,7 @@ body {
 :root {
   --color-theme-white: #fff;
   --color-theme-white-2: #ffffffc0;
+  --color-theme-white-3: #fffffff3;
   --color-theme-blue-1: #66bbff;
   --color-theme-blue-2: #66ccff;
   --color-theme-icon-1: #2c2c2c;

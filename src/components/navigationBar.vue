@@ -84,12 +84,11 @@ export default {
             //查找parts[1]在titles中的位置
             const index = titles.indexOf(parts[1]);
             const titleData = this.navigationBarData.titleData[index];
-            console.log(titleData);
             if (titleData.url === undefined) {
+                this.clickItem = index * 5 + 3;
                 this.$emit('handleClick', { id: titleData.id, data: index });
                 // 预渲染阶段，默认选中第二个的文字标题，获取第二个标题的长度
                 const textlen = titleData.title;
-
                 let length = 0;
                 for (let i = 0; i < textlen.length; i++) {
                     const char = textlen.charAt(i);
@@ -117,7 +116,6 @@ export default {
                 this.$emit('handleClick', { id: titleData.id, data: this.navigationBarData.defaultSelected - 1 });
                 // 预渲染阶段，默认选中第二个的文字标题，获取第二个标题的长度
                 const textlen = titleData.title;
-
                 let length = 0;
                 for (let i = 0; i < textlen.length; i++) {
                     const char = textlen.charAt(i);
@@ -141,7 +139,7 @@ export default {
             }
         }
     },
-    beforeDestroy() {
+    unmounted() {
         window.removeEventListener('resize', this.checkScreenSize);
     },
     props: ['navigationBarData']
@@ -173,16 +171,6 @@ export default {
 @media screen and (max-width: 1280px) {
     #selectedItems {
         margin-left: 1rem;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .sideItems {
-        display: none;
-    }
-
-    #selectedItems {
-        display: none;
     }
 }
 </style>
