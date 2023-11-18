@@ -28,7 +28,7 @@ export default {
     return {
       navigationBarData: config.navigationBarData,
       informationBarData: config.informationBarData,
-      navigationBarMobRight: 38,
+      navigationBarMobRight: 50,
       widthLevel: 0,
     }
   },
@@ -46,7 +46,7 @@ export default {
       if (event) {
         this.navigationBarMobRight = 0;
       } else {
-        this.navigationBarMobRight = 38;
+        this.navigationBarMobRight = 50;
       }
     },
     checkScreenSize() {

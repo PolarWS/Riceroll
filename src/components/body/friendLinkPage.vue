@@ -134,7 +134,6 @@ export default {
     justify-content: center;
     border: 2px solid var(--color-theme-grayscale1);
     cursor: pointer;
-
     transition: box-shadow 0.25s;
 }
 
