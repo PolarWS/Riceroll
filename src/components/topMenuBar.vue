@@ -81,6 +81,6 @@ export default {
 
 #topMenuBarIcon:active {
     /* background-color: var(--color-theme-blue-2); */
-    transform: scale(1.15);
+    transform: scale(0.85);
 }
 </style>

@@ -7,9 +7,9 @@
         <template #content>
             <span>{{ announcementBoard.title }}</span>
             <br><br>
-            <span>#字数统计：{{ numberOfWords }}</span>
+            <span>#文章统计：{{ numberOfWords }}</span>
             <br>
-            <span>#评论统计：{{ numberOfComments }}</span>
+            <span>#回复统计：{{ numberOfComments }}</span>
         </template>
     </sideTemplate>
 </template>
@@ -25,7 +25,6 @@ export default {
         }
     },
     beforeMount() {
-        // 渲染前阶段获取日期
         this.date = new Date().getFullYear() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getDate();
     },
     components: {

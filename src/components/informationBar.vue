@@ -12,7 +12,7 @@
                 {{ item.title }}
             </template>
             <template #content>
-                <div v-html="item.html"></div>
+                <markDown :markDownData="item.markdown" />
             </template>
         </sideTemplate>
         <!-- 脚标 -->
@@ -31,7 +31,7 @@ import announcementBoard from './sideModule/announcementBoard.vue';
 import labelBar from './sideModule/labelBar.vue';
 import replyBar from './sideModule/replyBar.vue';
 import sideTemplate from './sideTemplate.vue';
-import { dataRelay } from '@/store/dataRelay.js';
+import markDown from './markDown.vue';
 export default {
     data() {
         return {
@@ -57,6 +57,7 @@ export default {
         replyBar,
         sideTemplate,
         markDownToc,
+        markDown,
     },
     methods: {
         handleScroll() {
@@ -142,5 +143,11 @@ export default {
 
 .footmark a:active {
     color: var(--color-theme-blue-2);
+}
+
+.markdown-body {
+    padding: 0;
+    background-color: var(--color-theme-grayscale1);
+    color: var(--color-theme-grayscale5);
 }
 </style>

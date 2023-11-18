@@ -37,14 +37,8 @@ img {
 .topImg {
     width: 100%;
     height: 20rem;
-    background-size: 100%;
+    background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    transition: background-size 0.5s;
-}
-
-.topImg:hover {
-    background-size: 110%;
 }
 
 .webLink {

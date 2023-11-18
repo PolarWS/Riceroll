@@ -128,7 +128,7 @@ export default {
 }
 
 .content {
-    color: #8A8E90;
+    color: var(--color-theme-grayscale5);
 }
 
 #pressed {
@@ -145,11 +145,15 @@ export default {
     justify-content: center;
     border: 2px solid var(--color-theme-grayscale1);
     cursor: pointer;
-    transition: box-shadow 0.25s;
+    transition: border 0.25s,transform 0.1s;
 }
 
 .cardBox:hover {
-    box-shadow: 0 0 0.5rem 0.02rem var(--color-theme-grayscale2);
+    border: 2px solid var(--color-theme-grayscale3);
+}
+
+.cardBox:active {
+    transform: scale(0.96);
 }
 
 .cardBox img {

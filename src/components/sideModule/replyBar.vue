@@ -16,7 +16,6 @@ import sideTemplate from '../sideTemplate.vue';
 export default {
     data() {
         return {
-            // 此处数据后端请务必做msg截取处理，为了减少带宽和防止页面变形
             msgData: [
                 { id: "dsfsdf", msg: "Anonymous：码农路过，留农路过，", url: "#" },
                 { id: "dfsdff", msg: "千羽：鼠标点击特效好像：鼠标点击特效", url: "#" },

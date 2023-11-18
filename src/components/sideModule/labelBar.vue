@@ -74,18 +74,16 @@ h3 {
     grid-template-columns: 3.5fr 1fr;
 
     border-radius: 0.25rem;
-    transition: font-weight 0s;
+    transition: background-color 0.1s,transform 0.1s;
 }
 
 .labelBar:hover {
     background-color: var(--color-theme-grayscale2);
-    border-radius: 0.25rem;
 }
 
 .labelBar:active {
     background-color: var(--color-theme-grayscale3);
-    border-radius: 0.25rem;
-    transition: background-color 0.1s;
+    transform: scale(0.98);
 }
 
 .labelBar h1 {

@@ -35,4 +35,15 @@ export default {
 .bodyItemTopImg:hover {
     background-size: 110%;
 }
+
+/* 轮询600px取消background-size */
+@media screen and (max-width: 600px) {
+    .bodyItemTopImg {
+        background-size: cover;
+    }
+
+    .bodyItemTopImg:hover {
+        background-size: cover;
+    }
+}
 </style>

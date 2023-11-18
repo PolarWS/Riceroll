@@ -43,10 +43,6 @@ export default {
   font-weight: 600;
 }
 
-.item .icon {
-  transition: transform 0.1s;
-}
-
 .item:hover .icon {
   transform: translateY(-0.25rem);
 }
@@ -56,7 +52,7 @@ export default {
 }
 
 .item:active .icon {
-  transform: scale(1.05);
+  transform: scale(0.85);
 }
 
 @media screen and (max-width: 1280px) {
