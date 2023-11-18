@@ -24,6 +24,7 @@ export default {
 
 .icon {
   justify-content: center;
+  transition: transform 0.1s;
 }
 
 .title {
@@ -43,7 +44,7 @@ export default {
 }
 
 .item .icon {
-  transition: transform 0.2s;
+  transition: transform 0.1s;
 }
 
 .item:hover .icon {
@@ -52,6 +53,10 @@ export default {
 
 .item:active {
   color: var(--color-theme-blue-1);
+}
+
+.item:active .icon {
+  transform: scale(1.05);
 }
 
 @media screen and (max-width: 1280px) {

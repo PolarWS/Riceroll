@@ -19,7 +19,6 @@
     margin: 0 1.5rem 1rem 1.5rem;
     padding: 0.75rem 1.5rem 1.5rem 1.5rem;
     border-radius: 0.75rem;
-
     transition: transform 0.25s, box-shadow 0.25s;
 }
 

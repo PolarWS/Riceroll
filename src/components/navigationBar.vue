@@ -63,19 +63,18 @@ export default {
             }
         },
         checkScreenSize() {
-            if (window.innerWidth <= 1280) {
+            if (dataRelay().widthLevel < 5) {
                 this.selectedItemsIco = false;
                 this.selectedItemsWidth = 3
             } else {
-                this.selectedItemsIco = true;
                 this.selectedItemsWidth = this.selectedItemsWidthAdaptation
+                this.selectedItemsIco = true;
             }
         },
     },
     mounted() {
         this.checkScreenSize();
         window.addEventListener('resize', this.checkScreenSize);
-        this.selectedItemsIco = window.innerWidth > 1280;
         //获取this.$route.path的第一个/到/的字符串
         const titles = this.navigationBarData.titleData.map(title => title.id);
         const path = this.$route.path;

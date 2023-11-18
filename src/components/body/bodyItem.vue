@@ -1,27 +1,39 @@
 <template>
     <div>
-        <div class="topImg">
-            <img :src="itemData.topImg.img" :alt="itemData.topImg.alt">
+        <div class="bodyItemTopImg" :style="`background-image: url(${itemData.title.img})`">
+            <h1>「{{ itemData.title.content }}」</h1>
         </div>
-        <div v-html="itemData.html"></div>
+        <markDown :markDownData="itemData.md" />
     </div>
 </template>
 <script>
+import markDown from '../markDown.vue';
 export default {
     props: {
         itemData: Object,
-    }
+    },
+    components: {
+        markDown,
+    },
 }
 </script>
 <style scoped>
-img {
+.bodyItemTopImg {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 15rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* 居中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-theme-white);
+    background-size: 100%;
+    transition: background-size 0.5s;
 }
 
-.topImg {
-    width: 100%;
-    height: 20rem;
+.bodyItemTopImg:hover {
+    background-size: 115%;
 }
 </style>

@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         navigationBarMobOpen() {
-            this.$emit('navigationBarMobSwitch',true);
+            this.$emit('navigationBarMobSwitch', true);
         },
         handleScroll() {
             if (window.scrollY > this.scrollY) {
@@ -76,5 +76,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform 0.1s;
+}
+
+#topMenuBarIcon:active {
+    /* background-color: var(--color-theme-blue-2); */
+    transform: scale(1.15);
 }
 </style>

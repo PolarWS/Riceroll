@@ -1,8 +1,13 @@
 <template>
-    <h3>searchPage</h3>
+    <bodyItem :itemData="this.itemData"/>
 </template>
 <script>
-export default {}
+import bodyItem from './bodyItem.vue';
+export default{
+    components:{
+        bodyItem,
+    },props:{
+        itemData:Object,
+    }
+}
 </script>
-<style>
-</style>

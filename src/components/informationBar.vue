@@ -6,7 +6,6 @@
             :announcementBoard="informationBarData.default.announcementBoard" />
         <labelBar v-if="informationBarData.default.labelBar.display" :labelBar="informationBarData.default.labelBar" />
         <replyBar v-if="informationBarData.default.replyBar.display" />
-        <replyBar v-if="informationBarData.default.replyBar.display" />
         <!-- 自定义组件 -->
         <sideTemplate v-if="informationBarData.custom.display" v-for="item in informationBarData.custom.content">
             <template #title>
@@ -45,7 +44,6 @@ export default {
             divHeight: 0,
             pageHeight: window.innerHeight,
             markDownDisplay: false,
-            closingOrNot: false,
         }
     },
     watch: {
@@ -115,7 +113,6 @@ export default {
     updated() {
         const computedStyle = window.getComputedStyle(this.$refs.informationBar);
         this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
-        this.closingOrNot = true;
     },
     unmounted() {
         window.removeEventListener('resize', this.handleResize);

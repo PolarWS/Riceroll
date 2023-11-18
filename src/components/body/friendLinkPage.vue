@@ -1,4 +1,5 @@
 <template>
+    <bodyItem :itemData="this.itemData" />
     <div id="pressed" :style="cardBoxAdaptation.grid">
         <div class="cardBox" v-for="(item, index) in itemData.cardList" @click="linkClick(item.url)">
             <div class="cardImg">
@@ -15,6 +16,7 @@
 
 <script>
 import { useCounterStore } from '../../store/axiosStore.js';
+import bodyItem from './bodyItem.vue';
 export default {
     data() {
         return {
@@ -27,7 +29,12 @@ export default {
                     width: '',
                 },
             },
-        }
+        };
+    },
+    components: {
+        bodyItem,
+    }, props: {
+        itemData: Object,
     },
     methods: {
         linkClick(url) {
@@ -36,11 +43,14 @@ export default {
         statePing(delay) {
             if (delay < 50) {
                 return "stateG";
-            } else if (delay < 200) {
+            }
+            else if (delay < 200) {
                 return "stateY";
-            } else if (delay < 998) {
+            }
+            else if (delay < 998) {
                 return "stateO";
-            } else {
+            }
+            else {
                 return "stateR";
             }
         },
@@ -49,7 +59,8 @@ export default {
             if (element.offsetWidth < 600) {
                 this.cardBoxAdaptation.grid['grid-template-columns'] = '1fr';
                 this.cardBoxAdaptation.width.width = '10rem';
-            } else {
+            }
+            else {
                 this.cardBoxAdaptation.grid['grid-template-columns'] = 'repeat(2, 1fr)';
                 this.cardBoxAdaptation.width.width = '9rem';
             }
@@ -123,7 +134,7 @@ export default {
 #pressed {
     display: grid;
     gap: 1rem;
-    margin: 1.5rem;
+    margin: 0 1.5rem 1.5rem 1.5rem;
 }
 
 .cardBox {
@@ -159,5 +170,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: right;
+}
+
+@media screen and (max-width: 600px) {
+    #pressed {
+        margin: 0 1rem 1rem 1rem;
+    }
 }
 </style>

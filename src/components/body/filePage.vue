@@ -1,7 +1,13 @@
 <template>
-    <h3>filePage</h3>
-    <button @click="showPopup">Show Popup</button>
+    <bodyItem :itemData="this.itemData"/>
 </template>
 <script>
-
+import bodyItem from './bodyItem.vue';
+export default{
+    components:{
+        bodyItem,
+    },props:{
+        itemData:Object,
+    }
+}
 </script>
