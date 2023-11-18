@@ -1,8 +1,6 @@
 <template>
     <div class="informationBarToc">
-        <div class="topImg">
-            <img :src="informationBarData.topimg.src" :alt="informationBarData.topimg.alt">
-        </div>
+        <div class="topImg" :style="`background-image: url(${informationBarData.topimg.src})`"></div>
         <div class="avatarImg">
             <img :src="informationBarData.avatar.src" :alt="informationBarData.avatar.alt">
             <div class="blogInformation">
@@ -39,6 +37,14 @@ img {
 .topImg {
     width: 100%;
     height: 20rem;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-size 0.5s;
+}
+
+.topImg:hover {
+    background-size: 110%;
 }
 
 .webLink {

@@ -21,7 +21,7 @@ export default {
 .bodyItemTopImg {
     width: 100%;
     height: 15rem;
-    background-size: cover;
+    background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
     /* 居中 */
@@ -29,11 +29,10 @@ export default {
     justify-content: center;
     align-items: center;
     color: var(--color-theme-white);
-    background-size: 100%;
     transition: background-size 0.5s;
 }
 
 .bodyItemTopImg:hover {
-    background-size: 115%;
+    background-size: 110%;
 }
 </style>

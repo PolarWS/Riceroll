@@ -115,12 +115,11 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
+    background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
     z-index: -1;
-
-    transition: transform 0.4s, filter 0.4s;
+    transition: background-size 0.5s, filter 0.4s;
 }
 
 .articleListCardBox:hover {
@@ -135,7 +134,7 @@ export default {
 
 .articleListCardBox:hover .articleListCardImg {
     filter: blur(2px);
-    transform: scale(1.05);
+    background-size: 108%;
 }
 
 .articleListCardSpan {
@@ -189,4 +188,5 @@ export default {
         margin-top: 6.5rem;
         height: 7.5rem;
     }
-}</style>
+}
+</style>
