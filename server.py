@@ -19,7 +19,14 @@ def hello_world2():
 def hello_world4():
     with open('test.md', 'r', encoding='utf-8') as file:
         content = file.read()
-    return jsonify(content)
+    md = {
+            "title": {
+                "content": "这是一个md",
+                "img": "http://127.0.0.1:5173/src/components/img/7.jpg"
+            },
+            "md": jsonify(content),
+        },
+    return md
 
 @app.route('/articlePage')
 def hello_world3():

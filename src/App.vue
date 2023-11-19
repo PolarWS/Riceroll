@@ -1,8 +1,9 @@
 <template>
   <!-- 导航栏 -->
-  <navigationBar v-if="widthLevel >= 3" @handleClick="handleClick" :navigationBarData="navigationBarData" />
+  <navigationBar v-if="widthLevel >= 3" @handleClick="handleClick" :navigationBarData="navigationBarData" :widthLevel="widthLevel"/>
   <!-- 中心内容页 -->
   <div class="centralFramework">
+    <!-- 导航栏mob -->
     <navigationBarMob v-if="widthLevel < 3" @handleClick="handleClick" @navigationBarMobSwitch="navigationBarMobSwitch"
       :navigationBarData="navigationBarData" :style="{ right: navigationBarMobRight + 'rem' }" />
     <topMenuBar v-if="widthLevel < 3" @navigationBarMobSwitch="navigationBarMobSwitch" />
@@ -29,7 +30,7 @@ export default {
       navigationBarData: config.navigationBarData,
       informationBarData: config.informationBarData,
       navigationBarMobRight: 50,
-      widthLevel: 0,
+      widthLevel: Number,
     }
   },
   components: {

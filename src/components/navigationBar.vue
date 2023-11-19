@@ -16,7 +16,6 @@
 </template>
 <script>
 import sideItem from './sideItem.vue';
-import { dataRelay } from '@/store/dataRelay.js';
 export default {
     data() {
         return {
@@ -24,7 +23,7 @@ export default {
             selectedItemsWidth: Number,
             selectedItemsWidthAdaptation: Number,
             // 选中条与顶部距离
-            clickItem: (this.navigationBarData.defaultSelected - 1) * 5 + 3,
+            clickItem: Number,
             selectedItemsIco: true,
         }
     },
@@ -34,36 +33,16 @@ export default {
     methods: {
         // 判断选中条长度selectedItemsWidth和到顶部的距离clickItem
         handleClick(title, index, id, url) {
+            this.checkScreenSize();
+            this.selectedCalculation();
             if (url === undefined) {
                 this.$emit('handleClick', { id: id, data: index });
-                this.clickItem = index * 5 + 3;
-                const text = title;
-                let length = 0;
-                for (let i = 0; i < text.length; i++) {
-                    const char = text.charAt(i);
-                    if (char <= '\x7F') {
-                        // ASCII字符，通常是英文字符
-                        length += 1;
-                    } else {
-                        // 非ASCII字符，通常是中文字符
-                        length += 2;
-                    }
-                };
-                if (length > 12) {
-                    length = 12;
-                };
-                if (this.selectedItemsIco) {
-                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
-                    this.selectedItemsWidth = this.selectedItemsWidthAdaptation
-                } else {
-                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
-                }
             } else {
                 location.replace(url)
             }
         },
         checkScreenSize() {
-            if (dataRelay().widthLevel < 5) {
+            if (this.widthLevel < 5) {
                 this.selectedItemsIco = false;
                 this.selectedItemsWidth = 3
             } else {
@@ -71,77 +50,69 @@ export default {
                 this.selectedItemsIco = true;
             }
         },
+        selectedCalculation() {
+            const titles = this.navigationBarData.titleData.map(title => title.id);
+            const path = this.$route.path;
+            const parts = path.split('/');
+            if (parts.length >= 2 && titles.includes(parts[1])) {
+                //查找parts[1]在titles中的位置
+                const index = titles.indexOf(parts[1]);
+                const titleData = this.navigationBarData.titleData[index];
+                this.clickItem = index * 5 + 3;
+                const textlen = titleData.title;
+                let length = 0;
+                for (let i = 0; i < textlen.length; i++) {
+                    const char = textlen.charAt(i);
+                    if (char <= '\x7F') {
+                        // ASCII字符，通常是英文字符
+                        length += 1;
+                    } else {
+                        // 非ASCII字符，通常是中文字符
+                        length += 2;
+                    }
+                }
+                if (this.selectedItemsIco) {
+                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                    this.selectedItemsWidth = this.selectedItemsWidthAdaptation
+                } else {
+                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                }
+
+            } else {
+                const titleData = this.navigationBarData.titleData[this.navigationBarData.defaultSelected - 1];
+                const textlen = titleData.title;
+                let length = 0;
+                for (let i = 0; i < textlen.length; i++) {
+                    const char = textlen.charAt(i);
+                    if (char <= '\x7F') {
+                        length += 1;
+                    } else {
+                        length += 2;
+                    }
+                }
+                if (this.selectedItemsIco) {
+                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                    this.selectedItemsWidth = this.selectedItemsWidthAdaptation
+                } else {
+                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                }
+            }
+        }
+    },
+    watch: {
+        '$route'(to, from) {
+            this.selectedCalculation();
+        }
     },
     mounted() {
         this.checkScreenSize();
+        this.selectedCalculation();
         window.addEventListener('resize', this.checkScreenSize);
-        //获取this.$route.path的第一个/到/的字符串
-        const titles = this.navigationBarData.titleData.map(title => title.id);
-        const path = this.$route.path;
-        const parts = path.split('/');
-        if (parts.length >= 2 && titles.includes(parts[1])) {
-            //查找parts[1]在titles中的位置
-            const index = titles.indexOf(parts[1]);
-            const titleData = this.navigationBarData.titleData[index];
-            if (titleData.url === undefined) {
-                this.clickItem = index * 5 + 3;
-                this.$emit('handleClick', { id: titleData.id, data: index });
-                // 预渲染阶段，默认选中第二个的文字标题，获取第二个标题的长度
-                const textlen = titleData.title;
-                let length = 0;
-                for (let i = 0; i < textlen.length; i++) {
-                    const char = textlen.charAt(i);
-                    if (char <= '\x7F') {
-                        // ASCII字符，通常是英文字符
-                        length += 1;
-                    } else {
-                        // 非ASCII字符，通常是中文字符
-                        length += 2;
-                    }
-                }
-                if (this.selectedItemsIco) {
-                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
-                    this.selectedItemsWidth = this.selectedItemsWidthAdaptation
-                } else {
-                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
-                }
-            } else {
-                // 我真不信有人这样干，开局就跳转url
-                location.replace(titleData.url)
-            }
-        } else {
-            const titleData = this.navigationBarData.titleData[this.navigationBarData.defaultSelected - 1];
-            if (titleData.url === undefined) {
-                this.$emit('handleClick', { id: titleData.id, data: this.navigationBarData.defaultSelected - 1 });
-                // 预渲染阶段，默认选中第二个的文字标题，获取第二个标题的长度
-                const textlen = titleData.title;
-                let length = 0;
-                for (let i = 0; i < textlen.length; i++) {
-                    const char = textlen.charAt(i);
-                    if (char <= '\x7F') {
-                        // ASCII字符，通常是英文字符
-                        length += 1;
-                    } else {
-                        // 非ASCII字符，通常是中文字符
-                        length += 2;
-                    }
-                }
-                if (this.selectedItemsIco) {
-                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
-                    this.selectedItemsWidth = this.selectedItemsWidthAdaptation
-                } else {
-                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
-                }
-            } else {
-                // 我真不信有人这样干，开局就跳转url
-                location.replace(titleData.url)
-            }
-        }
     },
     unmounted() {
         window.removeEventListener('resize', this.checkScreenSize);
     },
-    props: ['navigationBarData']
+    props: ['navigationBarData', 'widthLevel']
 }
 </script>
 <style scoped>

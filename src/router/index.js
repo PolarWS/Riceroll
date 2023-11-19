@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import config from '../config.json';
 
 import bodyItem from '@/components/body/bodyItem.vue';
+import pageMD from '@/components/body/pageMD.vue';
 
 const navigationBarData = config.navigationBarData;
 
@@ -33,12 +34,15 @@ for (const allocation of navigationBarData.titleData) {
         pages.push({
             path: '/' + allocation.id,
             props: { itemData: allocation.data },
-            
             component: bodyItem
         });
     }
-
 }
+
+pages.push({
+    path: '/articlePage/:id',
+    component: pageMD
+});
 
 const router = createRouter({
     history: createWebHistory(),

@@ -1,23 +1,34 @@
 <template>
     <div>
-        <div class="bodyItemTopImg" :style="`background-image: url(${itemData.title.img})`">
-            <h1>「{{ itemData.title.content }}」</h1>
+        <div class="bodyItemTopImg" :style="`background-image: url(${markDownData.title.img})`">
+            <h1>「{{ markDownData.title.content }}」</h1>
         </div>
-        <markDown :markDownData="itemData.md" />
+        <markDown :markDownData="markDownData.md" />
     </div>
 </template>
 <script>
 import markDown from '../markDown.vue';
 export default {
-    props: {
-        itemData: Object,
+    data() {
+        return {
+            markDownData: {
+                "title": {
+                    "content": "这是一个md",
+                    "img": "http://127.0.0.1:5173/src/components/img/7.jpg"
+                },
+                "md": "# 摆烂暂时不写"
+            },
+        }
     },
     components: {
         markDown,
     },
+    mounted() {
+
+    }
 }
 </script>
-<style scoped>
+<style>
 .bodyItemTopImg {
     width: 100%;
     height: 15rem;
