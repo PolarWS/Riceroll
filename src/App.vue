@@ -1,6 +1,6 @@
 <template>
   <!-- 导航栏 -->
-  <navigationBar v-if="widthLevel >= 3" @handleClick="handleClick" :navigationBarData="navigationBarData" :widthLevel="widthLevel"/>
+  <navigationBar v-if="widthLevel >= 3" @handleClick="handleClick" :navigationBarData="navigationBarData"/>
   <!-- 中心内容页 -->
   <div class="centralFramework">
     <!-- 导航栏mob -->

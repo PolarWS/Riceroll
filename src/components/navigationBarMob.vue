@@ -40,31 +40,6 @@ export default {
             this.$emit('navigationBarMobSwitch', false);
         },
     },
-    mounted() {
-        //获取this.$route.path的第一个/到/的字符串
-        const titles = this.navigationBarData.titleData.map(title => title.id);
-        const path = this.$route.path;
-        const parts = path.split('/');
-        if (parts.length >= 2 && titles.includes(parts[1])) {
-            //查找parts[1]在titles中的位置
-            const index = titles.indexOf(parts[1]);
-            const titleData = this.navigationBarData.titleData[index];
-            if (titleData.url === undefined) {
-                this.$emit('handleClick', { id: titleData.id, data: index });
-            } else {
-                // 我真不信有人这样干，开局就跳转url
-                location.replace(titleData.url)
-            }
-        } else {
-            const titleData = this.navigationBarData.titleData[this.navigationBarData.defaultSelected - 1];
-            if (titleData.url === undefined) {
-                this.$emit('handleClick', { id: titleData.id, data: this.navigationBarData.defaultSelected - 1 });
-            } else {
-                // 我真不信有人这样干，开局就跳转url
-                location.replace(titleData.url)
-            }
-        }
-    },
     props: ['navigationBarData']
 }
 </script>

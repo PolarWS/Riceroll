@@ -1,6 +1,6 @@
 <template>
     <div class="articleListCard" v-for="(item, index) in this.articleListData">
-        <div class="articleListCardBox">
+        <div class="articleListCardBox" @click="articleListCardBoxClick(item.id)">
             <div class="articleListCardImg" :style="{ backgroundImage: 'url(' + item.img + ')' }"></div>
             <div class="articleListCardSpan">
                 <div class="articleListCardTitle">{{ item.title }}</div>
@@ -44,6 +44,11 @@ export default {
                 this.articleListData = data.data;
             }
         });
+    },
+    methods: {
+        articleListCardBoxClick(event) {
+            this.$router.push('/articlePage/' + event);
+        }
     },
     inject: ['api'],
 }
@@ -106,7 +111,7 @@ export default {
 
     overflow: hidden;
     /* 控制内容溢出的部分被遮住 */
-    transition: box-shadow 0.25s;
+    transition: box-shadow 0.25s, transform 0.1s;
 }
 
 .articleListCardImg {
@@ -124,6 +129,10 @@ export default {
 
 .articleListCardBox:hover {
     box-shadow: 0 0 0.75rem 0.5rem var(--color-theme-grayscale2);
+}
+
+.articleListCardBox:active {
+    transform: scale(0.98);
 }
 
 .articleListCardBox:hover .articleListCardSpan {

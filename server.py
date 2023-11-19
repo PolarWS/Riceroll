@@ -31,6 +31,7 @@ def hello_world4():
 @app.route('/articlePage')
 def hello_world3():
     return {"status":200,"data":[{
+                "id":1,
                 "title": "标题标题标题标题标题标题",
                 "date": "2020-01-01",
                 "wordCount":2333,
@@ -39,6 +40,7 @@ def hello_world3():
                 "img": "src/components/img/3.jpg",
             },
             {
+                "id":2,
                 "title": "标题标题标题",
                 "date": "2020-01-01",
                 "wordCount":2333,
@@ -47,6 +49,7 @@ def hello_world3():
                 "img": "src/components/img/4.png",
             },
             {
+                "id":3,
                 "title": "标题标题2标题23",
                 "date": "2020-01-01",
                 "wordCount":2333,
@@ -55,6 +58,7 @@ def hello_world3():
                 "img": "src/components/img/1.jpg",
             },
             {
+                "id":4,
                 "title": "标题标题标题",
                 "date": "2020-01-01",
                 "wordCount":2333,
@@ -63,6 +67,7 @@ def hello_world3():
                 "img": "src/components/img/4.png",
             },
             {
+                "id":5,
                 "title": "标题标题2标题23",
                 "date": "2020-01-01",
                 "wordCount":2333,
@@ -71,6 +76,7 @@ def hello_world3():
                 "img": "src/components/img/1.jpg",
             },
             {
+                "id":6,
                 "title": "标题4",
                 "date": "2020-01-01",
                 "wordCount":2333,

@@ -38,15 +38,15 @@ export default {
             if (url === undefined) {
                 this.$emit('handleClick', { id: id, data: index });
             } else {
-                location.replace(url)
+                location.replace(url);
             }
         },
         checkScreenSize() {
-            if (this.widthLevel < 5) {
+            if (window.innerWidth < 1280) {
                 this.selectedItemsIco = false;
-                this.selectedItemsWidth = 3
+                this.selectedItemsWidth = 3;
             } else {
-                this.selectedItemsWidth = this.selectedItemsWidthAdaptation
+                this.selectedItemsWidth = this.selectedItemsWidthAdaptation;
                 this.selectedItemsIco = true;
             }
         },
@@ -112,7 +112,7 @@ export default {
     unmounted() {
         window.removeEventListener('resize', this.checkScreenSize);
     },
-    props: ['navigationBarData', 'widthLevel']
+    props: ['navigationBarData']
 }
 </script>
 <style scoped>
