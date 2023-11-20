@@ -79,6 +79,7 @@ export default {
                 }
 
             } else {
+                this.clickItem = (this.navigationBarData.defaultSelected - 1) * 5 + 3;
                 const titleData = this.navigationBarData.titleData[this.navigationBarData.defaultSelected - 1];
                 const textlen = titleData.title;
                 let length = 0;

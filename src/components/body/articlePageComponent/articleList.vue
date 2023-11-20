@@ -5,7 +5,7 @@
             <div class="articleListCardSpan">
                 <div class="articleListCardTitle">{{ item.title }}</div>
                 <div class="articleListCardData">
-                    <div class="articleListCardDate">
+                    <div class="articleListCardItem">
                         <svg t="1700204012481" class="icon" viewBox="0 0 1024 1024" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" p-id="11426" width="15" height="15">
                             <path
@@ -14,7 +14,7 @@
                         </svg>
                         <span>{{ item.date }}</span>
                     </div>
-                    <div class="articleListCardDate">
+                    <div class="articleListCardItem">
                         <svg t="1700205663159" class="icon" viewBox="0 0 1024 1024" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" p-id="2420" width="18" height="18">
                             <path
@@ -59,7 +59,6 @@ export default {
     margin-bottom: 0.3rem;
     color: var(--color-theme-white);
     font-weight: 550;
-
     width: 100%;
     display: block;
     overflow: hidden;
@@ -73,7 +72,7 @@ export default {
     transition: line-height 0.15s;
 }
 
-.articleListCardDate {
+.articleListCardItem {
     margin-right: 0.75rem;
     color: var(--color-theme-grayscale1);
     font-weight: 550;
@@ -81,7 +80,7 @@ export default {
     align-items: center;
 }
 
-.articleListCardDate span {
+.articleListCardItem span {
     margin-left: 0.35rem;
 }
 

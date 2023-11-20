@@ -101,6 +101,7 @@ export default {
         },
         handleResize() {
             this.pageHeight = window.innerHeight;
+            this.handleScroll();
         },
     },
     mounted() {
