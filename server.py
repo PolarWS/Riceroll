@@ -24,9 +24,11 @@ def hello_world4():
                 "content": "这是一个md",
                 "img": "http://127.0.0.1:5173/src/components/img/7.jpg"
             },
-            "md": jsonify(content),
-        },
-    return md
+            "md": content,
+            "date": "2021-01-01",
+            "wordCount": "1000",
+        }
+    return jsonify(md)
     
 
 @app.route('/articlePage')

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="renderBoolean">
         <div id="bodyItemTopImg" :style="`background-image: url(${markDownData.title.img})`">
             <div id="bodyItemTopTitle">
                 <h1>「{{ markDownData.title.content }}」</h1>
@@ -30,26 +30,21 @@
 </template>
 <script>
 import markDown from '../markDown.vue';
+import { useCounterStore } from '../../store/axiosStore.js';
 export default {
     data() {
         return {
-            markDownData: {
-                "title": {
-                    "content": "这是一个md",
-                    "img": "http://127.0.0.1:5173/src/components/img/7.jpg"
-                },
-                "md": "# 摆烂暂时不写",
-                "date": "2021-01-01",
-                "wordCount": "1000",
-            },
+            renderBoolean: false,
+            markDownData: {},
         }
-    },
-    components: {
+    }, mounted() {
+        useCounterStore().apiRequest(this.api.url + "md").then(data => {
+            this.markDownData = data;
+            this.renderBoolean = true;
+        });
+    }, components: {
         markDown,
-    },
-    mounted() {
-
-    }
+    }, inject: ['api'],
 }
 </script>
 <style>

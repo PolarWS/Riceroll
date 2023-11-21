@@ -21,10 +21,23 @@ export default {
         this.$nextTick(() => {
             const blocks = document.querySelectorAll('pre code');
             blocks.forEach((block) => {
-                hljs.highlightBlock(block);
+                block.textContent = this.escapeHTML(block.textContent);
+                hljs.highlightElement(block);
             });
         });
     },
+    methods: {
+        escapeHTML(str) {
+            return str.replace(/[&<>'"]/g,
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag]));
+        }
+    }
 }
 </script>
 <style scoped>
