@@ -8,7 +8,13 @@
       :navigationBarData="navigationBarData" :style="{ right: navigationBarMobRight + 'rem' }" />
     <topMenuBar v-if="widthLevel < 3" @navigationBarMobSwitch="navigationBarMobSwitch" />
     <messagePopups />
-    <router-view></router-view>
+    <RouterView v-slot="{ Component }">
+      <transition-group name="fade">
+        <div :key="$route.fullPath">
+          <component :is="Component" />
+        </div>
+      </transition-group>
+    </RouterView>
   </div>
   <!-- 侧边栏 -->
   <div v-if="widthLevel > 3">
@@ -98,5 +104,29 @@ export default {
   }
 }
 
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-enter-to {
+  opacity: 1;
+}
+
+.fade-leave-active {
+  transition: opacity 0.15s;
+}
+
+.fade-enter-active {
+  transition: opacity .15s;
+  transition-delay: 0.2s;
+}
+
+.fade-leave-from {
+  opacity: 1;
+}
+
+.fade-leave-to {
+  opacity: 0;
+}
 </style>
 

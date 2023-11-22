@@ -59,7 +59,7 @@
                 "data": {
                     "title": {
                         "content": "搜索",
-                        "img": "./src/components/img/avatar.jpg"
+                        "img": "./src/components/img/zhuye.png"
                     },
                     "md": "> 啊啊啊啊啊啊啊啊啊啊啊"
                 }
@@ -211,6 +211,6 @@
         "url": "http://127.0.0.1:5000/",
         "frindLinkPage": "frindLinkPage",
         "articlePage": "articlePage",
-        "markdown":"md"
+        "markdown":"/md?id="
     }
 }

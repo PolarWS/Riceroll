@@ -17,34 +17,21 @@ export default {
     props: {
         markDownData: String,
     },
-    mounted() {
+    updated() {
         this.$nextTick(() => {
             const blocks = document.querySelectorAll('pre code');
             blocks.forEach((block) => {
-                block.textContent = this.escapeHTML(block.textContent);
-                hljs.highlightElement(block);
+                hljs.highlightBlock(block);
             });
         });
     },
-    methods: {
-        escapeHTML(str) {
-            return str.replace(/[&<>'"]/g,
-                tag => ({
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    "'": '&#39;',
-                    '"': '&quot;'
-                }[tag]));
-        }
-    }
 }
 </script>
+
 <style scoped>
 .markdown-body {
     padding: 1.5rem;
 }
-
 
 @media screen and (max-width: 600px) {
     .markdown-body {

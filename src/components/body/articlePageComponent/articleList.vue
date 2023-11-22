@@ -1,5 +1,5 @@
 <template>
-    <div class="articleListCard" v-for="(item, index) in this.articleListData">
+    <div v-if="renderBoolean" class="articleListCard" v-for="(item, index) in this.articleListData">
         <div class="articleListCardBox" @click="articleListCardBoxClick(item.id)">
             <div class="articleListCardImg" :style="{ backgroundImage: 'url(' + item.img + ')' }"></div>
             <div class="articleListCardSpan">
@@ -30,20 +30,26 @@
             </div>
         </div>
     </div>
+    <loadingDynamicEffect v-show="!renderBoolean" />
 </template>
 <script>
+import loadingDynamicEffect from '../../loadingDynamicEffect.vue';
 import { useCounterStore } from '../../../store/axiosStore.js';
 export default {
     data() {
         return {
+            renderBoolean: false,
             articleListData: Object,
         }
     }, created() {
         useCounterStore().apiRequest(this.api.url + this.api.articlePage).then(data => {
             if (data.status == 200) {
                 this.articleListData = data.data;
+                this.renderBoolean = true;
             }
         });
+    }, components: {
+        loadingDynamicEffect,
     },
     methods: {
         articleListCardBoxClick(event) {
@@ -97,6 +103,19 @@ export default {
     max-width: 45rem;
     margin-left: auto;
     margin-right: auto;
+
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .articleListCardBox {
@@ -196,5 +215,4 @@ export default {
         margin-top: 6.5rem;
         height: 7.5rem;
     }
-}
-</style>
+}</style>

@@ -1,7 +1,9 @@
 <template>
     <div>
         <div class="bodyItemTopImg" :style="`background-image: url(${itemData.title.img})`">
-            <h1>「{{ itemData.title.content }}」</h1>
+            <div class="brightnessAdjustment">
+                <h1>「{{ itemData.title.content }}」</h1>
+            </div>
         </div>
         <markDown :markDownData="itemData.md" />
     </div>
@@ -24,11 +26,17 @@ export default {
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
+    transition: background-size 0.5s;
+}
+
+.brightnessAdjustment {
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     color: var(--color-theme-white);
-    transition: background-size 0.5s;
+    background-color: var(--color-theme-black0);
 }
 
 .bodyItemTopImg:hover {

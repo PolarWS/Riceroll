@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 import random
 import os
+import time
 
 app = Flask(__name__)
 CORS(app, origins=['http://127.0.0.1:5173'])
@@ -28,11 +29,14 @@ def hello_world4():
             "date": "2021-01-01",
             "wordCount": "1000",
         }
+    time.sleep(1)
     return jsonify(md)
     
 
 @app.route('/articlePage')
 def hello_world3():
+    # 延迟1S
+    time.sleep(1)
     return {"status":200,"data":[{
                 "id":1,
                 "title": "标题标题标题标题标题标题",
