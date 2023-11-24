@@ -1,11 +1,13 @@
 <template>
-    <div>
-        music
-    </div>
+    <bodyItem :itemData="this.itemData"/>
 </template>
-  
 <script>
-export default {
-    props: ['itemData'],
+import bodyItem from './bodyItem.vue';
+export default{
+    components:{
+        bodyItem,
+    },props:{
+        itemData:Object,
+    }
 }
 </script>

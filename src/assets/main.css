@@ -41,8 +41,6 @@ body {
   }
 }
 
-
-
 :root {
   --color-theme-white: #fff;
   --color-theme-white-2: #ffffffc0;
@@ -67,8 +65,11 @@ body {
   --color-theme-Y: #FFD65F;
   --color-theme-O: #F8A978;
   --color-theme-R: #FF5F5F;
+
+  --color-theme-msg-G: #79ff49;
+  --color-theme-msg-Y: #ffd556;
+  --color-theme-msg-O: #ff9e62;
+  --color-theme-msg-R: #ff6d6d;
+  
   --color-theme-selected: #FF7070;
 }
-
-
-/* 后面还要适配平板和手机的断点后面再写 */

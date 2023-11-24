@@ -42,12 +42,24 @@ export default {
             articleListData: Object,
         }
     }, created() {
-        useCounterStore().apiRequest(this.api.url + this.api.articlePage).then(data => {
-            if (data.status == 200) {
-                this.articleListData = data.data;
-                this.renderBoolean = true;
-            }
-        });
+        useCounterStore().apiRequest(this.api.url + this.api.articlePage)
+            .then(data => {
+                if (data.status == 200) {
+                    this.articleListData = data.data;
+                    this.renderBoolean = true;
+                } else {
+                    this.$root.myMethod({
+                        message: '服务器错误',
+                        Color: 'messageY',
+                    });
+                }
+            })
+            .catch(error => {
+                this.$root.myMethod({
+                    message: '服务器连接失败',
+                    Color: 'messageR',
+                });
+            });
     }, components: {
         loadingDynamicEffect,
     },
@@ -215,4 +227,5 @@ export default {
         margin-top: 6.5rem;
         height: 7.5rem;
     }
-}</style>
+}
+</style>

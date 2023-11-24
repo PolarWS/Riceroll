@@ -77,7 +77,6 @@ export default {
                 } else {
                     this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
                 }
-
             } else {
                 this.clickItem = (this.navigationBarData.defaultSelected - 1) * 5 + 3;
                 const titleData = this.navigationBarData.titleData[this.navigationBarData.defaultSelected - 1];
@@ -102,7 +101,9 @@ export default {
     },
     watch: {
         '$route'(to, from) {
-            this.selectedCalculation();
+            if (to.path != from.path) {
+                this.selectedCalculation();
+            }
         }
     },
     mounted() {

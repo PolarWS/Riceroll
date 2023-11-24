@@ -69,11 +69,23 @@ export default {
         this.checkWidth();
         window.addEventListener('resize', this.checkWidth);
     }, created() {
-        useCounterStore().apiRequest(this.api.url + this.api.frindLinkPage).then(data => {
-            if (data.status == 200) {
-                this.pingData = data.ping;
-            }
-        });
+        useCounterStore().apiRequest(this.api.url + this.api.frindLinkPage)
+            .then(data => {
+                if (data.status == 200) {
+                    this.pingData = data.ping;
+                } else {
+                    this.$root.myMethod({
+                        message: '服务器错误',
+                        Color: 'messageY',
+                    });
+                }
+            })
+            .catch(error => {
+                this.$root.myMethod({
+                    message: '服务器连接失败',
+                    Color: 'messageR',
+                });
+            });
     }, unmounted() {
         // 在组件销毁前移除事件监听器
         window.removeEventListener('resize', this.checkWidth);
@@ -145,7 +157,7 @@ export default {
     justify-content: center;
     border: 2px solid var(--color-theme-grayscale1);
     cursor: pointer;
-    transition: border 0.25s,transform 0.1s;
+    transition: border 0.25s, transform 0.1s;
 }
 
 .cardBox:hover {

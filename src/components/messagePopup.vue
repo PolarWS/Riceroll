@@ -25,19 +25,19 @@ export default {
 }
 
 .messageG {
-    background-color: var(--color-theme-G);
+    background-color: var(--color-theme-msg-G);
 }
 
 .messageY {
-    background-color: var(--color-theme-Y);
+    background-color: var(--color-theme-msg-Y);
 }
 
 .messageO {
-    background-color: var(--color-theme-O);
+    background-color: var(--color-theme-msg-O);
 }
 
 .messageR {
-    background-color: var(--color-theme-R);
+    background-color: var(--color-theme-msg-R);
 }
 
 @keyframes fadeInOut {

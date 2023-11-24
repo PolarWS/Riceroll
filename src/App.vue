@@ -7,14 +7,15 @@
     <navigationBarMob v-if="widthLevel < 3" @handleClick="handleClick" @navigationBarMobSwitch="navigationBarMobSwitch"
       :navigationBarData="navigationBarData" :style="{ right: navigationBarMobRight + 'rem' }" />
     <topMenuBar v-if="widthLevel < 3" @navigationBarMobSwitch="navigationBarMobSwitch" />
-    <messagePopups />
+    <messagePopups ref="messagePopups" />
     <RouterView v-slot="{ Component }">
       <transition-group name="fade">
-        <div :key="$route.fullPath">
+        <div :key="$route.path">
           <component :is="Component" />
         </div>
       </transition-group>
     </RouterView>
+    <!-- <router-view></router-view> -->
   </div>
   <!-- 侧边栏 -->
   <div v-if="widthLevel > 3">
@@ -49,6 +50,9 @@ export default {
     handleClick(event) {
       this.$router.push('/' + event.id);
     },
+    myMethod(event) {
+      this.$refs.messagePopups.showPopup(event);
+    },
     navigationBarMobSwitch(event) {
       if (event) {
         this.navigationBarMobRight = 0;
@@ -68,9 +72,6 @@ export default {
       }
       dataRelay().widthLevel = this.widthLevel;
     },
-  },
-  watch: {
-
   },
   created() {
     this.checkScreenSize();

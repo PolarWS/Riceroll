@@ -46,7 +46,7 @@ pages.push({
 
 const router = createRouter({
     history: createWebHistory(),
-    routes: pages
+    routes: pages,
 })
 
 export default router

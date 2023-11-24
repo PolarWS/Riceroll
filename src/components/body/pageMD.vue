@@ -40,13 +40,39 @@ export default {
         return {
             renderBoolean: false,
             markDownData: {},
+            markdownID: "",
         }
     }, mounted() {
-        const markdownID = this.$route.path.split('/');
-        useCounterStore().apiRequest(this.api.url + this.api.markdown + markdownID[markdownID.length - 1]).then(data => {
-            this.markDownData = data;
-            this.renderBoolean = true;
-        });
+        this.markdownID = this.$route.path.split('/');
+        useCounterStore().apiRequest(this.api.url + this.api.markdown + this.markdownID[this.markdownID.length - 1])
+            .then(data => {
+                if (data.status == 200) {
+                    this.markDownData = data;
+                    this.renderBoolean = true;
+                    const q = this.$route.fullPath.split('/');
+                    if (q[q.length - 1].split('#').length > 1) {
+                        const anchor = q[q.length - 1].split('#')[1];
+                        setTimeout(() => {
+                            const anchorElement = document.getElementById(anchor);
+                            if (anchorElement) {
+                                anchorElement.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }, 1000);
+                    }
+                } else {
+                    this.$root.myMethod({
+                        message: '服务器错误',
+                        Color: 'messageY',
+                    });
+                }
+            })
+            .catch(error => {
+                this.$root.myMethod({
+                    message: '服务器连接失败',
+                    Color: 'messageR',
+                });
+            });
+
     }, components: {
         markDown,
         loadingDynamicEffect,

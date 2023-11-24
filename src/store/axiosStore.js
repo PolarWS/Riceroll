@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const useCounterStore = defineStore('counter', {
     state: () => ({
-
+        markdownData : {id:"", content:{}},
     }),
     actions: {
         async apiRequest(url) {
