@@ -114,6 +114,9 @@ export default {
     unmounted() {
         window.removeEventListener('resize', this.checkScreenSize);
     },
+    beforeUnmount() {
+        window.removeEventListener('resize', this.checkScreenSize);
+    },
     props: ['navigationBarData']
 }
 </script>

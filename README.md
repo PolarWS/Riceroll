@@ -25,4 +25,3 @@
 
 # 🎃这是我们的logo
 ![](https://raw.githubusercontent.com/PolarWS/Riceroll/master/img/logo.png)
-正在努力开发ing

@@ -21,7 +21,8 @@ export default {
         this.$nextTick(() => {
             const blocks = document.querySelectorAll('pre code');
             blocks.forEach((block) => {
-                hljs.highlightBlock(block);
+                const result = hljs.highlightAuto(block.textContent);
+                block.innerHTML = result.value;
             });
         });
     },

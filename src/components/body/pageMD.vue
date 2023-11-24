@@ -1,5 +1,5 @@
 <template>
-    <div v-if="renderBoolean" class="pageMD">
+    <div v-show="renderBoolean" class="pageMD">
         <div id="bodyItemTopImg" :style="`background-image: url(${markDownData.title.img})`">
             <div class="brightnessAdjustment">
                 <div id="bodyItemTopTitle">
@@ -39,10 +39,19 @@ export default {
     data() {
         return {
             renderBoolean: false,
-            markDownData: {},
+            markDownData: {
+                "title": {
+                    "content": "",
+                    "img": ""
+                },
+                "md": "",
+                "date": "",
+                "wordCount": "",
+            },
             markdownID: "",
         }
-    }, mounted() {
+    },
+    mounted() {
         this.markdownID = this.$route.path.split('/');
         useCounterStore().apiRequest(this.api.url + this.api.markdown + this.markdownID[this.markdownID.length - 1])
             .then(data => {
@@ -72,7 +81,24 @@ export default {
                     Color: 'messageR',
                 });
             });
-
+        window.addEventListener('scroll', this.checkAnchorInViewport, false);
+    }, methods: {
+        checkAnchorInViewport() {
+            const anchors = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            let currentAnchor = '';
+            for (let i = 0; i < anchors.length; i++) {
+                const anchor = anchors[i];
+                const rect = anchor.getBoundingClientRect();
+                if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+                    currentAnchor = anchor.id;
+                    break;
+                }
+            }
+        },
+    }, unmounted() {
+        window.removeEventListener('scroll', this.checkAnchorInViewport);
+    }, beforeUnmount() {
+        window.removeEventListener('scroll', this.checkAnchorInViewport);
     }, components: {
         markDown,
         loadingDynamicEffect,

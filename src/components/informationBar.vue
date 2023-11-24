@@ -120,6 +120,10 @@ export default {
         window.removeEventListener('resize', this.handleResize);
         window.removeEventListener('scroll', this.handleScroll);
     },
+    beforeUpdate() {
+        window.removeEventListener('resize', this.handleResize);
+        window.removeEventListener('scroll', this.handleScroll);
+    },
     props: ["informationBarData"],
 }
 </script>

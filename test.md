@@ -363,4 +363,3 @@ Friday the 13^th^
 
     Subsequent paragraphs are indented to show that they
 belong to the previous footnote.
-

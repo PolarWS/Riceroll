@@ -15,10 +15,9 @@
         </div>
       </transition-group>
     </RouterView>
-    <!-- <router-view></router-view> -->
   </div>
   <!-- 侧边栏 -->
-  <div v-if="widthLevel > 3">
+  <div v-show="widthLevel > 3" v-if="widthLevel > 2">
     <informationBar :informationBarData="informationBarData" />
   </div>
 </template>
