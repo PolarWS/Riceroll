@@ -48,5 +48,6 @@
 
 .announcementBoardTitleContent {
     margin: 0.5rem;
+    color: var(--color-theme-grayscale5);
 }
 </style>

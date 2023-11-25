@@ -66,7 +66,9 @@ export default {
 <style scoped>
 h3 {
     margin: 0.1rem;
+    color: var(--color-theme-black);
 }
+
 
 .labelBar {
     display: grid;

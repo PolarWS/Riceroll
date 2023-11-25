@@ -22,7 +22,7 @@
 + **2011**年7月19日，因被控从MIT和JSTOR下载480万篇学术论文并以免费形式上传于网络被捕。     
 + **2013**年1月自杀身亡。    
 
-![Aaron Swartz](https://github.com/younghz/Markdown/raw/master/resource/Aaron_Swartz.jpg)
+<!-- ![Aaron Swartz](https://github.com/younghz/Markdown/raw/master/resource/Aaron_Swartz.jpg) -->
 
 天才都有早逝的归途。
 
@@ -325,7 +325,7 @@ Here is a footnote reference,[^1] and another.[^longnote]
 
 ## [markdown-it-highlightjs](https://github.com/valeriangalliat/markdown-it-highlightjs)
 ```python
-print("Hello World! This is Python.")
+print('Hello World! This is Python.')
 ```
 
 ```js
@@ -354,8 +354,6 @@ Friday the 13^th^
 - [x] Procrastinating
 
 ## [markdown-it-toc-done-right](https://github.com/nagaozen/markdown-it-toc-done-right)
-
-[toc]
 
 [^1]: Here is the footnote.
 

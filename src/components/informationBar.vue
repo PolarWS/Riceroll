@@ -12,17 +12,17 @@
                 {{ item.title }}
             </template>
             <template #content>
-                <markDown :markDownData="item.markdown" />
+                <markDown :markDownData="item.markdown"/>
             </template>
         </sideTemplate>
         <!-- 脚标 -->
         <div v-for="item in informationBarData.footmark" class="footmark">
             <a :href="item.url">{{ item.title }}</a>
         </div>
-    </div>
-    <!-- markDown[toc]组件 -->
-    <div class="informationBar" ref="informationBar" v-if="markDownDisplay">
-        <markDownToc />
+        <!-- markDown[toc]组件 -->
+        <div class="informationBar" ref="informationBar" v-show="markDownDisplay">
+            <markDownToc />
+        </div>
     </div>
 </template>
 <script>
@@ -148,11 +148,5 @@ export default {
 
 .footmark a:active {
     color: var(--color-theme-blue-2);
-}
-
-.markdown-body {
-    padding: 0;
-    background-color: var(--color-theme-grayscale1);
-    color: var(--color-theme-grayscale5);
 }
 </style>

@@ -43,6 +43,7 @@ body {
 
 :root {
   --color-theme-white: #fff;
+  --color-theme-black: #000;
   --color-theme-white-2: #ffffffc0;
   --color-theme-white-3: #fffffff3;
   --color-theme-blue-1: #66bbff;

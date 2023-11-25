@@ -2,34 +2,32 @@
 <template>
     <sideTemplate>
         <template #content>
-            <markDown :markDownData="markDownData" />
+            <div v-html="markDownToc" class="markDownToc"></div>
         </template>
     </sideTemplate>
 </template>
 <script>
 import sideTemplate from '../sideTemplate.vue';
-import markDown from '../markDown.vue';
 export default {
     data() {
         return {
-            markDownData: "",
+            markDownToc: "",
         }
     },
     components: {
         sideTemplate,
-        markDown,
     },
 }
 </script>
 <style scoped>
-.markdown-body {
+.markDownToc {
     width: 14rem;
     padding: 0rem;
     background-color: var(--color-theme-grayscale1);
 }
 
 @media screen and (max-width: 1280px) {
-    .markdown-body {
+    .markDownToc {
         width: 13rem;
     }
 }

@@ -1,4 +1,6 @@
 import './assets/main.css';
+import './assets/Markdown/markdown.css';
+import './assets/Markdown/highlight.js/github.css'
 
 import { createApp } from 'vue';
 import { createPinia } from 'pinia'

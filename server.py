@@ -1,9 +1,11 @@
 from flask import Flask, jsonify
+import markdown_code_blocks
 from flask_cors import CORS
 import random
 import markdown
 import os
 import time
+from markdown_code_blocks import highlight
 
 app = Flask(__name__)
 CORS(app, origins=['http://127.0.0.1:5173'])
@@ -25,14 +27,13 @@ def hello_world4():
             "status":200,
             "title": {
                 "content": "这是一个md",
-                "img": "http://127.0.0.1:5173/src/components/img/7.jpg"
+                "img": "http://127.0.0.1:5173/src/components/img/4.png"
             },
-            # "md": markdown.markdown(content),
+            # "md": highlight(content),
             "md": content,
             "date": "2021-01-01",
             "wordCount": "1000",
         }
-    time.sleep(1)
     return jsonify(md)
     
 

@@ -6,9 +6,6 @@
 
 <script>
 import Markdown from 'vue3-markdown-it';
-import hljs from 'highlight.js';
-import 'highlight.js/styles/github.css';
-import '../assets/github-markdown.css';
 
 export default {
     components: {
@@ -16,15 +13,6 @@ export default {
     },
     props: {
         markDownData: String,
-    },
-    updated() {
-        this.$nextTick(() => {
-            const blocks = document.querySelectorAll('pre code');
-            blocks.forEach((block) => {
-                const result = hljs.highlightAuto(block.textContent);
-                block.innerHTML = result.value;
-            });
-        });
     },
 }
 </script>

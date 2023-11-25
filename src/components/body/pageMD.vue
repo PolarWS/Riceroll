@@ -106,6 +106,16 @@ export default {
 }
 </script>
 <style scoped>
+.markdown-body {
+    padding: 1.5rem;
+}
+
+@media screen and (max-width: 600px) {
+    .markdown-body {
+        padding: 1rem;
+    }
+}
+
 .pageMD {
     animation-name: fadeIn;
     animation-duration: 0.5s;

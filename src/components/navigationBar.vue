@@ -121,6 +121,10 @@ export default {
 }
 </script>
 <style scoped>
+.sideItems {
+    user-select: none;
+}
+
 .navigationBar {
     height: 100vh;
     width: 100%;
