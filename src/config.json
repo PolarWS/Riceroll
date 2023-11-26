@@ -17,11 +17,11 @@
                 "data": {
                     "informationBarData": {
                         "topimg": {
-                            "src": "/src/components/img/zhuye.png",
+                            "src": "/src/img/ava.webp",
                             "alt": "topimg"
                         },
                         "avatar": {
-                            "src": "/src/components/img/avatar.jpg",
+                            "src": "/src/img/1.webp",
                             "alt": "avatar"
                         },
                         "blogInformation": {
@@ -59,7 +59,7 @@
                 "data": {
                     "title": {
                         "content": "搜索",
-                        "img": "./src/components/img/zhuye.png"
+                        "img": "/src/img/2.webp"
                     },
                     "md": "> 啊啊啊啊啊啊啊啊啊啊啊"
                 }
@@ -72,7 +72,7 @@
                 "data": {
                     "title": {
                         "content": "留言",
-                        "img": "./src/components/img/6.jpg"
+                        "img": "/src/img/3.webp"
                     },
                     "md": "# hello"
                 }
@@ -85,7 +85,7 @@
                 "data": {
                     "title": {
                         "content": "音乐",
-                        "img": "./src/components/img/7.jpg"
+                        "img": "/src/img/4.webp"
                     },
                     "md": "# 摆烂暂时不写"
                 }
@@ -98,7 +98,7 @@
                 "data": {
                     "title": {
                         "content": "归档",
-                        "img": "./src/components/img/7.jpg"
+                        "img": "/src/img/5.webp"
                     },
                     "md": "# 摆烂暂时不写"
                 }
@@ -111,36 +111,36 @@
                 "data": {
                     "title": {
                         "content": "友链",
-                        "img": "./src/components/img/6.jpg"
+                        "img": "/src/img/6.webp"
                     },
                     "md": "#  你好这里是鸦的小窝  \n> 本站名字： 渡鸦的小窝  \n> 本站网址： https://polarws.moe/  \n> 头像网址：https://polarws.moe/img/avatar.webp  \n> 本站简介：恭喜你发现了一只鸭",
                     "cardList": [
                         {
-                            "src": "/src/components/img/1.jpg",
+                            "src": "/src/img/1.webp",
                             "title": "PolarWS",
                             "content": "看什么看，内容没见过啊！",
                             "url": "https://www.a.com"
                         },
                         {
-                            "src": "/src/components/img/avatar.jpg",
+                            "src": "/src/img/3.webp",
                             "title": "PolarWS",
                             "content": "看什么看，内容没见过啊！",
                             "url": "https://www.b.com"
                         },
                         {
-                            "src": "/src/components/img/avatar.jpg",
+                            "src": "/src/img/4.webp",
                             "title": "PolarWS",
                             "content": "看什么看，内容没见过啊！",
                             "url": "https://www.c.com"
                         },
                         {
-                            "src": "/src/components/img/avatar.jpg",
+                            "src": "/src/img/5.webp",
                             "title": "PolarWS",
                             "content": "看什么看，内容没见过啊！",
                             "url": "https://www.d.com"
                         },
                         {
-                            "src": "/src/components/img/avatar.jpg",
+                            "src": "/src/img/1.webp",
                             "title": "PolarWS",
                             "content": "看什么看，内容没见过啊！",
                             "url": "https://www.e.com"
@@ -156,7 +156,7 @@
                 "data": {
                     "title": {
                         "content": "关于",
-                        "img": "./src/components/img/7.jpg"
+                        "img": "/src/img/7.webp"
                     },
                     "md": "# hello"
                 }

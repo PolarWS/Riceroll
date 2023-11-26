@@ -31,7 +31,7 @@ img {
 
 .informationBarToc {
     height: auto;
-    border-bottom: 2px solid var(--color-theme-grayscale1);
+    border-bottom: 2px solid var(--color-theme-frame1);
 }
 
 .topImg {

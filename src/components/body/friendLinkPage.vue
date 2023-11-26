@@ -155,7 +155,7 @@ export default {
     height: 9.5rem;
     grid-template-columns: 2fr 3fr;
     justify-content: center;
-    border: 2px solid var(--color-theme-grayscale1);
+    border: 2px solid var(--color-theme-frame1);
     cursor: pointer;
     transition: border 0.25s, transform 0.1s;
 }

@@ -27,7 +27,7 @@ def hello_world4():
             "status":200,
             "title": {
                 "content": "这是一个md",
-                "img": "http://127.0.0.1:5173/src/components/img/4.png"
+                "img": "http://127.0.0.1:5173/src/img/4.webp"
             },
             # "md": highlight(content),
             "md": content,
@@ -48,7 +48,7 @@ def hello_world3():
                 "wordCount":2333,
                 "url": "文章链接",
                 "content": "文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容",
-                "img": "src/components/img/3.jpg",
+                "img": "src/img/2.webp",
             },
             {
                 "id":2,
@@ -57,7 +57,7 @@ def hello_world3():
                 "wordCount":2333,
                 "url": "文章链接",
                 "content": "文章内容",
-                "img": "src/components/img/4.png",
+                "img": "src/img/3.webp",
             },
             {
                 "id":3,
@@ -66,7 +66,7 @@ def hello_world3():
                 "wordCount":2333,
                 "url": "文章链接",
                 "content": "文章内容",
-                "img": "src/components/img/1.jpg",
+                "img": "src/img/5.webp",
             },
             {
                 "id":4,
@@ -75,7 +75,7 @@ def hello_world3():
                 "wordCount":2333,
                 "url": "文章链接",
                 "content": "文章内容",
-                "img": "src/components/img/4.png",
+                "img": "src/img/6.webp",
             },
             {
                 "id":5,
@@ -84,7 +84,7 @@ def hello_world3():
                 "wordCount":2333,
                 "url": "文章链接",
                 "content": "文章内容",
-                "img": "src/components/img/1.jpg",
+                "img": "src/img/7.webp",
             },
             {
                 "id":6,
@@ -93,7 +93,7 @@ def hello_world3():
                 "wordCount":2333,
                 "url": "文章链接",
                 "content": "文章内容",
-                "img": "src/components/img/2.png",
+                "img": "src/img/4.webp",
             }]}
 
 if __name__ == '__main__':

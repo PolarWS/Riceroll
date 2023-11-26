@@ -51,7 +51,7 @@ export default {
 .fileBox {
     margin-bottom: 1rem;
     padding: 1rem;
-    border: 2px solid var(--color-theme-grayscale1);
+    border: 2px solid var(--color-theme-frame1);
 }
 
 .fileDate{
@@ -59,7 +59,7 @@ export default {
     font-weight: 550;
     margin-bottom: 0.5rem;
     padding-bottom: 0.25rem;
-    border-bottom: 2px solid var(--color-theme-grayscale1);
+    border-bottom: 2px solid var(--color-theme-frame1);
 }
 
 .fileItem{
