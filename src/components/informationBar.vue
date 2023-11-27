@@ -111,7 +111,6 @@ export default {
     updated() {
         const computedStyle = window.getComputedStyle(this.$refs.informationBar);
         this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
-        console.log(this.divHeight);
     },
     unmounted() {
         window.removeEventListener('resize', this.handleResize);

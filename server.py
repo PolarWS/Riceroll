@@ -32,11 +32,9 @@ def parse_toc(content):
         '%': '%25',
         '$': '%24',
         '&': '%26',
-        '*': '%2A',
         '+': '%2B',
         ',': '%2C',
         '/': '%2F',
-        '\\': '%5C',
         ':': '%3A',
         ';': '%3B',
         '=': '%3D',
@@ -44,14 +42,17 @@ def parse_toc(content):
         '@': '%40',
         '[': '%5B',
         ']': '%5D',
+        '\\': '%5C',
     }
     for line in html_lines:
         if line.startswith('<h'):
             title = line[line.find('>')+1:line.rfind('<')]
             # 移除所有的 HTML 标签
             title = re.sub('<.*?>|\^', '', title)
+            print(title)
+
             # 移除首尾的空格，然后将标题中的空格替换为 -
-            href_title = title.strip().replace(' ', '-')
+            href_title = title.strip().replace(' ', '-').replace('&amp;', '&')
             # 使用 encode_dict 来编码 URL
             href_title = ''.join([encode_dict.get(c, c) for c in href_title.lower()]) 
             # 使用正则表达式移除表情符号和特殊字符
