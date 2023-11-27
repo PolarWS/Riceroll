@@ -48,7 +48,7 @@ export default {
                     this.articleListData = data.data;
                     this.renderBoolean = true;
                 } else {
-                    this.$root.myMethod({
+                    this.$root.messagePopups({
                         message: '服务器错误',
                         Color: 'messageY',
                     });
@@ -131,7 +131,6 @@ export default {
 }
 
 .articleListCardBox {
-
     cursor: pointer;
     height: 18rem;
     border-radius: 0.75rem;

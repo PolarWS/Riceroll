@@ -17,11 +17,11 @@
                 "data": {
                     "informationBarData": {
                         "topimg": {
-                            "src": "/src/img/ava.webp",
+                            "src": "/src/img/1.webp",
                             "alt": "topimg"
                         },
                         "avatar": {
-                            "src": "/src/img/1.webp",
+                            "src": "/src/img/ava.webp",
                             "alt": "avatar"
                         },
                         "blogInformation": {

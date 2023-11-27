@@ -74,14 +74,14 @@ export default {
                 if (data.status == 200) {
                     this.pingData = data.ping;
                 } else {
-                    this.$root.myMethod({
+                    this.$root.messagePopups({
                         message: '服务器错误',
                         Color: 'messageY',
                     });
                 }
             })
             .catch(error => {
-                this.$root.myMethod({
+                this.$root.messagePopups({
                     message: '服务器连接失败',
                     Color: 'messageR',
                 });

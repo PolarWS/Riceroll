@@ -9,14 +9,11 @@
 <script>
 import sideTemplate from '../sideTemplate.vue';
 export default {
-    data() {
-        return {
-            markDownToc: "",
-        }
-    },
     components: {
         sideTemplate,
-    },
+    }, props: {
+        markDownToc: String,
+    }
 }
 </script>
 <style scoped>

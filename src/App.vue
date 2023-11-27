@@ -17,8 +17,8 @@
     </RouterView>
   </div>
   <!-- 侧边栏 -->
-  <div v-show="widthLevel > 3" v-if="widthLevel > 2">
-    <informationBar :informationBarData="informationBarData" />
+  <div v-if="widthLevel > 3">
+    <informationBar :informationBarData="informationBarData" :markdownTocData="markdownTocData"/>
   </div>
 </template>
 
@@ -37,6 +37,10 @@ export default {
       informationBarData: config.informationBarData,
       navigationBarMobRight: 50,
       widthLevel: Number,
+      markdownTocData: {
+        display: false,
+        data: '',
+      },
     }
   },
   components: {
@@ -49,8 +53,11 @@ export default {
     handleClick(event) {
       this.$router.push('/' + event.id);
     },
-    myMethod(event) {
+    messagePopups(event) {
       this.$refs.messagePopups.showPopup(event);
+    },
+    markdownToc(Toc){
+      this.markdownTocData = Toc;
     },
     navigationBarMobSwitch(event) {
       if (event) {

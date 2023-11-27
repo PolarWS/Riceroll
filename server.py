@@ -1,11 +1,12 @@
 from flask import Flask, jsonify
-import markdown_code_blocks
 from flask_cors import CORS
 import random
-import markdown
 import os
 import time
-from markdown_code_blocks import highlight
+import urllib.parse
+import re
+import markdown
+
 
 app = Flask(__name__)
 CORS(app, origins=['http://127.0.0.1:5173'])
@@ -18,6 +19,47 @@ def hello_world():
 def hello_world2():
     a2 = [random.randint(1, 510) for _ in range(5)]
     return {"status":200,"ping":a2}
+
+import re
+
+def parse_toc(content):
+    html = markdown.markdown(content)
+    html_lines = html.split('\n')
+    toc = []
+    encode_dict = {
+        '"': '%22',
+        '#': '%23',
+        '%': '%25',
+        '$': '%24',
+        '&': '%26',
+        '(': '%28',
+        ')': '%29',
+        '*': '%2A',
+        '+': '%2B',
+        ',': '%2C',
+        '/': '%2F',
+        '\\': '%5C',
+        ':': '%3A',
+        ';': '%3B',
+        '=': '%3D',
+        '?': '%3F',
+        '@': '%40',
+        '[': '%5B',
+        ']': '%5D',
+    }
+    for line in html_lines:
+        if line.startswith('<h'):
+            title = line[line.find('>')+1:line.rfind('<')]
+            # 移除所有的 HTML 标签
+            title = re.sub('<.*?>|\^', '', title)
+            # 移除首尾的空格，然后将标题中的空格替换为 -
+            href_title = title.strip().replace(' ', '-')
+            # 使用 encode_dict 来编码 URL
+            href_title = ''.join([encode_dict.get(c, c) for c in href_title.lower()]) 
+            # 使用正则表达式移除表情符号和特殊字符
+            title = re.sub(r'(:[^:]*:)', '', title)
+            toc.append(f'<p><a href="#{href_title}">{title}</a></p>')
+    return ''.join(toc)
 
 @app.route('/md')
 def hello_world4():
@@ -33,6 +75,7 @@ def hello_world4():
             "md": content,
             "date": "2021-01-01",
             "wordCount": "1000",
+            "Toc": parse_toc(content)
         }
     return jsonify(md)
     
@@ -48,7 +91,7 @@ def hello_world3():
                 "wordCount":2333,
                 "url": "文章链接",
                 "content": "文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容",
-                "img": "src/img/2.webp",
+                "img": "src/img/4.webp",
             },
             {
                 "id":2,
@@ -57,7 +100,7 @@ def hello_world3():
                 "wordCount":2333,
                 "url": "文章链接",
                 "content": "文章内容",
-                "img": "src/img/3.webp",
+                "img": "src/img/7.webp",
             },
             {
                 "id":3,
@@ -66,7 +109,7 @@ def hello_world3():
                 "wordCount":2333,
                 "url": "文章链接",
                 "content": "文章内容",
-                "img": "src/img/5.webp",
+                "img": "src/img/6.webp",
             },
             {
                 "id":4,
@@ -75,7 +118,7 @@ def hello_world3():
                 "wordCount":2333,
                 "url": "文章链接",
                 "content": "文章内容",
-                "img": "src/img/6.webp",
+                "img": "src/img/5.webp",
             },
             {
                 "id":5,
@@ -84,7 +127,7 @@ def hello_world3():
                 "wordCount":2333,
                 "url": "文章链接",
                 "content": "文章内容",
-                "img": "src/img/7.webp",
+                "img": "src/img/3.webp",
             },
             {
                 "id":6,
@@ -93,7 +136,7 @@ def hello_world3():
                 "wordCount":2333,
                 "url": "文章链接",
                 "content": "文章内容",
-                "img": "src/img/4.webp",
+                "img": "src/img/2.webp",
             }]}
 
 if __name__ == '__main__':

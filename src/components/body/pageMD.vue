@@ -57,10 +57,16 @@ export default {
             .then(data => {
                 if (data.status == 200) {
                     this.markDownData = data;
+                    if (data.Toc != undefined) {
+                        this.$root.markdownToc({
+                            display: true,
+                            data: data.Toc,
+                        })
+                    }
                     this.renderBoolean = true;
-                    const q = this.$route.fullPath.split('/');
-                    if (q[q.length - 1].split('#').length > 1) {
-                        const anchor = q[q.length - 1].split('#')[1];
+                    const routeName = this.$route.fullPath.split('/');
+                    if (routeName[routeName.length - 1].split('#').length > 1) {
+                        const anchor = routeName[routeName.length - 1].split('#')[1];
                         setTimeout(() => {
                             const anchorElement = document.getElementById(anchor);
                             if (anchorElement) {
@@ -69,14 +75,14 @@ export default {
                         }, 1000);
                     }
                 } else {
-                    this.$root.myMethod({
+                    this.$root.messagePopups({
                         message: '服务器错误',
                         Color: 'messageY',
                     });
                 }
             })
             .catch(error => {
-                this.$root.myMethod({
+                this.$root.messagePopups({
                     message: '服务器连接失败',
                     Color: 'messageR',
                 });
@@ -98,6 +104,10 @@ export default {
     }, unmounted() {
         window.removeEventListener('scroll', this.checkAnchorInViewport);
     }, beforeUnmount() {
+        this.$root.markdownToc({
+            display: false,
+            data: '',
+        })
         window.removeEventListener('scroll', this.checkAnchorInViewport);
     }, components: {
         markDown,

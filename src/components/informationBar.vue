@@ -1,27 +1,29 @@
 <!-- 信息栏 -->
 <template>
-    <div class="informationBar" ref="informationBar" @scroll="handleScroll" v-if="!markDownDisplay">
-        <!-- 侧边栏组件 -->
-        <announcementBoard v-if="informationBarData.default.announcementBoard.display"
-            :announcementBoard="informationBarData.default.announcementBoard" />
-        <labelBar v-if="informationBarData.default.labelBar.display" :labelBar="informationBarData.default.labelBar" />
-        <replyBar v-if="informationBarData.default.replyBar.display" />
-        <!-- 自定义组件 -->
-        <sideTemplate v-if="informationBarData.custom.display" v-for="item in informationBarData.custom.content">
-            <template #title>
-                {{ item.title }}
-            </template>
-            <template #content>
-                <markDown :markDownData="item.markdown"/>
-            </template>
-        </sideTemplate>
+    <div class="informationBar" ref="informationBar" @scroll="handleScroll">
+        <div v-show="!markdownTocData.display">
+            <!-- 侧边栏组件 -->
+            <announcementBoard v-if="informationBarData.default.announcementBoard.display"
+                :announcementBoard="informationBarData.default.announcementBoard" />
+            <labelBar v-if="informationBarData.default.labelBar.display" :labelBar="informationBarData.default.labelBar" />
+            <replyBar v-if="informationBarData.default.replyBar.display" />
+            <!-- 自定义组件 -->
+            <sideTemplate v-if="informationBarData.custom.display" v-for="item in informationBarData.custom.content">
+                <template #title>
+                    {{ item.title }}
+                </template>
+                <template #content>
+                    <markDown :markDownData="item.markdown" />
+                </template>
+            </sideTemplate>
+        </div>
+        <!-- markDown[toc]组件 -->
+        <div v-show="markdownTocData.display">
+            <markDownToc :markDownToc="markdownTocData.data" />
+        </div>
         <!-- 脚标 -->
         <div v-for="item in informationBarData.footmark" class="footmark">
             <a :href="item.url">{{ item.title }}</a>
-        </div>
-        <!-- markDown[toc]组件 -->
-        <div class="informationBar" ref="informationBar" v-show="markDownDisplay">
-            <markDownToc />
         </div>
     </div>
 </template>
@@ -43,13 +45,7 @@ export default {
             XscreenYAxis: 0,
             divHeight: 0,
             pageHeight: window.innerHeight,
-            markDownDisplay: false,
         }
-    },
-    watch: {
-        markDownDisplay(newVal, oldVal) {
-            // this.updateComponent();
-        },
     },
     components: {
         announcementBoard,
@@ -115,16 +111,19 @@ export default {
     updated() {
         const computedStyle = window.getComputedStyle(this.$refs.informationBar);
         this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+        console.log(this.divHeight);
     },
     unmounted() {
         window.removeEventListener('resize', this.handleResize);
         window.removeEventListener('scroll', this.handleScroll);
     },
-    beforeUpdate() {
-        window.removeEventListener('resize', this.handleResize);
-        window.removeEventListener('scroll', this.handleScroll);
+    props: {
+        markdownTocData: {
+            type: Object,
+            default: { display: false, data: '' }, // 提供一个默认值
+        },
+        informationBarData: Object,
     },
-    props: ["informationBarData"],
 }
 </script>
 <style scoped>
