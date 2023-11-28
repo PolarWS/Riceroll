@@ -1,10 +1,10 @@
 <!-- 信息栏 -->
 <template>
     <div class="informationBar" ref="informationBar" @scroll="handleScroll">
+        <announcementBoard v-if="informationBarData.default.announcementBoard.display"
+            :announcementBoard="informationBarData.default.announcementBoard" />
         <div v-show="!markdownTocData.display">
             <!-- 侧边栏组件 -->
-            <announcementBoard v-if="informationBarData.default.announcementBoard.display"
-                :announcementBoard="informationBarData.default.announcementBoard" />
             <labelBar v-if="informationBarData.default.labelBar.display" :labelBar="informationBarData.default.labelBar" />
             <replyBar v-if="informationBarData.default.replyBar.display" />
             <!-- 自定义组件 -->
@@ -19,7 +19,7 @@
         </div>
         <!-- markDown[toc]组件 -->
         <div v-show="markdownTocData.display">
-            <markDownToc :markDownToc="markdownTocData.data" />
+            <markDownToc :markDownToc="markdownTocData.data" :markdownTocIndex="markdownTocIndex" :markdownTocDisplay="markdownTocData.display"/>
         </div>
         <!-- 脚标 -->
         <div v-for="item in informationBarData.footmark" class="footmark">
@@ -119,7 +119,11 @@ export default {
     props: {
         markdownTocData: {
             type: Object,
-            default: { display: false, data: '' }, // 提供一个默认值
+            default: { display: false, data: '' },
+        },
+        markdownTocIndex: {
+            type: Number,
+            default: 0,
         },
         informationBarData: Object,
     },

@@ -26,6 +26,7 @@ def parse_toc(content):
     html = markdown.markdown(content)
     html_lines = html.split('\n')
     toc = []
+    href_title_counts = {}
     encode_dict = {
         '"': '%22',
         '#': '%23',
@@ -44,20 +45,27 @@ def parse_toc(content):
         ']': '%5D',
         '\\': '%5C',
     }
+    id_counter = 0
     for line in html_lines:
         if line.startswith('<h'):
             title = line[line.find('>')+1:line.rfind('<')]
-            # 移除所有的 HTML 标签
-            title = re.sub('<.*?>|\^', '', title)
-            print(title)
-
-            # 移除首尾的空格，然后将标题中的空格替换为 -
-            href_title = title.strip().replace(' ', '-').replace('&amp;', '&')
-            # 使用 encode_dict 来编码 URL
-            href_title = ''.join([encode_dict.get(c, c) for c in href_title.lower()]) 
-            # 使用正则表达式移除表情符号和特殊字符
-            title = re.sub(r'(:[^:]*:)', '', title)
-            toc.append(f'<p><a href="#{href_title}">{title}</a></p>')
+            if title != "":
+                title = re.sub('<.*?>|\^', '', title)
+                href_title = title.strip().replace(' ', '-').replace('&amp;', '&')
+                href_title = ''.join([encode_dict.get(c, c) for c in href_title.lower()]) 
+                title = re.sub(r'(:[^:]*:)', '', title)
+                if href_title in href_title_counts:
+                    href_title_counts[href_title] += 1
+                    href_title = f"{href_title}-{href_title_counts[href_title]}"
+                else:
+                    href_title_counts[href_title] = 0
+                if id_counter == 0:
+                    toc.append(f'<p id="markdownTocID{id_counter}" class="markDownTocSelected"><a href="#{href_title}">{title}</a></p>')
+                    id_counter += 1
+                else:
+                    toc.append(f'<p id="markdownTocID{id_counter}"><a href="#{href_title}">{title}</a></p>')
+                    id_counter += 1
+    time.sleep(1)
     return ''.join(toc)
 
 @app.route('/md')

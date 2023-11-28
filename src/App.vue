@@ -9,7 +9,7 @@
     <topMenuBar v-if="widthLevel < 3" @navigationBarMobSwitch="navigationBarMobSwitch" />
     <messagePopups ref="messagePopups" />
     <RouterView v-slot="{ Component }">
-      <transition-group name="fade">
+      <transition-group name="fade" @enter="scrollToTop">
         <div :key="$route.path">
           <component :is="Component" />
         </div>
@@ -18,7 +18,8 @@
   </div>
   <!-- 侧边栏 -->
   <div v-if="widthLevel > 3">
-    <informationBar :informationBarData="informationBarData" :markdownTocData="markdownTocData"/>
+    <informationBar :informationBarData="informationBarData" :markdownTocData="markdownTocData"
+      :markdownTocIndex="markdownTocIndex" />
   </div>
 </template>
 
@@ -37,6 +38,7 @@ export default {
       informationBarData: config.informationBarData,
       navigationBarMobRight: 50,
       widthLevel: Number,
+      markdownTocIndex: -1,
       markdownTocData: {
         display: false,
         data: '',
@@ -56,8 +58,11 @@ export default {
     messagePopups(event) {
       this.$refs.messagePopups.showPopup(event);
     },
-    markdownToc(Toc){
+    markdownToc(Toc) {
       this.markdownTocData = Toc;
+    },
+    markdownTocIndexs(index) {
+      this.markdownTocIndex = index;
     },
     navigationBarMobSwitch(event) {
       if (event) {
@@ -77,6 +82,9 @@ export default {
         this.widthLevel = 2;
       }
       dataRelay().widthLevel = this.widthLevel;
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0);
     },
   },
   created() {

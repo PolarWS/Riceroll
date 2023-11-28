@@ -39,6 +39,7 @@ export default {
     data() {
         return {
             renderBoolean: false,
+            markdownTocIndex: -1,
             markDownData: {
                 "title": {
                     "content": "",
@@ -49,7 +50,13 @@ export default {
                 "wordCount": "",
             },
             markdownID: "",
+            completeRenderingRequest: false,
         }
+    },
+    watch: {
+        markdownTocIndex(newVal) {
+            this.$root.markdownTocIndexs(newVal - 1);
+        },
     },
     mounted() {
         this.markdownID = this.$route.path.split('/');
@@ -72,7 +79,14 @@ export default {
                             if (anchorElement) {
                                 anchorElement.scrollIntoView({ behavior: 'smooth' });
                             }
+                            setTimeout(() => {
+                                this.completeRenderingRequest = true;
+                                this.checkAnchorInViewport();
+                            }, 800);
                         }, 1000);
+                    } else {
+                        this.completeRenderingRequest = true;
+                        this.checkAnchorInViewport();
                     }
                 } else {
                     this.$root.messagePopups({
@@ -90,20 +104,18 @@ export default {
         window.addEventListener('scroll', this.checkAnchorInViewport, false);
     }, methods: {
         checkAnchorInViewport() {
-            const anchors = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-            let currentAnchor = '';
-            for (let i = 0; i < anchors.length; i++) {
-                const anchor = anchors[i];
-                const rect = anchor.getBoundingClientRect();
-                if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-                    currentAnchor = anchor.id;
-                    break;
+            if (this.completeRenderingRequest) {
+                const anchors = Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+                const newAnchorIndex = anchors.findIndex(anchor => {
+                    const rect = anchor.getBoundingClientRect();
+                    return rect.top >= 0 && rect.bottom <= window.innerHeight;
+                });
+                if (newAnchorIndex !== this.markdownTocIndex) {
+                    this.markdownTocIndex = newAnchorIndex;
                 }
             }
         },
     }, unmounted() {
-        window.removeEventListener('scroll', this.checkAnchorInViewport);
-    }, beforeUnmount() {
         this.$root.markdownToc({
             display: false,
             data: '',

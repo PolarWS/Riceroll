@@ -87,7 +87,6 @@ export default {
                 });
             });
     }, unmounted() {
-        // 在组件销毁前移除事件监听器
         window.removeEventListener('resize', this.checkWidth);
     }, props: {
         itemData: Object,
