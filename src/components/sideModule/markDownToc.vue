@@ -48,7 +48,7 @@ export default {
             setTimeout(() => {
                 this.interruptEventbool = false;
                 this.scrollToAnchor(this.markdownTocIndex);
-            }, 800);
+            }, 550);
         },
     },
     watch: {
@@ -74,17 +74,32 @@ export default {
     padding: 0rem;
     max-height: 26rem;
     overflow: auto;
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* IE and Edge */
     background-color: var(--color-theme-grayscale1);
     scroll-behavior: smooth;
+
+    scrollbar-width: none; /* Firefox */
+    scrollbar-color: transparent transparent; /* Firefox */
 }
 
 .markDownToc::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari and Opera */
+    width: 0; /* Chrome, Safari, Edge */
+}
+
+.markDownToc::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Chrome, Safari, Edge */
+}
+
+.markDownToc:hover {
+    scrollbar-width: 0.35rem; /* Firefox */
+    scrollbar-color: var(--color-theme-grayscale5) transparent; /* Firefox */
+}
+
+.markDownToc:hover::-webkit-scrollbar {
+    width: 0.35rem; /* Chrome, Safari, Edge */
+}
+
+.markDownToc:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-theme-grayscale5); /* Chrome, Safari, Edge */
 }
 
 @media screen and (max-width: 1280px) {
@@ -93,8 +108,27 @@ export default {
     }
 }
 
-.markDownTocSelected a {
+body .markDownTocSelected a {
     font-weight: 600;
     color: var(--color-theme-blue-1);
+}
+.announcementBoard a:hover {
+    font-weight: 600;
+    color: var(--color-theme-grayscale6);
+}
+
+body .markDownTocSelected a::before {
+    content: '# ';
+}
+
+body .markdownTocClass1,
+body .markdownTocClass2 {
+    font-weight: 600;
+    color: var(--color-theme-grayscale65);
+}
+
+body .markdownTocClass5,
+body .markdownTocClass6 {
+    padding-left: 0.75rem;
 }
 </style>

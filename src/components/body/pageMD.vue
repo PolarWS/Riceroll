@@ -82,7 +82,7 @@ export default {
                             setTimeout(() => {
                                 this.completeRenderingRequest = true;
                                 this.checkAnchorInViewport();
-                            }, 800);
+                            }, 550);
                         }, 1000);
                     } else {
                         this.completeRenderingRequest = true;
@@ -116,12 +116,14 @@ export default {
             }
         },
     }, unmounted() {
+        console.log(1);
         this.$root.markdownToc({
             display: false,
             data: '',
         })
         window.removeEventListener('scroll', this.checkAnchorInViewport);
-    }, components: {
+    }, 
+    components: {
         markDown,
         loadingDynamicEffect,
     }, inject: ['api'],
