@@ -28,6 +28,6 @@
 }
 
 .loadingDynamicEffect svg {
-    stroke: var(--color-theme-blue-1); /* 将颜色更改为红色 */
+    stroke: var(--color-theme-blue-1); 
 }
 </style>

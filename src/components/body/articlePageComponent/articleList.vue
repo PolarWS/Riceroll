@@ -103,7 +103,6 @@ export default {
     margin-left: 0.35rem;
 }
 
-
 .articleListCardBox:hover .articleListCardData {
     line-height: 2rem;
 }

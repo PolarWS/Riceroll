@@ -41,13 +41,22 @@
     transform: translateY(-0.2rem);
 }
 
-
-.announcementBoard span {
-    color: var(--color-theme-grayscale5);
-}
-
 .announcementBoardTitleContent {
     margin: 0.5rem;
     color: var(--color-theme-grayscale5);
+}
+
+body .announcementBoardTitleContent .markdown-body {
+    padding: 0;
+    background-color: var(--color-theme-grayscale1);
+}
+
+.announcementBoardTitleContent .markdown-body .h1,
+.announcementBoardTitleContent .markdown-body .h2,
+.announcementBoardTitleContent .markdown-body .h3,
+.announcementBoardTitleContent .markdown-body .h4,
+.announcementBoardTitleContent .markdown-body .h5,
+.announcementBoardTitleContent .markdown-body .h6 {
+    color: var(--color-theme-black);
 }
 </style>

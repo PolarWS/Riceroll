@@ -160,7 +160,7 @@ export default {
 }
 
 .cardBox:hover {
-    border: 2px solid var(--color-theme-grayscale3);
+    border: 2px solid var(--color-theme-grayscale4);
 }
 
 .cardBox:active {

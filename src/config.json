@@ -61,7 +61,7 @@
                         "content": "搜索",
                         "img": "/src/img/2.webp"
                     },
-                    "md": "> 啊啊啊啊啊啊啊啊啊啊啊"
+                    "markdown": "> 啊啊啊啊啊啊啊啊啊啊啊"
                 }
             },
             {
@@ -74,7 +74,7 @@
                         "content": "留言",
                         "img": "/src/img/3.webp"
                     },
-                    "md": "# hello"
+                    "markdown": "# hello"
                 }
             },
             {
@@ -87,7 +87,7 @@
                         "content": "音乐",
                         "img": "/src/img/4.webp"
                     },
-                    "md": "# 摆烂暂时不写"
+                    "markdown": "# 摆烂暂时不写"
                 }
             },
             {
@@ -100,7 +100,7 @@
                         "content": "归档",
                         "img": "/src/img/5.webp"
                     },
-                    "md": "# 摆烂暂时不写"
+                    "markdown": "# 摆烂暂时不写"
                 }
             },
             {
@@ -113,7 +113,7 @@
                         "content": "友链",
                         "img": "/src/img/6.webp"
                     },
-                    "md": "#  你好这里是鸦的小窝  \n> 本站名字： 渡鸦的小窝  \n> 本站网址： https://polarws.moe/  \n> 头像网址：https://polarws.moe/img/avatar.webp  \n> 本站简介：恭喜你发现了一只鸭",
+                    "markdown": "#  你好这里是鸦的小窝  \n> 本站名字： 渡鸦的小窝  \n> 本站网址： https://polarws.moe/  \n> 头像网址：https://polarws.moe/img/avatar.webp  \n> 本站简介：恭喜你发现了一只鸭",
                     "cardList": [
                         {
                             "src": "/src/img/1.webp",
@@ -158,7 +158,7 @@
                         "content": "关于",
                         "img": "/src/img/7.webp"
                     },
-                    "md": "# hello"
+                    "markdown": "# hello"
                 }
             }
         ]
@@ -183,8 +183,13 @@
             }
         },
         "custom": {
-            "display": false,
-            "content": []
+            "display": true,
+            "content": [
+                {
+                    "title": "tut",
+                    "markdown": "### 111"
+                }
+            ]
         },
         "footmark": [
             {
@@ -210,6 +215,6 @@
         "url": "http://127.0.0.1:5000/",
         "frindLinkPage": "frindLinkPage",
         "articlePage": "articlePage",
-        "markdown":"/md?id="
+        "markdown": "/md?id="
     }
 }

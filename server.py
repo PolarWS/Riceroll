@@ -44,6 +44,7 @@ def parse_toc(content):
         '[': '%5B',
         ']': '%5D',
         '\\': '%5C',
+        '^': '%5E',
     }
     id_counter = 0
     for line in html_lines:
@@ -51,9 +52,10 @@ def parse_toc(content):
             level = str(line[2])  # 获取标题的级别
             title = line[line.find('>')+1:line.rfind('<')]
             if title != "":
-                title = re.sub('<.*?>|\^', '', title)
-                href_title = title.strip().replace(' ', '-').replace('&amp;', '&')
-                href_title = ''.join([encode_dict.get(c, c) for c in href_title.lower()]) 
+                title = re.sub('<.*?>', '', title)
+                href_title = re.sub(r'\^(.*?)\^', r'\1', title).strip().replace(' ', '-').replace('&amp;', '&').lower()
+                href_title = ''.join([encode_dict.get(c, c) for c in href_title])
+                title = re.sub(r'\^(.*?)\^', r'^\1', title)
                 title = re.sub(r'(:[^:]*:)', '', title)
                 if href_title in href_title_counts:
                     href_title_counts[href_title] += 1
@@ -66,7 +68,6 @@ def parse_toc(content):
             else:
                 toc.append(f'<p id="markdownTocID{id_counter}"><a class="markdownTocClass{level}" href="#{href_title}">{title}</a></p>')
                 id_counter += 1
-    # time.sleep(1)
     return ''.join(toc)
 
 @app.route('/md')
