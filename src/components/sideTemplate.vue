@@ -48,15 +48,19 @@
 
 body .announcementBoardTitleContent .markdown-body {
     padding: 0;
+    max-width: 14rem;
+    color: var(--color-theme-grayscale5);
     background-color: var(--color-theme-grayscale1);
 }
 
-.announcementBoardTitleContent .markdown-body .h1,
-.announcementBoardTitleContent .markdown-body .h2,
-.announcementBoardTitleContent .markdown-body .h3,
-.announcementBoardTitleContent .markdown-body .h4,
-.announcementBoardTitleContent .markdown-body .h5,
-.announcementBoardTitleContent .markdown-body .h6 {
+.announcementBoardTitleContent .markdown-body h1,
+.announcementBoardTitleContent .markdown-body h2,
+.announcementBoardTitleContent .markdown-body h3,
+.announcementBoardTitleContent .markdown-body h4,
+.announcementBoardTitleContent .markdown-body h5,
+.announcementBoardTitleContent .markdown-body h6 {
+    margin-top: 0;
+    margin-bottom: 0.3rem;
     color: var(--color-theme-black);
 }
 </style>
