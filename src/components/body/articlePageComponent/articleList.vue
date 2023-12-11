@@ -1,5 +1,5 @@
 <template>
-    <div v-if="renderBoolean" class="articleListCard" v-for="(item, index) in this.articleListData">
+    <div v-show="renderBoolean" class="articleListCard" v-for="(item, index) in this.articleListData">
         <div class="articleListCardBox" @click="articleListCardBoxClick(item.id)">
             <div class="articleListCardImg" :style="{ backgroundImage: 'url(' + item.img + ')' }"></div>
             <div class="articleListCardSpan">

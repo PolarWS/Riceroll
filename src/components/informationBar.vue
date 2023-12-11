@@ -19,7 +19,7 @@
         </div>
         <!-- markDown[toc]组件 -->
         <div v-show="markdownTocData.display">
-            <markDownToc :markDownToc="markdownTocData.data" :markdownTocIndex="markdownTocIndex" :markdownTocDisplay="markdownTocData.display"/>
+            <markDownToc :markDownToc="markdownTocData" :markdownTocIndex="markdownTocIndex" />
         </div>
         <!-- 脚标 -->
         <div v-for="item in informationBarData.footmark" class="footmark">
@@ -119,7 +119,7 @@ export default {
     props: {
         markdownTocData: {
             type: Object,
-            default: { display: false, data: '' },
+            default: { display: false, data: {} },
         },
         markdownTocIndex: {
             type: Number,

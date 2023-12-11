@@ -1,7 +1,7 @@
 <template>
     <bodyItem :itemData="this.itemData" />
-    <div class="fileBody">
-        <div v-for="(item, index) in this.data" class="fileBox">
+    <div class="fileBody" v-show="renderBoolean">
+        <div v-for="(item, index) in this.filePageData" class="fileBox">
             <div class="fileDate">
                 {{ item.date }}
             </div>
@@ -10,37 +10,46 @@
             </div>
         </div>
     </div>
+    <loadingDynamicEffect v-show="!renderBoolean" />
 </template>
 <script>
 import bodyItem from './bodyItem.vue';
+import loadingDynamicEffect from '../loadingDynamicEffect.vue';
+import { useCounterStore } from '../../store/axiosStore.js';
 export default {
     data() {
         return {
-            data: [
-                {
-                    date: "2020/10",
-                    title: ["标题标题标题标题标题标题", "标题标题标题标题", "标题标标题标题标题标题题"]
-                },
-                {
-                    date: "2020/09",
-                    title: ["标题标题标题标题", "标标题标题题标题", "标题标标题标题标题标题题"]
-                },
-                {
-                    date: "2020/08",
-                    title: ["标题标题", "标题标题标题标题", "标标题标题题标题"]
-                },
-                {
-                    date: "2020/07",
-                    title: ["标题标题", "标题标标题标题题", "标题标题"]
-                }
-            ]
+            renderBoolean: false,
+            filePageData: Object,
         }
+    },
+    mounted() {
+        useCounterStore().apiRequest(this.api.url + this.api.filePage)
+            .then(data => {
+                if (data.status == 200) {
+                    this.filePageData = data.data;
+                    this.renderBoolean = true;
+                } else {
+                    this.$root.messagePopups({
+                        message: '服务器错误',
+                        Color: 'messageY',
+                    });
+                }
+            })
+            .catch(error => {
+                this.$root.myMethod({
+                    message: '服务器连接失败',
+                    Color: 'messageR',
+                });
+            });
     },
     components: {
         bodyItem,
+        loadingDynamicEffect,
     }, props: {
         itemData: Object,
-    }
+    },
+    inject: ['api'],
 }
 </script>
 <style>
@@ -54,7 +63,7 @@ export default {
     border: 2px solid var(--color-theme-frame1);
 }
 
-.fileDate{
+.fileDate {
     font-size: 1.5rem;
     font-weight: 550;
     margin-bottom: 0.5rem;
@@ -62,7 +71,7 @@ export default {
     border-bottom: 2px solid var(--color-theme-frame1);
 }
 
-.fileItem{
+.fileItem {
     margin-bottom: 0.5rem;
     color: var(--color-theme-grayscale6);
 }

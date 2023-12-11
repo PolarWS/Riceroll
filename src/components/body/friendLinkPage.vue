@@ -4,7 +4,7 @@
         <div class="cardBox" v-for="(item, index) in itemData.cardList" @click="linkClick(item.url)">
             <div class="cardImg">
                 <img :src="(item.src)" />
-                <div class="state" :class="statePing(this.pingData[index])"></div>
+                <div class="state" :class="statePing(this.pingData[index])" v-if="itemData.pingSwitch"></div>
             </div>
             <div class="cardContent">
                 <div class="title" :style="cardBoxAdaptation.width">{{ item.title }}</div>
@@ -187,9 +187,9 @@ export default {
     justify-content: right;
 }
 
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
     #pressed {
         margin: 0 1rem 1rem 1rem;
     }
-}
+} */
 </style>

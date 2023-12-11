@@ -1,8 +1,8 @@
 <template>
     <div class="informationBarToc">
-        <div class="topImg" :style="`background-image: url(${informationBarData.topimg.src})`"></div>
+        <div class="topImg" :style="`background-image: url(${informationBarData.topimg})`"></div>
         <div class="avatarImg">
-            <img :src="informationBarData.avatar.src" :alt="informationBarData.avatar.alt">
+            <img :src="informationBarData.avatar">
             <div class="blogInformation">
                 <h1>{{ informationBarData.blogInformation.name }}</h1>
                 <span>#{{ informationBarData.blogInformation.introduction }}</span>

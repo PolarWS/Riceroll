@@ -6,7 +6,8 @@
     <!-- 导航栏mob -->
     <navigationBarMob v-if="widthLevel < 3" @handleClick="handleClick" @navigationBarMobSwitch="navigationBarMobSwitch"
       :navigationBarData="navigationBarData" :style="{ right: navigationBarMobRight + 'rem' }" />
-    <topMenuBar v-if="widthLevel < 3" @navigationBarMobSwitch="navigationBarMobSwitch" />
+    <topMenuBar v-if="widthLevel < 3" @navigationBarMobSwitch="navigationBarMobSwitch"
+      :navigationBarData="navigationBarData.titleData" :blogName="blogName" />
     <messagePopups ref="messagePopups" />
     <RouterView v-slot="{ Component }">
       <transition-group name="fade" @enter="scrollToTop">
@@ -15,6 +16,7 @@
         </div>
       </transition-group>
     </RouterView>
+    <backToTheTop />
   </div>
   <!-- 侧边栏 -->
   <div v-if="widthLevel > 3">
@@ -29,6 +31,7 @@ import navigationBarMob from '@/components/navigationBarMob.vue';
 import informationBar from '@/components/informationBar.vue';
 import messagePopups from '@/components/messagePopups.vue';
 import topMenuBar from '@/components/topMenuBar.vue';
+import backToTheTop from './components/backToTheTop.vue';
 import { dataRelay } from '@/store/dataRelay.js';
 import config from '@/config.json';
 export default {
@@ -36,12 +39,13 @@ export default {
     return {
       navigationBarData: config.navigationBarData,
       informationBarData: config.informationBarData,
+      blogName: config.blogName,
       navigationBarMobRight: 50,
       widthLevel: Number,
       markdownTocIndex: -1,
       markdownTocData: {
         display: false,
-        data: '',
+        data: {},
       },
     }
   },
@@ -51,7 +55,9 @@ export default {
     informationBar,
     messagePopups,
     topMenuBar,
-  }, methods: {
+    backToTheTop,
+  },
+  methods: {
     handleClick(event) {
       this.$router.push('/' + event.id);
     },

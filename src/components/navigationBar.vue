@@ -72,10 +72,10 @@ export default {
                     }
                 }
                 if (this.selectedItemsIco) {
-                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                    this.selectedItemsWidthAdaptation = Math.min(14.5, 5.5 + length * 0.75);
                     this.selectedItemsWidth = this.selectedItemsWidthAdaptation
                 } else {
-                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                    this.selectedItemsWidthAdaptation = Math.min(14.5, 5.5 + length * 0.75);
                 }
             } else {
                 this.clickItem = (this.navigationBarData.defaultSelected - 1) * 5 + 3;
@@ -91,10 +91,10 @@ export default {
                     }
                 }
                 if (this.selectedItemsIco) {
-                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                    this.selectedItemsWidthAdaptation = Math.min(14.5, 5.5 + length * 0.75);
                     this.selectedItemsWidth = this.selectedItemsWidthAdaptation
                 } else {
-                    this.selectedItemsWidthAdaptation = 5.5 + length * 0.75;
+                    this.selectedItemsWidthAdaptation = Math.min(14.5, 5.5 + length * 0.75);
                 }
             }
         }

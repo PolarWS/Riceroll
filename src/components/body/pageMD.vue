@@ -29,10 +29,12 @@
         </div>
         <markDown :markDownData="markDownData.md" />
     </div>
+    <pageMDTag v-show="renderBoolean" class="pageMD" />
     <loadingDynamicEffect v-show="!renderBoolean" />
 </template>
 <script>
 import markDown from '../markDown.vue';
+import pageMDTag from './pageMDTag.vue';
 import loadingDynamicEffect from '../loadingDynamicEffect.vue';
 import { useCounterStore } from '../../store/axiosStore.js';
 export default {
@@ -67,7 +69,7 @@ export default {
                     if (data.Toc != undefined) {
                         this.$root.markdownToc({
                             display: true,
-                            data: data.Toc,
+                            data: data.Toc.data,
                         })
                     }
                     this.renderBoolean = true;
@@ -122,10 +124,11 @@ export default {
             data: '',
         })
         window.removeEventListener('scroll', this.checkAnchorInViewport);
-    }, 
+    },
     components: {
         markDown,
         loadingDynamicEffect,
+        pageMDTag,
     }, inject: ['api'],
 }
 </script>

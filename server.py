@@ -25,7 +25,7 @@ import re
 def parse_toc(content):
     html = markdown.markdown(content)
     html_lines = html.split('\n')
-    toc = []
+    toc = {"data":[]}
     href_title_counts = {}
     encode_dict = {
         '"': '%22',
@@ -62,13 +62,15 @@ def parse_toc(content):
                     href_title = f"{href_title}-{href_title_counts[href_title]}"
                 else:
                     href_title_counts[href_title] = 0
-            if id_counter == 0:
-                toc.append(f'<p id="markdownTocID{id_counter}" class="markDownTocSelected"><a class="markdownTocClass{level}" href="#{href_title}">{title}</a></p>')
-                id_counter += 1
-            else:
-                toc.append(f'<p id="markdownTocID{id_counter}"><a class="markdownTocClass{level}" href="#{href_title}">{title}</a></p>')
-                id_counter += 1
-    return ''.join(toc)
+            toc["data"].append({
+                # "id": f"markdownTocID{id_counter}",
+                #  toc.append(f'<p id="markdownTocID{id_counter}" class="markDownTocSelected"><a class="markdownTocClass{level}" href="#{href_title}">{title}</a></p>')
+                "class": f"markdownTocClass{level}",
+                "href": f"#{href_title}",
+                "title": title
+            })
+            id_counter += 1
+    return toc
 
 @app.route('/md')
 def hello_world4():
@@ -91,7 +93,6 @@ def hello_world4():
 
 @app.route('/articlePage')
 def hello_world3():
-    # 延迟1S
     time.sleep(1)
     return {"status":200,"data":[{
                 "id":1,
@@ -147,6 +148,29 @@ def hello_world3():
                 "content": "文章内容",
                 "img": "src/img/2.webp",
             }]}
+
+@app.route('/filePage')
+def hello_world5():
+    time.sleep(1)
+    return {"status":200,"data":[
+                {
+                    "date": "2020/10",
+                    "title": ["标题标题标题标题标题标题", "标题标题标题标题", "标题标标题标题标题标题题"]
+                },
+                {
+                    "date": "2020/09",
+                    "title": ["标题标题标题标题", "标标题标题题标题", "标题标标题标题标题标题题"]
+                },
+                {
+                    "date": "2020/08",
+                    "title": ["标题标题", "标题标题标题标题", "标标题标题题标题"]
+                },
+                {
+                    "date": "2020/07",
+                    "title": ["标题标题", "标题标标题标题题", "标题标题"]
+                }
+            ]}
+    
 
 if __name__ == '__main__':
     app.run()

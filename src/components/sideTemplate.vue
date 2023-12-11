@@ -58,7 +58,8 @@ body .announcementBoardTitleContent .markdown-body {
 .announcementBoardTitleContent .markdown-body h3,
 .announcementBoardTitleContent .markdown-body h4,
 .announcementBoardTitleContent .markdown-body h5,
-.announcementBoardTitleContent .markdown-body h6 {
+.announcementBoardTitleContent .markdown-body h6,
+.announcementBoardTitleContent .markdown-body strong {
     margin-top: 0;
     margin-bottom: 0.3rem;
     color: var(--color-theme-black);
