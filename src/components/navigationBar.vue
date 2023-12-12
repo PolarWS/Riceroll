@@ -3,7 +3,7 @@
     <div class="navigationBar">
         <div class="sideItems">
             <sideItem v-for="(item, index) in navigationBarData.titleData" :key="index"
-                @click.prevent="handleClick(item.title, index, item.id, item.url)" :iconSvg="item.icon">
+                @click.prevent="handleClick(index, item.id, item.url)" :iconSvg="item.icon">
                 <template #title>
                     {{ item.title }}
                 </template>
@@ -32,7 +32,7 @@ export default {
     },
     methods: {
         // 判断选中条长度selectedItemsWidth和到顶部的距离clickItem
-        handleClick(title, index, id, url) {
+        handleClick(index, id, url) {
             this.checkScreenSize();
             this.selectedCalculation();
             if (url === undefined) {

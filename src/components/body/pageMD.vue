@@ -29,7 +29,7 @@
         </div>
         <markDown :markDownData="markDownData.md" />
     </div>
-    <pageMDTag v-show="renderBoolean" class="pageMD" />
+    <pageMDTag :markDownDataTag="markDownData.tag" v-show="renderBoolean" class="pageMD" />
     <loadingDynamicEffect v-show="!renderBoolean" />
 </template>
 <script>
@@ -50,6 +50,7 @@ export default {
                 "md": "",
                 "date": "",
                 "wordCount": "",
+                "tag": []
             },
             markdownID: "",
             completeRenderingRequest: false,
@@ -118,7 +119,6 @@ export default {
             }
         },
     }, unmounted() {
-        console.log(1);
         this.$root.markdownToc({
             display: false,
             data: '',

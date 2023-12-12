@@ -63,8 +63,6 @@ def parse_toc(content):
                 else:
                     href_title_counts[href_title] = 0
             toc["data"].append({
-                # "id": f"markdownTocID{id_counter}",
-                #  toc.append(f'<p id="markdownTocID{id_counter}" class="markDownTocSelected"><a class="markdownTocClass{level}" href="#{href_title}">{title}</a></p>')
                 "class": f"markdownTocClass{level}",
                 "href": f"#{href_title}",
                 "title": title
@@ -82,11 +80,11 @@ def hello_world4():
                 "content": "这是一个md",
                 "img": "http://127.0.0.1:5173/src/img/4.webp"
             },
-            # "md": highlight(content),
             "md": content,
             "date": "2021-01-01",
             "wordCount": "1000",
-            "Toc": parse_toc(content)
+            "Toc": parse_toc(content),
+            "tag": ["tag1", "tag2", "tag3"]
         }
     return jsonify(md)
     
@@ -154,21 +152,34 @@ def hello_world5():
     time.sleep(1)
     return {"status":200,"data":[
                 {
-                    "date": "2020/10",
-                    "title": ["标题标题标题标题标题标题", "标题标题标题标题", "标题标标题标题标题标题题"]
+                    "label": "2023",
+                    "content": [{"title":"标题标题标题标题标题标题","date":"9/10","id":"1"}, 
+                                {"title":"标题标题标题标题","date":"7/10","id":"1"}, 
+                                {"title":"标题标题","date":"5/23","id":"1"}]
                 },
                 {
-                    "date": "2020/09",
-                    "title": ["标题标题标题标题", "标标题标题题标题", "标题标标题标题标题标题题"]
+                    "label": "2022",
+                    "content": [{"title":"标题标题标题标题标题","date":"9/10","id":"1"}, 
+                                {"title":"标题标题标题标题标题","date":"8/10","id":"1"}, 
+                                {"title":"标题标题标题标题标题标题","date":"3/10","id":"1"}]
                 },
                 {
-                    "date": "2020/08",
-                    "title": ["标题标题", "标题标题标题标题", "标标题标题题标题"]
+                    "label": "2021",
+                    "content": [{"title":"标题标题标题标题标题标题","date":"7/10","id":"1"}, 
+                                {"title":"标题标题标题标题标题标题","date":"4/10","id":"1"}, 
+                                {"title":"标题标题标题标题","date":"1/10","id":"1"}]
                 },
                 {
-                    "date": "2020/07",
-                    "title": ["标题标题", "标题标标题标题题", "标题标题"]
-                }
+                    "label": "2020",
+                    "content": [{"title":"标题题标题标题","date":"9/10","id":"1"}, 
+                                {"title":"标标题标题标题","date":"6/10","id":"1"}, 
+                                {"title":"标题标题题标题标题","date":"5/10","id":"1"}, 
+                                {"title":"标题标题题标题标题","date":"5/10","id":"1"}, 
+                                {"title":"标题标题题标题标题","date":"5/10","id":"1"}, 
+                                {"title":"标题标题题标题标题","date":"5/10","id":"1"}, 
+                                {"title":"标题标题题标题标题","date":"5/10","id":"1"}, 
+                                {"title":"标题标题题标题标题","date":"5/10","id":"1"}]
+                },
             ]}
     
 

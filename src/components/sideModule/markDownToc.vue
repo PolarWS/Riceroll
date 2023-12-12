@@ -72,7 +72,6 @@ export default {
                     this.$refs.scrollContainer.scrollTop = 0;
                 });
             }
-            console.log(newVal);
         },
         markdownTocIndex(newVal) {
             this.scrollToAnchor(newVal);
