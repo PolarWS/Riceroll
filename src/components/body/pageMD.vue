@@ -30,10 +30,12 @@
         <markDown :markDownData="markDownData.md" />
     </div>
     <pageMDTag :markDownDataTag="markDownData.tag" v-show="renderBoolean" class="pageMD" />
+    <commentSection :itemData="this.itemData" />
     <loadingDynamicEffect v-show="!renderBoolean" />
 </template>
 <script>
 import markDown from '../markDown.vue';
+import commentSection from '../component/commentSection.vue';
 import pageMDTag from './pageMDTag.vue';
 import loadingDynamicEffect from '../loadingDynamicEffect.vue';
 import { useCounterStore } from '../../store/axiosStore.js';
@@ -129,6 +131,9 @@ export default {
         markDown,
         loadingDynamicEffect,
         pageMDTag,
+        commentSection,
+    }, props: {
+        itemData: Object,
     }, inject: ['api'],
 }
 </script>

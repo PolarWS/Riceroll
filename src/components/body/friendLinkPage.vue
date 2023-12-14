@@ -1,14 +1,14 @@
 <template>
     <bodyItem :itemData="this.itemData" />
-    <div id="pressed" :style="cardBoxAdaptation.grid">
+    <div id="pressed">
         <div class="cardBox" v-for="(item, index) in itemData.cardList" @click="linkClick(item.url)">
             <div class="cardImg">
                 <img :src="(item.src)" />
                 <div class="state" :class="statePing(this.pingData[index])" v-if="itemData.pingSwitch"></div>
             </div>
             <div class="cardContent">
-                <div class="title" :style="cardBoxAdaptation.width">{{ item.title }}</div>
-                <span class="content" :style="cardBoxAdaptation.width">{{ item.content }}</span>
+                <div class="title">{{ item.title }}</div>
+                <span class="content">{{ item.content }}</span>
             </div>
         </div>
     </div>
@@ -21,14 +21,6 @@ export default {
     data() {
         return {
             pingData: Object,
-            cardBoxAdaptation: {
-                'grid': {
-                    'grid-template-columns': '',
-                },
-                'width': {
-                    width: '',
-                },
-            },
         };
     },
     components: {
@@ -54,20 +46,6 @@ export default {
                 return "stateR";
             }
         },
-        checkWidth() {
-            const element = document.querySelector('#pressed');
-            if (element.offsetWidth < 600) {
-                this.cardBoxAdaptation.grid['grid-template-columns'] = '1fr';
-                this.cardBoxAdaptation.width.width = '10rem';
-            }
-            else {
-                this.cardBoxAdaptation.grid['grid-template-columns'] = 'repeat(2, 1fr)';
-                this.cardBoxAdaptation.width.width = '9rem';
-            }
-        },
-    }, mounted() {
-        this.checkWidth();
-        window.addEventListener('resize', this.checkWidth);
     }, created() {
         useCounterStore().apiRequest(this.api.url + this.api.frindLinkPage)
             .then(data => {
@@ -86,8 +64,6 @@ export default {
                     Color: 'messageR',
                 });
             });
-    }, unmounted() {
-        window.removeEventListener('resize', this.checkWidth);
     }, props: {
         itemData: Object,
     }, inject: ['api'],
@@ -111,6 +87,7 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 9rem;
 }
 
 .state {
@@ -144,23 +121,25 @@ export default {
 
 #pressed {
     display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin: 0 1.5rem 1.5rem 1.5rem;
 }
 
 .cardBox {
+    box-sizing: border-box;
     display: grid;
     border-radius: 0.55rem;
     height: 9.5rem;
     grid-template-columns: 2fr 3fr;
     justify-content: center;
-    border: 2px solid var(--color-theme-frame1);
+    border: 1px solid var(--color-theme-frame2);
     cursor: pointer;
     transition: border 0.25s, transform 0.1s;
 }
 
 .cardBox:hover {
-    border: 2px solid var(--color-theme-grayscale4);
+    border: 1px solid var(--color-theme-blue-1);
 }
 
 .cardBox:active {
@@ -187,9 +166,17 @@ export default {
     justify-content: right;
 }
 
-/* @media screen and (max-width: 600px) {
+@media screen and (max-width: 750px) {
     #pressed {
-        margin: 0 1rem 1rem 1rem;
+        grid-template-columns: 1fr;
     }
-} */
+
+    .content {
+        width: 10rem;
+    }
+
+    .title {
+        width: 10rem;
+    }
+}
 </style>

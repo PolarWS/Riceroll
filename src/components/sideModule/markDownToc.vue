@@ -109,17 +109,11 @@ export default {
 .markDownToc:hover {
     scrollbar-width: 0.35rem;
     /* Firefox */
-    scrollbar-color: var(--color-theme-grayscale4) transparent;
-    /* Firefox */
+
 }
 
 .markDownToc:hover::-webkit-scrollbar {
     width: 0.35rem;
-    /* Chrome, Safari, Edge */
-}
-
-.markDownToc:hover::-webkit-scrollbar-thumb {
-    background-color: var(--color-theme-grayscale4);
     /* Chrome, Safari, Edge */
 }
 

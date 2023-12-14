@@ -65,7 +65,6 @@ export default {
     },
     methods: {
         articleListCardBoxClick(event) {
-            
             this.$router.push('/articlePage/' + event);
         }
     },

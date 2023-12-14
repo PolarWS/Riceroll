@@ -41,6 +41,7 @@ for (const allocation of navigationBarData.titleData) {
 
 pages.push({
     path: '/articlePage/:id',
+    props:{itemData: config.component},
     component: pageMD
 });
 

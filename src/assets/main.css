@@ -1,8 +1,5 @@
 html {
   font-size: 15px;
-  /* 设置根元素的字体大小 */
-  /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; */
-  /* 改变选中状态的颜色 */
   font-family: Roboto, Noto, Helvetica, Arial, sans-serif;
   scroll-behavior: smooth;
 }
@@ -14,6 +11,35 @@ body {
 ::selection {
   color: var(--color-theme-white);
   background: var(--color-theme-selected);
+}
+
+/* main.css */
+
+body, body * {
+  scrollbar-width: 0.35rem;
+  /* Firefox */
+  scrollbar-color: var(--color-theme-grayscale4) transparent;
+  /* Firefox */
+}
+
+body::-webkit-scrollbar, body *::-webkit-scrollbar {
+  width: 0.5rem;
+  /* Chrome, Safari, Edge */
+}
+
+body::-webkit-scrollbar-thumb, body *::-webkit-scrollbar-thumb {
+  background-color: var(--color-theme-grayscale4);
+  /* Chrome, Safari, Edge */
+}
+
+body:hover, body *:hover {
+  scrollbar-color: var(--color-theme-grayscale45) transparent;
+  /* Firefox */
+}
+
+body:hover::-webkit-scrollbar-thumb, body *:hover::-webkit-scrollbar-thumb {
+  background-color: var(--color-theme-grayscale45);
+  /* Chrome, Safari, Edge */
 }
 
 #app {
@@ -50,20 +76,23 @@ body {
   --color-theme-white-3: #fffffff3;
   --color-theme-blue-1: #66bbff;
   --color-theme-blue-2: #66ccff;
+  --color-theme-blue-3: #409EFF;
   --color-theme-icon-1: #2c2c2c;
 
   --color-theme-frame1: #eeeeee;
   --color-theme-frame2: #d0d7de;
+  --color-theme-frame3: #b3bbc4;
 
   --color-theme-grayscale1: #F3F3F3;
   --color-theme-grayscale2: #e9e9e9;
   --color-theme-grayscale3: #dddddd;
   --color-theme-grayscale4: #D2D2D2;
+  --color-theme-grayscale45: #b6b6b6;
   --color-theme-grayscale5: #8f8f8f;
   --color-theme-grayscale65: #7c7c7c;
   --color-theme-grayscale6: #575757;
 
-  --color-theme-black0: rgba(0, 0, 0, 0.05);
+  --cblack0olor-theme-: rgba(0, 0, 0, 0.05);
   --color-theme-black1: rgba(0, 0, 0, 0.25);
   --color-theme-black2: rgba(0, 0, 0, 0.38);
 

@@ -139,6 +139,18 @@ export default {
 <style>
 .fileBody {
     margin: 0rem 1.5rem 1rem 1.5rem;
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .fileBox {
@@ -147,6 +159,7 @@ export default {
     border: 2px solid var(--color-theme-frame1);
     transition: height 0.25s;
     overflow: hidden;
+    border-radius: 0.25rem;
 }
 
 .fileDate {

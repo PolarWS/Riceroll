@@ -42,7 +42,7 @@ export default {
             }
         },
         checkScreenSize() {
-            if (window.innerWidth < 1280) {
+            if (window.innerWidth <= 1280) {
                 this.selectedItemsIco = false;
                 this.selectedItemsWidth = 3;
             } else {

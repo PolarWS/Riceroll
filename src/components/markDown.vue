@@ -21,10 +21,4 @@ export default {
 .markdown-body {
     padding: 1.5rem;
 }
-
-/* @media screen and (max-width: 600px) {
-    .markdown-body {
-        padding: 1rem;
-    }
-} */
 </style>

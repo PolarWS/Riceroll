@@ -45,7 +45,7 @@ export default {
     background-color: var(--color-theme-white-2);
     right: 2rem;
     bottom: 2rem;
-    box-shadow: 0 0 0.5rem var(--color-theme-black0);
+    box-shadow: 0 0 0.25rem var(--color-theme-grayscale2);
     backdrop-filter: blur(2px);
 }
 
