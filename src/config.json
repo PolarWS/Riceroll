@@ -203,10 +203,17 @@
             }
         ]
     },
-    "component":{
-        "chatBoxText":"大佬，看看这",
-        "chatBoxImg":"/src/img/7.webp",
-        "exposedEmoji":["🐱","🎉","🚀","😍"]
+    "component": {
+        "chatBoxTextData": {
+            "chatBoxText": "大佬，看看这",
+            "chatBoxImg": "/src/img/7.webp",
+            "exposedEmoji": [
+                "🐱",
+                "🎉",
+                "🚀",
+                "😍"
+            ]
+        }
     },
     "api": {
         "_comment": "这里是api配置，除非后端配合请勿轻易改动",
@@ -214,6 +221,7 @@
         "frindLinkPage": "frindLinkPage",
         "articlePage": "articlePage",
         "filePage": "filePage",
-        "markdown": "/md?id="
+        "markdown": "md",
+        "comment": "comment"
     }
 }

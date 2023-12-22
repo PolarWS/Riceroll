@@ -28,14 +28,14 @@
             </div>
         </div>
         <markDown :markDownData="markDownData.md" />
+        <pageMDTag :markDownDataTag="markDownData.tag" v-show="renderBoolean" class="pageMD" />
+        <commentList />
     </div>
-    <pageMDTag :markDownDataTag="markDownData.tag" v-show="renderBoolean" class="pageMD" />
-    <commentSection :itemData="this.itemData" />
     <loadingDynamicEffect v-show="!renderBoolean" />
 </template>
 <script>
 import markDown from '../markDown.vue';
-import commentSection from '../component/commentSection.vue';
+import commentList from '../component/commentList.vue';
 import pageMDTag from './pageMDTag.vue';
 import loadingDynamicEffect from '../loadingDynamicEffect.vue';
 import { useCounterStore } from '../../store/axiosStore.js';
@@ -65,7 +65,7 @@ export default {
     },
     mounted() {
         this.markdownID = this.$route.path.split('/');
-        useCounterStore().apiRequest(this.api.url + this.api.markdown + this.markdownID[this.markdownID.length - 1])
+        useCounterStore().apiRequest(this.api.url + this.api.markdown, this.markdownID[this.markdownID.length - 1])
             .then(data => {
                 if (data.status == 200) {
                     this.markDownData = data;
@@ -131,9 +131,7 @@ export default {
         markDown,
         loadingDynamicEffect,
         pageMDTag,
-        commentSection,
-    }, props: {
-        itemData: Object,
+        commentList,
     }, inject: ['api'],
 }
 </script>

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import random
 import os
@@ -6,21 +6,46 @@ import time
 import urllib.parse
 import re
 import markdown
+import json
 
 
 app = Flask(__name__)
 CORS(app, origins=['http://127.0.0.1:5173'])
 
-@app.route('/')
-def hello_world():
-    return "hellow world"
+def find_comments(root_dir):
+    # 加载 pageIdIndex 数据
+    with open(os.path.join('E:\\code\\vue\\Riceroll\\server', 'comment.json'), 'r') as f:
+        data = json.load(f)
 
-@app.route('/frindLinkPage')
-def hello_world2():
-    a2 = [random.randint(1, 510) for _ in range(5)]
-    return {"status":200,"ping":a2}
+    # 在 pageIdIndex 中查找 UUID
+    search_uuid = data['pageIdIndex'][root_dir]
 
-import re
+    def find_replies(uuid, comments):
+        replies = []
+        for comment in comments:
+            if comment['uuidLink'] == uuid:
+                replies.append(comment)
+                replies.extend(find_replies(comment['uuid'], comments))
+        return replies
+
+    def find_pageId(pageId, comments):
+        pageId_replies = []
+        commentData = []
+        for comment in comments:
+            if comment['pageId'] == pageId:
+                pageId_replies.append(comment)
+        # 遍历pageId_replies所有uuidLink为空的评论
+        for comment in pageId_replies:
+            if comment['uuidLink'] == '':
+                commentData.append(comment)
+                # commentData中的comment添加一项"reply"
+                comment['reply'] = find_replies(comment['uuid'], pageId_replies)
+        return commentData
+
+    # 使用递归函数找到所有回复
+    replies = find_pageId(search_uuid, data['commentData'])
+
+    return replies
 
 def parse_toc(content):
     html = markdown.markdown(content)
@@ -70,7 +95,20 @@ def parse_toc(content):
             id_counter += 1
     return toc
 
-@app.route('/md')
+@app.route('/')
+def hello_world():
+    return "hellow world"
+
+@app.route('/frindLinkPage')
+def hello_world2():
+    a2 = [random.randint(1, 510) for _ in range(5)]
+    return {"status":200,"ping":a2}
+
+@app.route('/comment',methods=['POST'])
+def hello_world6():
+    return{"status":200,"data":find_comments(request.get_json()["route"])}
+
+@app.route('/md', methods=['POST'])
 def hello_world4():
     with open('test.md', 'r', encoding='utf-8') as file:
         content = file.read()
@@ -87,7 +125,8 @@ def hello_world4():
             "tag": ["tag1", "tag2", "tag3"]
         }
     return jsonify(md)
-    
+
+
 
 @app.route('/articlePage')
 def hello_world3():

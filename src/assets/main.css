@@ -15,29 +15,34 @@ body {
 
 /* main.css */
 
-body, body * {
+body,
+body * {
   scrollbar-width: 0.35rem;
   /* Firefox */
   scrollbar-color: var(--color-theme-grayscale4) transparent;
   /* Firefox */
 }
 
-body::-webkit-scrollbar, body *::-webkit-scrollbar {
+body::-webkit-scrollbar,
+body *::-webkit-scrollbar {
   width: 0.5rem;
   /* Chrome, Safari, Edge */
 }
 
-body::-webkit-scrollbar-thumb, body *::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb,
+body *::-webkit-scrollbar-thumb {
   background-color: var(--color-theme-grayscale4);
   /* Chrome, Safari, Edge */
 }
 
-body:hover, body *:hover {
+body:hover,
+body *:hover {
   scrollbar-color: var(--color-theme-grayscale45) transparent;
   /* Firefox */
 }
 
-body:hover::-webkit-scrollbar-thumb, body *:hover::-webkit-scrollbar-thumb {
+body:hover::-webkit-scrollbar-thumb,
+body *:hover::-webkit-scrollbar-thumb {
   background-color: var(--color-theme-grayscale45);
   /* Chrome, Safari, Edge */
 }
@@ -92,7 +97,7 @@ body:hover::-webkit-scrollbar-thumb, body *:hover::-webkit-scrollbar-thumb {
   --color-theme-grayscale65: #7c7c7c;
   --color-theme-grayscale6: #575757;
 
-  --cblack0olor-theme-: rgba(0, 0, 0, 0.05);
+  --color-theme-black0: rgba(0, 0, 0, 0.05);
   --color-theme-black1: rgba(0, 0, 0, 0.25);
   --color-theme-black2: rgba(0, 0, 0, 0.38);
 

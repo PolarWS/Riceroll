@@ -1,20 +1,20 @@
 <template>
-   <div id="commentSection">
-      <div id="informationSection">
+   <div class="commentSection">
+      <div class="informationSection">
          <div><input type="text" placeholder="昵称"></div>
          <div><input type="text" placeholder="网站"></div>
          <div><input type="text" placeholder="邮箱"></div>
       </div>
-      <div id="inputSection">
+      <div class="inputSection">
          <transition name="fade">
-            <div id="emojiList" v-show="emojiListVisible">
+            <div class="emojiList" v-show="emojiListVisible">
                😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍
             </div>
          </transition>
-         <textarea :placeholder="this.itemData.chatBoxText" v-model="textareaValue"></textarea>
+         <textarea :placeholder="this.linkName" v-model="textareaValue"></textarea>
       </div>
-      <div id="controlArea">
-         <div id="controlAreaEmoji">
+      <div class="controlArea">
+         <div class="controlAreaEmoji">
             <button @click="emojiListVisible = !emojiListVisible">
                <svg t="1702548244505" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                   p-id="6442" width="20" height="20">
@@ -30,48 +30,80 @@
                      fill="#8f8f8f" p-id="6446"></path>
                </svg>
             </button>
-            <div id="controlAreaEmojiGrid">
+            <div class="controlAreaEmojiGrid">
             </div>
-            <div id="EmojiCommonlyUsed">
-               <button v-for="(item, index) in this.itemData.exposedEmoji" @click="addCharacter(item)">
+            <div class="EmojiCommonlyUsed">
+               <button v-for="(item, index) in this.chatBoxTextData.exposedEmoji" @click="addCharacter(item)">
                   {{ item }}
                </button>
             </div>
          </div>
-         <div id="controlAreaSend"><button>发布</button></div>
+         <div class="controlAreaSend">
+            <button @click="sendComment()" :style="{ 'pointer-events': loadingDisplay ? 'none' : 'auto' }">
+               <div v-show="!loadingDisplay">
+                  发布
+               </div>
+               <loadingDynamicEffect v-show="loadingDisplay" :loadingSize="loadingSize" />
+            </button>
+         </div>
       </div>
    </div>
 </template>
 <script>
+import loadingDynamicEffect from '../loadingDynamicEffect.vue';
+import { useCounterStore } from '../../store/axiosStore.js';
 export default {
    data() {
       return {
          textareaValue: '',
          emojiListVisible: false,
+         loadingDisplay: false,
+         loadingSize: {
+            size: 18,
+            width: "auto",
+            height: "auto",
+         },
+         chatBoxTextData: useCounterStore().configData.component.chatBoxTextData,
       }
    },
    methods: {
       addCharacter(emojiAdd) {
          this.textareaValue += emojiAdd;
       },
+      sendComment() {
+         this.loadingDisplay = true;
+         setTimeout(() => {
+            this.$root.messagePopups({
+               message: '发送成功',
+               Color: 'messageG',
+            });
+            this.loadingDisplay = false;
+         }, 1000);
+      }
+   },
+   components: {
+      loadingDynamicEffect
    },
    props: {
-      itemData: Object,
+      linkName: {
+         type: String,
+         default: () => (useCounterStore().configData.component.chatBoxTextData.chatBoxText)
+      }
    },
 }
 </script>
 <style>
-#commentSection {
-   padding: 0 1.5rem;
+.commentSection {
+   padding: 0 1.5rem 1rem 1.5rem;
 }
 
-#inputSection {
+.inputSection {
    padding-top: 0.75rem;
    width: 100%;
    position: relative;
 }
 
-#informationSection {
+.informationSection {
    padding-top: 1rem;
    border-top: 1px solid var(--color-theme-frame2);
    display: grid;
@@ -79,13 +111,13 @@ export default {
    grid-template-columns: 1fr 1fr 1fr;
 }
 
-#controlArea {
-   margin: 0.5rem 0;
+.controlArea {
+   margin-top: 0.5rem;
    display: grid;
    grid-template-columns: 1fr 1fr;
 }
 
-#emojiList {
+.emojiList {
    box-sizing: border-box;
    padding: 1rem;
    height: 14.25rem;
@@ -99,28 +131,32 @@ export default {
    box-shadow: 0 0 0.5rem var(--color-theme-grayscale3);
 }
 
-#controlAreaSend {
+.controlAreaSend {
    display: flex;
    justify-content: flex-end;
 }
 
-#controlAreaEmoji {
+.controlAreaSend button {
+   width: 4rem;
+}
+
+.controlAreaEmoji {
    display: flex;
    align-items: center;
 }
 
-#controlAreaEmojiGrid {
+.controlAreaEmojiGrid {
    margin: 0 0.75rem;
    height: 1.25rem;
    border-right: 1px solid var(--color-theme-frame2);
 }
 
-#EmojiCommonlyUsed {
+.EmojiCommonlyUsed {
    display: flex;
    flex-wrap: wrap;
 }
 
-#controlAreaEmoji button {
+.controlAreaEmoji button {
    padding: 0.2rem;
    height: 2.25rem;
    width: 2.25rem;
@@ -134,15 +170,15 @@ export default {
    font-size: 1.15rem;
 }
 
-#controlAreaEmoji button:hover {
+.controlAreaEmoji button:hover {
    background-color: var(--color-theme-grayscale1);
 }
 
-#controlAreaEmoji button:active {
+.controlAreaEmoji button:active {
    background-color: var(--color-theme-grayscale3);
 }
 
-#controlAreaSend button {
+.controlAreaSend button {
    display: flex;
    align-items: center;
    justify-content: center;
@@ -153,16 +189,16 @@ export default {
    color: var(--color-theme-white);
 }
 
-#controlAreaSend button:hover {
+.controlAreaSend button:hover {
    background-color: var(--color-theme-blue-2);
 }
 
-#controlAreaSend button:active {
+.controlAreaSend button:active {
    background-color: var(--color-theme-blue-1);
 }
 
-#commentSection input,
-#commentSection textarea {
+.commentSection input,
+.commentSection textarea {
    width: 100%;
    resize: vertical;
    padding: 1rem;
@@ -175,36 +211,36 @@ export default {
    font-family: Roboto, Noto, Helvetica, Arial, sans-serif;
 }
 
-#commentSection textarea {
+.commentSection textarea {
    min-height: 10rem;
 }
 
-#commentSection input:hover,
-#commentSection textarea:hover {
+.commentSection input:hover,
+.commentSection textarea:hover {
    border: 1px solid var(--color-theme-frame3);
 }
 
-#commentSection input:focus,
-#commentSection textarea:focus {
+.commentSection input:focus,
+.commentSection textarea:focus {
    outline: none;
    border: 1px solid var(--color-theme-blue-1);
 }
 
-#commentSection input::placeholder,
-#commentSection textarea::placeholder {
+.commentSection input::placeholder,
+.commentSection textarea::placeholder {
    color: var(--color-theme-grayscale4);
 }
 
 @media (max-width: 750px) {
-   #informationSection {
+   .informationSection {
       grid-template-columns: 1fr;
    }
 
-   #controlArea {
+   .controlArea {
       grid-template-columns: 1fr;
    }
 
-   #controlAreaSend button {
+   .controlAreaSend button {
       margin-top: 0.75rem;
       width: 100%;
    }

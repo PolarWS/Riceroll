@@ -1,6 +1,7 @@
 <template>
-    <div class="loadingDynamicEffect">
-        <svg width="75" height="75" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" stroke="#fff">
+    <div class="loadingDynamicEffect" :style="{ width: loadingSize.width, height: loadingSize.height }">
+        <svg :width="loadingSize.size" :height="loadingSize.size" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg"
+            stroke="#fff">
             <g fill="none" fill-rule="evenodd" stroke-width="2">
                 <circle cx="22" cy="22" r="1">
                     <animate attributeName="r" begin="0s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1"
@@ -18,16 +19,28 @@
         </svg>
     </div>
 </template>
+<script>
+export default {
+    props: {
+        loadingSize: {
+            type: Object,
+            default: () => ({
+                size: 75,
+                width: "100%",
+                height: "20rem",
+            })
+        }
+    },
+}
+</script>
 <style>
 .loadingDynamicEffect {
-    width: 100%;
-    height: 20rem;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .loadingDynamicEffect svg {
-    stroke: var(--color-theme-blue-1); 
+    stroke: var(--color-theme-blue-1);
 }
 </style>
