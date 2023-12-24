@@ -64,4 +64,10 @@ export default {
     color: var(--color-theme-grayscale1);
     background-color: var(--color-theme-grayscale5);
 }
+
+@media screen and (max-width: 600px) {
+    #pageMDTag {
+        padding: 0.5rem 1.15rem 2rem 1.15rem;
+    }
+}
 </style>

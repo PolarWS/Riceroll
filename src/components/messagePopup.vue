@@ -4,7 +4,6 @@
     </div>
 </template>
 <script>
-import { dataRelay } from '../store/dataRelay.js';
 export default {
     props: ["messageData"]
 }

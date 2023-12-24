@@ -61,7 +61,7 @@ body *:hover::-webkit-scrollbar-thumb {
   }
 }
 
-/* 轮询小于1280px并且大于1000px */
+/* 轮询小于1280px并且大于1024px */
 @media screen and (max-width: 1024px) {
   #app {
     grid-template-columns: 5rem minmax(10rem, 5fr) 0rem;

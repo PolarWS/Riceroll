@@ -16,6 +16,7 @@
 </template>
 <script>
 import sideItem from './sideItem.vue';
+import { dataRelay } from '@/store/dataRelay.js';
 export default {
     data() {
         return {
@@ -109,13 +110,14 @@ export default {
     mounted() {
         this.checkScreenSize();
         this.selectedCalculation();
-        window.addEventListener('resize', this.checkScreenSize);
-    },
-    unmounted() {
-        window.removeEventListener('resize', this.checkScreenSize);
-    },
-    beforeUnmount() {
-        window.removeEventListener('resize', this.checkScreenSize);
+    }, computed: {
+        widthLevel() {
+            return dataRelay().widthLevel;
+        }
+    }, watch: {
+        widthLevel() {
+            this.checkScreenSize();
+        }
     },
     props: ['navigationBarData']
 }

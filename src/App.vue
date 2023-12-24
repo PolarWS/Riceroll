@@ -1,12 +1,12 @@
 <template>
   <!-- 导航栏 -->
-  <navigationBar v-if="widthLevel >= 3" @handleClick="handleClick" :navigationBarData="navigationBarData" />
+  <navigationBar v-if="widthLevel >= 2" @handleClick="handleClick" :navigationBarData="navigationBarData" />
   <!-- 中心内容页 -->
   <div class="centralFramework">
     <!-- 导航栏mob -->
-    <navigationBarMob v-if="widthLevel < 3" @handleClick="handleClick" @navigationBarMobSwitch="navigationBarMobSwitch"
+    <navigationBarMob v-if="widthLevel < 2" @handleClick="handleClick" @navigationBarMobSwitch="navigationBarMobSwitch"
       :navigationBarData="navigationBarData" :style="{ right: navigationBarMobRight + 'rem' }" />
-    <topMenuBar v-if="widthLevel < 3" @navigationBarMobSwitch="navigationBarMobSwitch"
+    <topMenuBar v-if="widthLevel < 2" @navigationBarMobSwitch="navigationBarMobSwitch"
       :navigationBarData="navigationBarData.titleData" :blogName="blogName" />
     <messagePopups ref="messagePopups" />
     <RouterView v-slot="{ Component }">
@@ -82,10 +82,12 @@ export default {
         this.widthLevel = 5;
       } else if (window.innerWidth > 1024) {
         this.widthLevel = 4;
-      } else if (window.innerWidth > 600) {
+      } else if (window.innerWidth > 750) {
         this.widthLevel = 3;
-      } else {
+      } else if (window.innerWidth > 600) {
         this.widthLevel = 2;
+      } else {
+        this.widthLevel = 1;
       }
       dataRelay().widthLevel = this.widthLevel;
     },

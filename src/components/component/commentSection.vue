@@ -1,9 +1,9 @@
 <template>
    <div class="commentSection">
       <div class="informationSection">
-         <div><input type="text" placeholder="昵称"></div>
-         <div><input type="text" placeholder="网站"></div>
-         <div><input type="text" placeholder="邮箱"></div>
+         <div><input type="text" placeholder="昵称" v-model="nameValue"></div>
+         <div><input type="text" placeholder="网站" v-model="urlValue"></div>
+         <div><input type="text" placeholder="邮箱" v-model="emailValue"></div>
       </div>
       <div class="inputSection">
          <transition name="fade">
@@ -11,7 +11,7 @@
                😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍😍
             </div>
          </transition>
-         <textarea :placeholder="this.linkName" v-model="textareaValue"></textarea>
+         <textarea :placeholder="placeholderData()" v-model="textareaValue"></textarea>
       </div>
       <div class="controlArea">
          <div class="controlAreaEmoji">
@@ -55,6 +55,9 @@ import { useCounterStore } from '../../store/axiosStore.js';
 export default {
    data() {
       return {
+         nameValue: "",
+         urlValue: "",
+         emailValue: "",
          textareaValue: '',
          emojiListVisible: false,
          loadingDisplay: false,
@@ -67,18 +70,66 @@ export default {
       }
    },
    methods: {
+      placeholderData() {
+         if (this.linkName.main) {
+            return useCounterStore().configData.component.chatBoxTextData.chatBoxText
+         } else {
+            return this.linkName.name;
+         }
+      },
       addCharacter(emojiAdd) {
          this.textareaValue += emojiAdd;
       },
       sendComment() {
          this.loadingDisplay = true;
-         setTimeout(() => {
-            this.$root.messagePopups({
-               message: '发送成功',
-               Color: 'messageG',
+         useCounterStore().apiRequest(this.api.url + this.api.comment[1],
+            {
+               "name": this.nameValue,
+               "url": this.urlValue,
+               "email": this.emailValue,
+               "msg": this.linkName.main ? this.textareaValue : this.placeholderData() + "@" + this.textareaValue,
+               "uuidLink": this.linkName.uuid,
+               "pageId": this.$route.path.split('/').pop()
+            })
+            .then(data => {
+               if (data.status == 200) {
+                  this.commentDataUpdate(
+                     {
+                        "avatarImg": data.avatarImg,
+                        "name": this.nameValue,
+                        "url": this.urlValue,
+                        "email": this.emailValue,
+                        "msg": this.linkName.main ? this.textareaValue : this.placeholderData() + "@" + this.textareaValue,
+                        "uuidLink": this.linkName.uuid,
+                        "uuid": data.uuid,
+                        "date": data.date,
+                        "reply": []
+                     }
+                  );
+                  this.$root.messagePopups({
+                     message: '发送成功',
+                     Color: 'messageG',
+                  });
+
+                  this.nameValue = "";
+                  this.urlValue = "";
+                  this.emailValue = "";
+                  this.textareaValue = "";
+               } else if (data.status == 400) {
+                  this.$root.messagePopups({
+                     message: data.news,
+                     Color: 'messageR',
+                  });
+               }
+               this.loadingDisplay = false;
+            })
+            .catch(error => {
+               this.$root.messagePopups({
+                  message: '发送失败',
+                  Color: 'messageR',
+               });
+               this.loadingDisplay = false;
             });
-            this.loadingDisplay = false;
-         }, 1000);
       }
    },
    components: {
@@ -86,15 +137,24 @@ export default {
    },
    props: {
       linkName: {
-         type: String,
-         default: () => (useCounterStore().configData.component.chatBoxTextData.chatBoxText)
+         type: Object,
+         default: () => ({
+            name: useCounterStore().configData.component.chatBoxTextData.chatBoxText,
+            uuid: "",
+            main: true,
+         })
+      },
+      commentDataUpdate: {
+         type: Function,
+         required: true
       }
-   },
+   }, inject: ['api'],
 }
 </script>
-<style>
+<style scoped>
 .commentSection {
-   padding: 0 1.5rem 1rem 1.5rem;
+   padding: 0 0.75rem 1rem 0.75rem;
+   border-top: 1px solid var(--color-theme-frame2);
 }
 
 .inputSection {
@@ -105,7 +165,6 @@ export default {
 
 .informationSection {
    padding-top: 1rem;
-   border-top: 1px solid var(--color-theme-frame2);
    display: grid;
    gap: 0.75rem;
    grid-template-columns: 1fr 1fr 1fr;
@@ -243,6 +302,10 @@ export default {
    .controlAreaSend button {
       margin-top: 0.75rem;
       width: 100%;
+   }
+
+   .commentSection {
+      padding: 0 0rem 1rem 0rem;
    }
 }
 

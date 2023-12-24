@@ -76,8 +76,8 @@ export default {
                         })
                     }
                     this.renderBoolean = true;
-                    const routeName = this.$route.fullPath.split('/');
-                    if (routeName[routeName.length - 1].split('#').length > 1) {
+                    const routeName = this.$route.fullPath.split('/').pop();
+                    if (routeName.split('#').length > 1) {
                         const anchor = routeName[routeName.length - 1].split('#')[1];
                         setTimeout(() => {
                             const anchorElement = document.getElementById(anchor);
@@ -100,12 +100,6 @@ export default {
                     });
                 }
             })
-            .catch(error => {
-                this.$root.messagePopups({
-                    message: '服务器连接失败',
-                    Color: 'messageR',
-                });
-            });
         window.addEventListener('scroll', this.checkAnchorInViewport, false);
     }, methods: {
         checkAnchorInViewport() {

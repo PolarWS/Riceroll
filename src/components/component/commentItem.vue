@@ -1,14 +1,19 @@
 <template>
     <div class="commentItemInfo">
         <div class="commentitemBasicInfo">
-            <div class="commentItemInfoImg" v-if="!commentItemInfoReplyImgDisplay"
-                :style="{ backgroundImage: `url(${commentItemData.avatarImg})` }">
-            </div>
-            <div class="commentItemInfoReplyImg" v-if="commentItemInfoReplyImgDisplay"
-                :style="{ backgroundImage: `url(${commentItemData.avatarImg})` }">
+            <div class="commentItemInfoImgBox">
+                <div class="commentItemInfoImg" v-if="!commentItemInfoReplyImgDisplay"
+                    :style="{ backgroundImage: `url(${commentItemData.avatarImg})` }">
+                </div>
+                <div class="commentItemInfoReplyImg" v-if="commentItemInfoReplyImgDisplay"
+                    :style="{ backgroundImage: `url(${commentItemData.avatarImg})` }">
+                </div>
             </div>
             <div class="commentItemInfoND">
-                <div class="commentItemInfoName" @click="urlRedirect(commentItemData.url)">
+                <div class="commentItemInfoName" @click="urlRedirect(commentItemData.url)" v-if="commentItemData.url">
+                    {{ commentItemData.name }}
+                </div>
+                <div class="commentItemInfoNoneName" v-else>
                     {{ commentItemData.name }}
                 </div>
                 <div class="commentItemInfoDate">
@@ -31,23 +36,48 @@
     </div>
     <div class="commentSectionBox" ref="commentSectionBox">
         <transition name="slide" @enter="enter" @leave="leave">
-            <commentSection ref="commentSection" v-show="commentItemData.commentSectionDisplay"
-                :linkName="'@' + commentItemData.name" />
+            <commentSection v-if="commentItemData.commentSectionDisplay" :linkName="this.commentSectionData"
+                :commentDataUpdate="commentDataUpdate" />
         </transition>
     </div>
-</template>
+</template>         
 <script>
 import commentSection from './commentSection.vue';
+import { dataRelay } from '@/store/dataRelay.js';
 export default {
+    data() {
+        return {
+            commentSectionData: {
+                name: "@" + this.commentItemData.name,
+                uuid: this.commentItemData.uuid,
+                main: !this.commentItemInfoReplyImgDisplay,
+            }
+        }
+    }, computed: {
+        widthLevel() {
+            return dataRelay().widthLevel;
+        }
+    }, watch: {
+        widthLevel() {
+            this.updateHeight();
+        }
+    },
     methods: {
+        commentDataUpdate(commentDataAdd) {
+            this.commentDataUpdateBranch(commentDataAdd);
+        },
         urlRedirect(url) {
             window.open(url);
         }, updateHeight() {
-            const el = this.$refs.commentSectionBox.children[0];
-            const style = window.getComputedStyle(el);
-            const marginTop = parseFloat(style.marginTop);
-            const marginBottom = parseFloat(style.marginBottom);
-            this.$refs.commentSectionBox.style.height = el.scrollHeight + marginTop + marginBottom + 'px';
+            if (this.$refs.commentSectionBox) {
+                const el = this.$refs.commentSectionBox.children[0];
+                if (el) {
+                    const style = window.getComputedStyle(el);
+                    const marginTop = parseFloat(style.marginTop);
+                    const marginBottom = parseFloat(style.marginBottom);
+                    this.$refs.commentSectionBox.style.height = el.scrollHeight + marginTop + marginBottom + 'px';
+                }
+            }
         }, enter(el, done) {
             this.$refs.commentSectionBox.style.height = '0';
             setTimeout(() => {
@@ -64,10 +94,10 @@ export default {
             this.$emit('commentSectionDisplay', this.commentItemData.uuid);
         }
     }, mounted() {
-        window.addEventListener('resize', this.updateHeight);
-    },
-    beforeDestroy() {
-        window.removeEventListener('resize', this.updateHeight);
+        let msg = this.commentItemData.msg;
+        if (msg.charAt(0) === '@') {
+            this.commentItemData.msg = msg.replace(/@([^@]+)@/g, '<a href="#' + this.commentItemData.uuidLink + '">@$1</a>');
+        }
     }, components: {
         commentSection
     }, props: {
@@ -75,26 +105,28 @@ export default {
         commentItemInfoReplyImgDisplay: {
             type: Boolean,
             default: () => (false)
-        }
+        }, commentDataUpdateBranch: {
+            type: Function,
+            required: true
+        },
     }, emits: ['commentSectionDisplay'],
 }
 </script>
 <style>
 .commentItemInfo {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
     display: flex;
     justify-content: space-between;
-
 }
 
 .commentItemInfoImg {
-    width: 5.75rem;
-    height: 5.75rem;
+    width: 5.25rem;
+    height: 5.25rem;
 }
 
 .commentItemInfoReplyImg {
-    width: 4.5rem;
-    height: 4.5rem;
+    width: 4.25rem;
+    height: 4.25rem;
 }
 
 .commentItemInfoImg,
@@ -111,22 +143,31 @@ export default {
     background-size: 110%
 }
 
+.commentItemInfoImgBox {
+    display: flex;
+    justify-content: center;
+}
+
 .commentitemBasicInfo {
     display: grid;
     grid-template-columns: 5.75rem 1fr;
 }
 
 .commentItemInfoND {
-    padding: 0.75rem 0 0 1.25rem;
+    padding: 0.25rem 0 0 1.25rem;
 }
 
-.commentItemInfoName {
+.commentItemInfoName,
+.commentItemInfoNoneName {
     display: inline-block;
     word-break: break-all;
     font-size: 1.35rem;
     font-weight: 600;
-    cursor: pointer;
     transition: color 0.1s;
+}
+
+.commentItemInfoName {
+    cursor: pointer;
 }
 
 .commentItemInfoName:hover {
@@ -144,8 +185,14 @@ export default {
     margin-top: 1.25rem;
 }
 
+.commentItemMsg a {
+    color: var(--color-theme-blue-1);
+    text-decoration: none;
+    margin-right: 0.25rem;
+}
+
 .commentItemReply {
-    padding-top: 2rem;
+    padding-top: 1rem;
 }
 
 .commentItemReply button {
@@ -177,7 +224,7 @@ export default {
 
 @media screen and (max-width: 600px) {
     .commentitemBasicInfo {
-        grid-template-columns: 4.5rem 1fr;
+        grid-template-columns: 4.75rem 1fr;
     }
 
     .commentItemInfoImg {

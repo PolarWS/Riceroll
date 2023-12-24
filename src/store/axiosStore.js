@@ -5,7 +5,7 @@ import config from "../config.json"
 export const useCounterStore = defineStore('counter', {
     state: () => ({
         markdownData: { id: "", content: {} },
-        configData: config
+        configData: config,
     }),
     actions: {
         async apiRequest(url, data) {
@@ -16,6 +16,6 @@ export const useCounterStore = defineStore('counter', {
                 res = await axios.get(url);
             }
             return res.data;
-        }
+        },
     },
 })
