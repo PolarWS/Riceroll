@@ -8,7 +8,7 @@
                 </template>
             </sideItem>
             <sideItem v-for="(item, index) in navigationBarData.titleData" :key="index"
-                @click.prevent="handleClick(index, item.id, item.url)" :iconSvg="item.icon">
+                @click.prevent="handleClick(item.id, item.url)" :iconSvg="item.icon">
                 <template #title>
                     {{ item.title }}
                 </template>
@@ -28,9 +28,9 @@ export default {
         sideItem,
     },
     methods: {
-        handleClick(index, id, url) {
+        handleClick(id, url) {
             if (url === undefined) {
-                this.$emit('handleClick', { id: id, data: index });
+                this.$router.push('/' + id);
                 this.navigationBarMobClosed();
             } else {
                 location.replace(url)

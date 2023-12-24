@@ -1,4 +1,5 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
+import { useRouter } from 'vue-router';
 
 export const dataRelay = defineStore('dataRelay', {
     state: () => ({
@@ -7,4 +8,4 @@ export const dataRelay = defineStore('dataRelay', {
     }),
     actions: {
     },
-})
+});

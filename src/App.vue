@@ -1,10 +1,10 @@
 <template>
   <!-- 导航栏 -->
-  <navigationBar v-if="widthLevel >= 2" @handleClick="handleClick" :navigationBarData="navigationBarData" />
+  <navigationBar v-if="widthLevel >= 2"  :navigationBarData="navigationBarData" />
   <!-- 中心内容页 -->
   <div class="centralFramework">
     <!-- 导航栏mob -->
-    <navigationBarMob v-if="widthLevel < 2" @handleClick="handleClick" @navigationBarMobSwitch="navigationBarMobSwitch"
+    <navigationBarMob v-if="widthLevel < 2" @navigationBarMobSwitch="navigationBarMobSwitch"
       :navigationBarData="navigationBarData" :style="{ right: navigationBarMobRight + 'rem' }" />
     <topMenuBar v-if="widthLevel < 2" @navigationBarMobSwitch="navigationBarMobSwitch"
       :navigationBarData="navigationBarData.titleData" :blogName="blogName" />
@@ -58,9 +58,6 @@ export default {
     backToTheTop,
   },
   methods: {
-    handleClick(event) {
-      this.$router.push('/' + event.id);
-    },
     messagePopups(event) {
       this.$refs.messagePopups.showPopup(event);
     },

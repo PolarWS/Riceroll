@@ -3,7 +3,7 @@
     <div class="navigationBar">
         <div class="sideItems">
             <sideItem v-for="(item, index) in navigationBarData.titleData" :key="index"
-                @click.prevent="handleClick(index, item.id, item.url)" :iconSvg="item.icon">
+                @click.prevent="handleClick(item.id, item.url)" :iconSvg="item.icon">
                 <template #title>
                     {{ item.title }}
                 </template>
@@ -33,11 +33,12 @@ export default {
     },
     methods: {
         // 判断选中条长度selectedItemsWidth和到顶部的距离clickItem
-        handleClick(index, id, url) {
-            this.checkScreenSize();
-            this.selectedCalculation();
+        handleClick(id, url) {
             if (url === undefined) {
-                this.$emit('handleClick', { id: id, data: index });
+                this.$router.push('/' + id).then(() => {
+                    this.checkScreenSize();
+                    this.selectedCalculation();
+                });
             } else {
                 location.replace(url);
             }
@@ -52,6 +53,7 @@ export default {
             }
         },
         selectedCalculation() {
+            // console.log(this.$route.path);
             const titles = this.navigationBarData.titleData.map(title => title.id);
             const path = this.$route.path;
             const parts = path.split('/');
@@ -105,18 +107,17 @@ export default {
             if (to.path != from.path) {
                 this.selectedCalculation();
             }
+        }, widthLevel() {
+            this.checkScreenSize();
         }
     },
     mounted() {
         this.checkScreenSize();
         this.selectedCalculation();
-    }, computed: {
+    },
+    computed: {
         widthLevel() {
             return dataRelay().widthLevel;
-        }
-    }, watch: {
-        widthLevel() {
-            this.checkScreenSize();
         }
     },
     props: ['navigationBarData']
