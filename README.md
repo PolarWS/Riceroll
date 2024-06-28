@@ -1,5 +1,5 @@
 # ✨Riceroll
-这是一个基于VUE和SSM的博客框架，目前正在努力开发中，如果喜欢的话可以给个✨**starred**
+这是一个基于VUE和Flask的博客框架，目前正在努力开发中，如果喜欢的话可以给个✨**starred**
 
 # 🚀目前开发进度
 - [x] 主体UI构建
@@ -15,13 +15,13 @@
 - [x] 文章页
 - [x] 归档页
 - [ ] 音乐页
-- [ ] 侧边信息栏
-- [ ] 留言系统
-- [ ] 搜索系统 
-- [ ] 临时后端(基于flask) 
+- [x] 侧边信息栏
+- [x] 留言系统
+- [x] 搜索系统 
+- [x] 临时后端(基于flask) 
 
 # 😎以下为预览图片
-![](https://raw.githubusercontent.com/PolarWS/Riceroll/master/img/RicerollHtml.png)
+![](https://pan.polarws.moe/f/j9Cl/RicerollHtml.png)
 
 # 🎃这是我们的logo
-![](https://raw.githubusercontent.com/PolarWS/Riceroll/master/img/logo.png)
+![](https://pan.polarws.moe/f/3nhJ/RicerollLogo.png)
