@@ -7,25 +7,29 @@
         <template #content>
             <span>{{ announcementBoard.title }}</span>
             <br><br>
-            <span>#文章统计：{{ numberOfWords }}</span>
+            <span>#文章统计：{{ articleCount }}</span>
             <br>
-            <span>#回复统计：{{ numberOfComments }}</span>
+            <span>#回复统计：{{ commentCount }}</span>
         </template>
     </sideTemplate>
 </template>
 <script>
-import sideTemplate from '../sideTemplate.vue';
+import sideTemplate from '@/components/sideModule/sideTemplate.vue';
+import { axiosStore } from '@/store/axiosStore.js';
 export default {
     data() {
         return {
             date: "",
-            title: "感谢访问本站，若喜欢请收藏交个朋友谢谢呐(｀・ω・´)",
-            numberOfWords: "999",
-            numberOfComments: "999",
+            articleCount: "",
+            commentCount: "",
         }
     },
     beforeMount() {
         this.date = new Date().getFullYear() + "/" + (new Date().getMonth() + 1) + "/" + new Date().getDate();
+        axiosStore().apiRequest(axiosStore().api.url+axiosStore().api.announcementBoard).then(data => {
+            this.articleCount = data.data.article;
+            this.commentCount = data.data.comment;
+        });
     },
     components: {
         sideTemplate,

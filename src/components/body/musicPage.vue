@@ -1,13 +1,13 @@
 <template>
-    <bodyItem :itemData="this.itemData"/>
+    <bodyItem :itemData="this.itemData"></bodyItem>
 </template>
 <script>
-import bodyItem from './bodyItem.vue';
-export default{
-    components:{
+import bodyItem from '@/components/body/bodyItem.vue';
+export default {
+    components: {
         bodyItem,
-    },props:{
-        itemData:Object,
-    }
+    }, props: {
+        itemData: Object,
+    },
 }
 </script>

@@ -5,18 +5,34 @@
                 <h1>「{{ itemData.title.content }}」</h1>
             </div>
         </div>
-        <markDown :markDownData="itemData.md" />
+        <markDown :markDownUrl="itemData.markdown" />
+        <slot></slot>
+        <commentList v-if="this.itemData.comment" />
     </div>
 </template>
 <script>
-import markDown from '../markDown.vue';
+import markDown from '@/components/markDown.vue';
+import commentList from '@/components/component/commentList.vue';
 export default {
     props: {
         itemData: Object,
-    },
-    components: {
+    }, components: {
         markDown,
+        commentList,
     },
+    mounted() {
+        const routeName = this.$route.fullPath.split('/').pop();
+        if (routeName.split('#').length > 1) {
+            const anchor = routeName.split('#')[1];
+            setTimeout(() => {
+                const anchorElement = document.getElementById(anchor);
+                if (anchorElement) {
+                    anchorElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 1000);
+        }
+    },
+
 }
 </script>
 <style scoped>

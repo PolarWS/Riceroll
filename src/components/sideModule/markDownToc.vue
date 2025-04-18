@@ -7,15 +7,15 @@
         <template #content>
             <div ref="scrollContainer" class="markDownToc">
                 <div v-for="(item, index) in markDownToc.data" :id="'markdownTocID' + index"
-                    :class="[item.class, { 'markdownTocSelected': index === 0 }]">
-                    <a :href="item.href" @click="interruptEvent()">{{ item.title }}</a>
+                    :class="['markdownTocClass' + item.value, { 'markdownTocSelected': index === 0 }]">
+                    <a :href="item.title" @click="interruptEvent()">{{ item.title }}</a>
                 </div>
             </div>
         </template>
     </sideTemplate>
 </template>
 <script>
-import sideTemplate from '../sideTemplate.vue';
+import sideTemplate from '@/components/sideModule/sideTemplate.vue';
 export default {
     data() {
         return {
@@ -33,7 +33,6 @@ export default {
         scrollToAnchor(newVal) {
             const anchor = "markdownTocID" + newVal;
 
-            // 滚动事件
             if (!this.interruptEventbool) {
                 this.$nextTick(() => {
                     const element = this.$refs.scrollContainer.querySelector(`#${anchor}`);
@@ -46,7 +45,6 @@ export default {
                 });
             }
 
-            // 绑定 class
             this.$nextTick(() => {
                 const element = this.$refs.scrollContainer.querySelector(`#${anchor}`);
                 if (!element) return;
@@ -117,52 +115,48 @@ export default {
     /* Chrome, Safari, Edge */
 }
 
+
 @media screen and (max-width: 1280px) {
     .markDownToc {
         width: 13rem;
     }
 }
 
-body .markdownTocSelected a {
+.markdownTocSelected a {
     font-weight: 600;
     color: var(--color-theme-blue-1);
 }
 
-.announcementBoard a:hover {
-    font-weight: 600;
-    color: var(--color-theme-grayscale6);
-}
-
-body .markdownTocClass1,
-body .markdownTocClass2 {
+.markdownTocClass1,
+.markdownTocClass2 {
     color: var(--color-theme-grayscale65);
 }
 
-body .markdownTocClass3,
-body .markdownTocClass4 {
+.markdownTocClass3,
+.markdownTocClass4 {
     padding-left: 0.5rem;
 }
 
-body .markdownTocClass5,
-body .markdownTocClass6 {
+.markdownTocClass5,
+.markdownTocClass6 {
     padding-left: 1rem;
 }
 
-body .markdownTocClass1,
-body .markdownTocClass2,
-body .markdownTocClass3,
-body .markdownTocClass4,
-body .markdownTocClass5,
-body .markdownTocClass6 {
+.markdownTocClass1,
+.markdownTocClass2,
+.markdownTocClass3,
+.markdownTocClass4,
+.markdownTocClass5,
+.markdownTocClass6 {
     margin-top: 0.8rem;
 }
 
-body .markdownTocClass1 a,
-body .markdownTocClass2 a,
-body .markdownTocClass3 a,
-body .markdownTocClass4 a,
-body .markdownTocClass5 a,
-body .markdownTocClass6 a {
+.markdownTocClass1 a,
+.markdownTocClass2 a,
+.markdownTocClass3 a,
+.markdownTocClass4 a,
+.markdownTocClass5 a,
+.markdownTocClass6 a {
     word-wrap: break-word;
 }
 </style>

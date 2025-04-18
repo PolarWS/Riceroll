@@ -1,27 +1,33 @@
 <template>
-  <!-- 导航栏 -->
-  <navigationBar v-if="widthLevel >= 2"  :navigationBarData="navigationBarData" />
-  <!-- 中心内容页 -->
-  <div class="centralFramework">
-    <!-- 导航栏mob -->
-    <navigationBarMob v-if="widthLevel < 2" @navigationBarMobSwitch="navigationBarMobSwitch"
-      :navigationBarData="navigationBarData" :style="{ right: navigationBarMobRight + 'rem' }" />
-    <topMenuBar v-if="widthLevel < 2" @navigationBarMobSwitch="navigationBarMobSwitch"
-      :navigationBarData="navigationBarData.titleData" :blogName="blogName" />
-    <messagePopups ref="messagePopups" />
-    <RouterView v-slot="{ Component }">
-      <transition-group name="fade" @enter="scrollToTop">
-        <div :key="$route.path">
-          <component :is="Component" />
-        </div>
-      </transition-group>
-    </RouterView>
-    <backToTheTop />
+  <messagePopups />
+  <div class="Riceroll">
+    <!-- 导航栏 -->
+    <navigationBar v-if="widthLevel >= 2" :navigationBarData="navigationBarData" />
+    <!-- 中心内容页 -->
+    <div class="centralFramework">
+      <!-- 导航栏mob -->
+      <navigationBarMob v-if="widthLevel < 2" @navigationBarMobSwitch="navigationBarMobSwitch"
+        :navigationBarData="navigationBarData" :style="{ right: navigationBarMobRight + 'rem' }" />
+      <topMenuBar v-if="widthLevel < 2" @navigationBarMobSwitch="navigationBarMobSwitch"
+        :navigationBarData="navigationBarData.titleData" :blogName="blogName" />
+      <RouterView v-slot="{ Component }">
+        <transition-group name="fade" @enter="scrollToTop">
+          <div :key="$route.path">
+            <component :is="Component" />
+          </div>
+        </transition-group>
+      </RouterView>
+      <backToTheTop />
+
+    </div>
+    <!-- 侧边栏 -->
+    <div v-show="widthLevel > 3">
+      <informationBar :informationBarData="informationBarData" :markdownTocData="markdownTocData"
+        :markdownTocIndex="markdownTocIndex" />
+    </div>
   </div>
-  <!-- 侧边栏 -->
-  <div v-if="widthLevel > 3">
-    <informationBar :informationBarData="informationBarData" :markdownTocData="markdownTocData"
-      :markdownTocIndex="markdownTocIndex" />
+  <div class="footerMobile" v-show="widthLevel < 4">
+    <a :href="item.url" v-for="item in config.informationBarData.footmark">{{ item.title }}</a>
   </div>
 </template>
 
@@ -32,14 +38,15 @@ import informationBar from '@/components/informationBar.vue';
 import messagePopups from '@/components/messagePopups.vue';
 import topMenuBar from '@/components/topMenuBar.vue';
 import backToTheTop from './components/backToTheTop.vue';
-import { dataRelay } from '@/store/dataRelay.js';
-import config from '@/config.json';
+import { dataRelayStore } from '@/store/dataRelayStore.js';
+
 export default {
   data() {
     return {
-      navigationBarData: config.navigationBarData,
-      informationBarData: config.informationBarData,
-      blogName: config.blogName,
+      config: Object,
+      navigationBarData: Object,
+      informationBarData: Object,
+      blogName: Object,
       navigationBarMobRight: 50,
       widthLevel: Number,
       markdownTocIndex: -1,
@@ -58,9 +65,6 @@ export default {
     backToTheTop,
   },
   methods: {
-    messagePopups(event) {
-      this.$refs.messagePopups.showPopup(event);
-    },
     markdownToc(Toc) {
       this.markdownTocData = Toc;
     },
@@ -86,26 +90,30 @@ export default {
       } else {
         this.widthLevel = 1;
       }
-      dataRelay().widthLevel = this.widthLevel;
+      dataRelayStore().widthLevel = this.widthLevel;
     },
     scrollToTop() {
       window.scrollTo(0, 0);
     },
   },
   created() {
-    this.checkScreenSize();
+    this.config = this.configData;
+    dataRelayStore().configData = this.config;
+    this.navigationBarData = this.config.navigationBarData;
+    this.informationBarData = this.config.informationBarData;
+    this.blogName = this.config.blogName;
   },
   mounted() {
+    this.checkScreenSize();
+    window.addEventListener('resize', this.checkScreenSize);
+
+  },
+  unmounted() {
     window.addEventListener('resize', this.checkScreenSize);
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.checkScreenSize);
-  },
-  provide() {
-    return {
-      api: config.api
-    }
-  },
+  }, props: ['configData'],
 }
 </script>
 
@@ -114,13 +122,41 @@ export default {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   border-left: 2px solid var(--color-theme-frame1);
   border-right: 2px solid var(--color-theme-frame1);
+}
+
+.footerMobile {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1.75rem 0;
+  background-color: var(--color-theme-blue-1);
+}
+
+.footerMobile a {
+  display: flex;
+  justify-content: center;
+  margin: 0.25rem 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--color-theme-white);
 }
 
 @media screen and (max-width: 1280px) {
   .centralFramework {
     border-right: 2px solid var(--color-theme-frame1);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .footerMobile {
+    flex-direction: column;
+  }
+
+  .footerMobile a {
+    margin: 0.15rem 0;
   }
 }
 
@@ -149,4 +185,3 @@ export default {
   opacity: 0;
 }
 </style>
-

@@ -1,6 +1,6 @@
 <template>
     <div v-show="renderBoolean" class="pageMD">
-        <div id="bodyItemTopImg" :style="`background-image: url(${markDownData.title.img})`">
+        <div id="bodyItemTopImg" :style="`background-image: url(${this.api.url + this.api.cover + '/' + markDownData.title.cover})`">
             <div class="brightnessAdjustment">
                 <div id="bodyItemTopTitle">
                     <h1>「{{ markDownData.title.content }}」</h1>
@@ -13,7 +13,7 @@
                                 d="M739.196 198c-7.092 14.786-22.202 24.996-39.696 24.996-17.494 0-32.604-10.21-39.696-24.996H351.196c-7.092 14.786-22.202 24.996-39.696 24.996-17.494 0-32.604-10.21-39.696-24.996H133c-24.3 0-44 19.7-44 44v109.64a44.123 44.123 0 0 1 10.179-1.14L933 353.89V242c0-24.3-19.7-44-44-44H739.196z m4.304-88H889c72.902 0 132 59.098 132 132v594c0 72.902-59.098 132-132 132H133C60.098 968 1 908.902 1 836V242c0-72.902 59.098-132 132-132h134.5V45c0-24.3 19.7-44 44-44s44 19.7 44 44v65h300V45c0-24.3 19.7-44 44-44s44 19.7 44 44v65zM89 437.358V836c0 24.3 19.7 44 44 44h756c24.3 0 44-19.7 44-44V441.891L98.821 438.5A44.142 44.142 0 0 1 89 437.358zM274 721.5c-24.3 0-44-19.7-44-44s19.7-44 44-44h471.114c24.3 0 44 19.7 44 44s-19.7 44-44 44H274z"
                                 fill="#ffffff" p-id="11427"></path>
                         </svg>
-                        <span>{{ markDownData.date }}</span>
+                        <span>{{ markDownData.date.slice(0, 10) }}</span>
                     </div>
                     <div class="bodyItemTopSpan">
                         <svg t="1700205663159" class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -28,33 +28,35 @@
             </div>
         </div>
         <markDown :markDownData="markDownData.md" />
-        <pageMDTag :markDownDataTag="markDownData.tag" v-show="renderBoolean" class="pageMD" />
-        <commentList />
+        <tagPanel :tagData="markDownData.tag" v-show="renderBoolean" class="pageMD" />
+        <commentList :commentLock="markDownData.commentRead" />
     </div>
     <loadingDynamicEffect v-show="!renderBoolean" />
 </template>
 <script>
-import markDown from '../markDown.vue';
-import commentList from '../component/commentList.vue';
-import pageMDTag from './pageMDTag.vue';
-import loadingDynamicEffect from '../loadingDynamicEffect.vue';
-import { useCounterStore } from '../../store/axiosStore.js';
+import markDown from '@/components/markDown.vue';
+import commentList from '@/components/component/commentList.vue';
+import tagPanel from '@/components/tagPanel.vue';
+import loadingDynamicEffect from '@/components/loadingDynamicEffect.vue';
+import { axiosStore } from '@/store/axiosStore.js';
 export default {
     data() {
         return {
+            api: axiosStore().api,
             renderBoolean: false,
             markdownTocIndex: -1,
             markDownData: {
                 "title": {
                     "content": "",
-                    "img": ""
+                    "cover": ""
                 },
                 "md": "",
                 "date": "",
                 "wordCount": "",
+                "commentRead": 1,
                 "tag": []
             },
-            markdownID: "",
+            markdownID: String,
             completeRenderingRequest: false,
         }
     },
@@ -65,20 +67,21 @@ export default {
     },
     mounted() {
         this.markdownID = this.$route.path.split('/');
-        useCounterStore().apiRequest(this.api.url + this.api.markdown, this.markdownID[this.markdownID.length - 1])
+        axiosStore().apiRequest(this.api.url + this.api.markdown,
+            { "id": this.markdownID[this.markdownID.length - 1] }, "get")
             .then(data => {
                 if (data.status == 200) {
-                    this.markDownData = data;
-                    if (data.Toc != undefined) {
+                    this.markDownData = data.data;
+                    if (data.data.toc.length < 1) {
                         this.$root.markdownToc({
                             display: true,
-                            data: data.Toc.data,
+                            data: data.data.toc,
                         })
                     }
                     this.renderBoolean = true;
                     const routeName = this.$route.fullPath.split('/').pop();
                     if (routeName.split('#').length > 1) {
-                        const anchor = routeName[routeName.length - 1].split('#')[1];
+                        const anchor = routeName.split('#')[1];
                         setTimeout(() => {
                             const anchorElement = document.getElementById(anchor);
                             if (anchorElement) {
@@ -93,11 +96,6 @@ export default {
                         this.completeRenderingRequest = true;
                         this.checkAnchorInViewport();
                     }
-                } else {
-                    this.$root.messagePopups({
-                        message: '服务器错误',
-                        Color: 'messageY',
-                    });
                 }
             })
         window.addEventListener('scroll', this.checkAnchorInViewport, false);
@@ -124,22 +122,12 @@ export default {
     components: {
         markDown,
         loadingDynamicEffect,
-        pageMDTag,
+        tagPanel,
         commentList,
-    }, inject: ['api'],
+    },
 }
 </script>
 <style scoped>
-.markdown-body {
-    padding: 1.5rem;
-}
-
-@media screen and (max-width: 600px) {
-    .markdown-body {
-        padding: 1rem;
-    }
-}
-
 .pageMD {
     animation-name: fadeIn;
     animation-duration: 0.5s;

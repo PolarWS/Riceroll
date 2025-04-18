@@ -3,9 +3,10 @@
     <div class="informationBar" ref="informationBar" @scroll="handleScroll">
         <announcementBoard v-if="informationBarData.default.announcementBoard.display"
             :announcementBoard="informationBarData.default.announcementBoard" />
-        <div v-show="!markdownTocData.display">
+        <div v-show="!(this.markdownTocData.display && Object.keys(this.markdownTocData.data).length > 0)">
             <!-- 侧边栏组件 -->
-            <labelBar v-if="informationBarData.default.labelBar.display" :labelBar="informationBarData.default.labelBar" />
+            <labelBar v-if="informationBarData.default.labelBar.display"
+                :labelBar="informationBarData.default.labelBar" />
             <replyBar v-if="informationBarData.default.replyBar.display" />
             <!-- 自定义组件 -->
             <sideTemplate v-if="informationBarData.custom.display" v-for="item in informationBarData.custom.content">
@@ -18,22 +19,22 @@
             </sideTemplate>
         </div>
         <!-- markDown[toc]组件 -->
-        <div v-show="markdownTocData.display">
+        <div v-show="this.markdownTocData.display && Object.keys(this.markdownTocData.data).length > 0">
             <markDownToc :markDownToc="markdownTocData" :markdownTocIndex="markdownTocIndex" />
         </div>
         <!-- 脚标 -->
-        <div v-for="item in informationBarData.footmark" class="footmark">
+        <div v-for="item in informationBarData.footmark" class="footer">
             <a :href="item.url">{{ item.title }}</a>
         </div>
     </div>
 </template>
 <script>
-import markDownToc from './sideModule/markDownToc.vue';
-import announcementBoard from './sideModule/announcementBoard.vue';
-import labelBar from './sideModule/labelBar.vue';
-import replyBar from './sideModule/replyBar.vue';
-import sideTemplate from './sideTemplate.vue';
-import markDown from './markDown.vue';
+import markDownToc from '@/components/sideModule/markDownToc.vue';
+import announcementBoard from '@/components/sideModule/announcementBoard.vue';
+import labelBar from '@/components/sideModule/labelBar.vue';
+import replyBar from '@/components/sideModule/replyBar.vue';
+import sideTemplate from '@/components/sideModule/sideTemplate.vue';
+import markDown from '@/components/markDown.vue';
 export default {
     data() {
         return {
@@ -57,42 +58,48 @@ export default {
     },
     methods: {
         handleScroll() {
-            if (this.divHeight > this.pageHeight) {
-                if (this.XscreenYAxis < this.screenYAxis && window.scrollY < this.screenYAxis) {
-                    this.changeDirection = true;
-                } else if (this.XscreenYAxis > this.screenYAxis && window.scrollY > this.screenYAxis) {
-                    this.changeDirection = true;
-                }
-                else {
-                    this.changeDirection = false;
-                }
-                this.XscreenYAxis = this.screenYAxis
-                this.screenYAxis = window.scrollY;
-                if (window.scrollY < this.fixedDivDigits && this.stickyBool) {
-                    this.$refs.informationBar.style.top = "0px";
-                    this.$refs.informationBar.style.position = 'sticky';
-                    this.stickyBool = false;
-                    this.topBoolean = true;
-                } else if (this.screenYAxis > this.fixedDivDigits + this.divHeight - this.pageHeight && this.stickyBool) {
+            if (window.scrollY + this.pageHeight <= document.body.scrollHeight) {
+                if (this.divHeight > this.pageHeight) {
+                    if (this.XscreenYAxis < this.screenYAxis && window.scrollY < this.screenYAxis) {
+                        this.changeDirection = true;
+                    } else if (this.XscreenYAxis > this.screenYAxis && window.scrollY > this.screenYAxis) {
+                        this.changeDirection = true;
+                    }
+                    else {
+                        this.changeDirection = false;
+                    }
+                    this.XscreenYAxis = this.screenYAxis
+                    this.screenYAxis = window.scrollY;
+                    if (window.scrollY <= 0) {
+                        this.$refs.informationBar.style.top = "0px";
+                        this.$refs.informationBar.style.position = 'relative';
+                    } else if (window.scrollY < this.fixedDivDigits && this.stickyBool) {
+                        this.$refs.informationBar.style.top = "0px";
+                        this.$refs.informationBar.style.position = 'sticky';
+                        this.stickyBool = false;
+                        this.topBoolean = true;
+                    } else if (this.screenYAxis > this.fixedDivDigits + this.divHeight - this.pageHeight && this.stickyBool) {
 
-                    this.$refs.informationBar.style.top = (this.pageHeight - this.divHeight) + "px";
+                        this.$refs.informationBar.style.top = (this.pageHeight - this.divHeight) + "px";
+                        this.$refs.informationBar.style.position = 'sticky';
+                        this.stickyBool = false;
+                        this.topBoolean = false;
+                    }
+                    if (!this.stickyBool && this.changeDirection && !this.topBoolean) {
+                        this.fixedDivDigits = this.screenYAxis + this.pageHeight - this.divHeight;
+                        this.$refs.informationBar.style.top = (this.screenYAxis + this.pageHeight - this.divHeight) + "px";
+                        this.$refs.informationBar.style.position = 'relative';
+                        this.stickyBool = true;
+                    } else if (!this.stickyBool && this.changeDirection && this.topBoolean) {
+                        this.fixedDivDigits = this.screenYAxis;
+                        this.$refs.informationBar.style.top = (this.screenYAxis) + "px";
+                        this.$refs.informationBar.style.position = 'relative';
+                        this.stickyBool = true;
+                    }
+                } else {
+                    this.$refs.informationBar.style.top = "0";
                     this.$refs.informationBar.style.position = 'sticky';
-                    this.stickyBool = false;
-                    this.topBoolean = false;
                 }
-                if (!this.stickyBool && this.changeDirection && !this.topBoolean) {
-                    this.fixedDivDigits = this.screenYAxis + this.pageHeight - this.divHeight;
-                    this.$refs.informationBar.style.top = (this.screenYAxis + this.pageHeight - this.divHeight) + "px";
-                    this.$refs.informationBar.style.position = 'relative';
-                    this.stickyBool = true;
-                } else if (!this.stickyBool && this.changeDirection && this.topBoolean) {
-                    this.fixedDivDigits = this.screenYAxis;
-                    this.$refs.informationBar.style.top = (this.screenYAxis) + "px";
-                    this.$refs.informationBar.style.position = 'relative';
-                    this.stickyBool = true;
-                }
-            } else {
-                this.$refs.informationBar.style.top = "0";
             }
         },
         handleResize() {
@@ -102,10 +109,17 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
+            const element = this.$refs.informationBar;
+            const resizeObserver = new ResizeObserver(entries => {
+                for (let entry of entries) {
+                    const computedStyle = window.getComputedStyle(entry.target);
+                    this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
+                }
+            });
+
+            resizeObserver.observe(element);
             window.addEventListener('resize', this.handleResize);
             window.addEventListener('scroll', this.handleScroll);
-            const computedStyle = window.getComputedStyle(this.$refs.informationBar);
-            this.divHeight = parseFloat(computedStyle.height) + parseFloat(computedStyle.paddingTop) + parseFloat(computedStyle.paddingBottom);
         });
     },
     updated() {
@@ -136,7 +150,7 @@ export default {
     padding-bottom: 1rem;
 }
 
-.footmark a {
+.footer a {
     text-decoration: none;
     cursor: pointer;
     margin: 1rem 1.5rem;
@@ -144,11 +158,11 @@ export default {
     color: var(--color-theme-grayscale4);
 }
 
-.footmark a:hover {
+.footer a:hover {
     color: var(--color-theme-grayscale5);
 }
 
-.footmark a:active {
+.footer a:active {
     color: var(--color-theme-blue-2);
 }
 </style>

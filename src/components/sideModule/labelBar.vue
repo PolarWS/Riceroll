@@ -1,66 +1,54 @@
-<!-- 标签组件 -->
 <template>
     <sideTemplate>
         <template #title>
             标签页面
         </template>
         <template #content>
-            <div class="labelBar" v-for="item in labelBarData">
+            <div class="labelBar" v-for="item in labelBarData" @click="tagSrearch(item.tag)">
                 <div>
-                    <h3>#{{ item.labelName }}</h3>
-                    <span>文章量{{ item.numberOfPages }}/</span>
-                    <span>浏览量{{ item.numberOfViews }}</span>
+                    <h3>#{{ item.tag }}</h3>
+                    <span>文章量{{ item.total }}/</span>
+                    <span>浏览量{{ item.hots }}</span>
                 </div>
                 <div class="hot">
-                    <!-- 调用labelheat进行热度统计同时改变这个·的颜色 -->
-                    <div :class="labelHeat(item.numberOfPages, item.numberOfViews)"></div>
+                    <div :class="labelHeat(item.hotness)"></div>
                 </div>
             </div>
         </template>
     </sideTemplate>
 </template>
 <script>
-import sideTemplate from '../sideTemplate.vue';
+import sideTemplate from '@/components/sideModule/sideTemplate.vue';
+import { axiosStore } from '@/store/axiosStore.js';
 export default {
     data() {
         return {
-            labelBarData: [{
-                labelName: "日常",
-                numberOfPages: 999,
-                numberOfViews: 10,
-            }, {
-                labelName: "数码",
-                numberOfPages: 70,
-                numberOfViews: 80,
-            }, {
-                labelName: "计算机",
-                numberOfPages: 30,
-                numberOfViews: 40,
-            }, {
-                labelName: "摄影",
-                numberOfPages: 10,
-                numberOfViews: 19,
-            }]
+            labelBarData: []
         }
     },
     components: {
         sideTemplate,
     },
     methods: {
-        // 判断热度并且返回class颜色
-        labelHeat(numberOfPages, numberOfViews) {
-            const heatIndex = numberOfPages * numberOfViews;
-            if (heatIndex < this.labelBar.heatNode.firstGear) {
+        labelHeat(hotness) {
+            if (hotness < this.labelBar.heatNode.firstGear) {
                 return "hotG";
-            } else if (heatIndex < this.labelBar.heatNode.secondGear) {
+            } else if (hotness < this.labelBar.heatNode.secondGear) {
                 return "hotY";
-            } else if (heatIndex < this.labelBar.heatNode.thirdGear) {
+            } else if (hotness < this.labelBar.heatNode.thirdGear) {
                 return "hotO";
             } else {
                 return "hotR";
             }
+        },tagSrearch(tag) {
+            this.$router.push({ path: '/filePage', query: { class: "tag", content: tag } });
         }
-    }, props: ["labelBar"]
+    }, mounted() {
+        axiosStore().apiRequest(axiosStore().api.url + axiosStore().api.labelBar).then(data => {
+            this.labelBarData = data.data;
+        });
+    },
+    props: ["labelBar"]
 }
 </script>
 <style scoped>
@@ -69,14 +57,12 @@ h3 {
     color: var(--color-theme-black);
 }
 
-
 .labelBar {
     display: grid;
     cursor: pointer;
     grid-template-columns: 3.5fr 1fr;
-
     border-radius: 0.25rem;
-    transition: background-color 0.1s,transform 0.1s;
+    transition: background-color 0.1s, transform 0.1s;
 }
 
 .labelBar:hover {
@@ -124,7 +110,7 @@ h3 {
     border-radius: 50%;
 }
 
-.hot{
+.hot {
     display: flex;
     align-items: center;
     justify-content: center;

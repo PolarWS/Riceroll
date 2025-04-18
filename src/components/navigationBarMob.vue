@@ -17,7 +17,7 @@
     </div>
 </template>
 <script>
-import sideItem from './sideItem.vue';
+import sideItem from '@/components/sideItem.vue';
 export default {
     data() {
         return {

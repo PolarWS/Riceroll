@@ -1,6 +1,14 @@
+@font-face {
+  font-family: 'HarmonyOS Sans SC';
+  src: url('./HarmonyOS_Sans_SC.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: fallback;
+}
+
 html {
   font-size: 15px;
-  font-family: Roboto, Noto, Helvetica, Arial, sans-serif;
+  font-family: 'HarmonyOS Sans SC';
   scroll-behavior: smooth;
 }
 
@@ -13,7 +21,6 @@ body {
   background: var(--color-theme-selected);
 }
 
-/* main.css */
 
 body,
 body * {
@@ -47,29 +54,27 @@ body *:hover::-webkit-scrollbar-thumb {
   /* Chrome, Safari, Edge */
 }
 
-#app {
+.Riceroll {
   max-width: 1280px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1.2fr minmax(10rem, 3fr) minmax(5rem, 1.4fr);
 }
 
-/* 轮询小于1280px */
 @media screen and (max-width: 1280px) {
-  #app {
+  .Riceroll {
     grid-template-columns: 5rem minmax(10rem, 5fr) minmax(5rem, 20rem);
   }
 }
 
-/* 轮询小于1280px并且大于1024px */
 @media screen and (max-width: 1024px) {
-  #app {
+  .Riceroll {
     grid-template-columns: 5rem minmax(10rem, 5fr) 0rem;
   }
 }
 
 @media screen and (max-width: 600px) {
-  #app {
+  .Riceroll {
     display: flex;
   }
 }
@@ -96,8 +101,9 @@ body *:hover::-webkit-scrollbar-thumb {
   --color-theme-grayscale5: #8f8f8f;
   --color-theme-grayscale65: #7c7c7c;
   --color-theme-grayscale6: #575757;
+  --color-theme-grayscale7: #363636;
 
-  --color-theme-black0: rgba(0, 0, 0, 0.05);
+  --color-theme-black0: rgba(0, 0, 0, 0.1);
   --color-theme-black1: rgba(0, 0, 0, 0.25);
   --color-theme-black2: rgba(0, 0, 0, 0.38);
 
@@ -106,9 +112,9 @@ body *:hover::-webkit-scrollbar-thumb {
   --color-theme-O: #F8A978;
   --color-theme-R: #FF5F5F;
 
-  --color-theme-msg-G: #79ff49;
-  --color-theme-msg-Y: #ffd556;
-  --color-theme-msg-O: #ff9e62;
+  --color-theme-msg-G: #29c462;
+  --color-theme-msg-Y: #eed339;
+  --color-theme-msg-O: #f77a22;
   --color-theme-msg-R: #ff6d6d;
 
   --color-theme-selected: #FF7070;

@@ -1,26 +1,28 @@
 <template>
-    <bodyItem :itemData="this.itemData" />
-    <div id="pressed">
-        <div class="cardBox" v-for="(item, index) in itemData.cardList" @click="linkClick(item.url)">
-            <div class="cardImg">
-                <img :src="(item.src)" />
-                <div class="state" :class="statePing(this.pingData[index])" v-if="itemData.pingSwitch"></div>
-            </div>
-            <div class="cardContent">
-                <div class="title">{{ item.title }}</div>
-                <span class="content">{{ item.content }}</span>
+    <bodyItem :itemData="this.itemData">
+        <div id="pressed">
+            <div class="cardBox" v-for="(item, index) in shuffleArray(itemData.cardList)" @click="linkClick(item.url)">
+                <div class="cardImg">
+                    <img :src="(item.src)" />
+                    <div class="state" :class="statePing(findPingData(item.url))" v-if="itemData.pingSwitch"></div>
+                </div>
+                <div class="cardContent">
+                    <div class="title">{{ item.title }}</div>
+                    <span class="content">{{ item.content }}</span>
+                </div>
             </div>
         </div>
-    </div>
+    </bodyItem>
 </template>
 
 <script>
-import { useCounterStore } from '../../store/axiosStore.js';
-import bodyItem from './bodyItem.vue';
+import bodyItem from '@/components/body/bodyItem.vue';
+import { axiosStore } from '@/store/axiosStore.js';
 export default {
     data() {
         return {
-            pingData: Object,
+            pingData: [],
+            api: axiosStore().api,
         };
     },
     components: {
@@ -33,40 +35,48 @@ export default {
             window.open(url);
         },
         statePing(delay) {
-            if (delay < 50) {
+            if (delay < 1000) {
                 return "stateG";
             }
-            else if (delay < 200) {
+            else if (delay < 2000) {
                 return "stateY";
             }
-            else if (delay < 998) {
+            else if (delay < 3000) {
                 return "stateO";
             }
             else {
                 return "stateR";
             }
         },
+        shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            } 
+            return array;
+        },
+        findPingData(url) {
+            let hash = 0;
+            for (let i = 0; i < url.length; i++) {
+                const char = url.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            const hexHash = Math.abs(hash).toString(16).substring(0, 8);
+
+            const foundItem = this.pingData.find(item => item.hash === hexHash);
+            return foundItem ? foundItem.ping : { delay: 9999 };
+        },
     }, created() {
-        useCounterStore().apiRequest(this.api.url + this.api.frindLinkPage)
+        axiosStore().apiRequest(this.api.url + this.api.friendLinkPage)
             .then(data => {
                 if (data.status == 200) {
-                    this.pingData = data.ping;
-                } else {
-                    this.$root.messagePopups({
-                        message: '服务器错误',
-                        Color: 'messageY',
-                    });
+                    this.pingData = data.data;
                 }
             })
-            .catch(error => {
-                this.$root.messagePopups({
-                    message: '服务器连接失败',
-                    Color: 'messageR',
-                });
-            });
     }, props: {
         itemData: Object,
-    }, inject: ['api'],
+    },
 }
 </script>
 <style scoped>
@@ -147,7 +157,7 @@ export default {
 }
 
 .cardBox img {
-    width: 6rem;
+    width: 6em;
     height: 6rem;
     object-fit: cover;
     border-radius: 50%;

@@ -6,23 +6,24 @@
         </template>
         <template #content>
             <div v-for="(item, index) in msgData" :key="index" class="replyList">
-                <a :href="item.url">{{ item.msg }}</a>
+                <a :href="item.url + '#' + item.uuid">{{ item.name + '：' + item.comment }}</a>
             </div>
         </template>
     </sideTemplate>
 </template>
 <script>
-import sideTemplate from '../sideTemplate.vue';
+import sideTemplate from '@/components/sideModule/sideTemplate.vue';
+import { axiosStore } from '@/store/axiosStore.js';
 export default {
     data() {
         return {
-            msgData: [
-                { id: "dsfsdf", msg: "Anonymous：码农路过，留农路过，", url: "#" },
-                { id: "dfsdff", msg: "千羽：鼠标点击特效好像：鼠标点击特效", url: "#" },
-                { id: "xcvdfg", msg: "neko：欢迎交换友链,请留言过，", url: "#" },
-                { id: "hgfhfg", msg: "夏目：新的主题还行", url: "#" },
-            ]
+            msgData: []
         }
+    }, mounted() {
+        axiosStore().apiRequest(axiosStore().api.url + axiosStore().api.replyBar).then(data => {
+            this.msgData = data.data;
+        });
+
     },
     components: {
         sideTemplate,

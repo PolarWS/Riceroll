@@ -15,8 +15,8 @@
     </div>
 </template>
 <script>
-import sideItem from './sideItem.vue';
-import { dataRelay } from '@/store/dataRelay.js';
+import sideItem from '@/components/sideItem.vue';
+import { dataRelayStore } from '@/store/dataRelayStore.js';
 export default {
     data() {
         return {
@@ -53,7 +53,6 @@ export default {
             }
         },
         selectedCalculation() {
-            // console.log(this.$route.path);
             const titles = this.navigationBarData.titleData.map(title => title.id);
             const path = this.$route.path;
             const parts = path.split('/');
@@ -117,7 +116,7 @@ export default {
     },
     computed: {
         widthLevel() {
-            return dataRelay().widthLevel;
+            return dataRelayStore().widthLevel;
         }
     },
     props: ['navigationBarData']
