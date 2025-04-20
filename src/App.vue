@@ -11,10 +11,10 @@
       <topMenuBar v-if="widthLevel < 2" @navigationBarMobSwitch="navigationBarMobSwitch"
         :navigationBarData="navigationBarData.titleData" :blogName="blogName" />
       <RouterView v-slot="{ Component }">
-        <transition-group name="fade" @enter="scrollToTop">
-          <div :key="$route.path">
-            <component :is="Component" />
-          </div>
+        <transition-group name="fade" @enter="scrollToTop" tag="div" class="transition-container">
+            <div :key="$route.path" style="width: 100%">
+                <component :is="Component" />
+            </div>
         </transition-group>
       </RouterView>
       <backToTheTop />
@@ -125,6 +125,8 @@ export default {
   min-height: 100vh;
   border-left: 2px solid var(--color-theme-frame1);
   border-right: 2px solid var(--color-theme-frame1);
+  overflow: hidden;
+  position: relative;
 }
 
 .footerMobile {
@@ -162,18 +164,31 @@ export default {
 
 .fade-enter-from {
   opacity: 0;
+  transform: translateY(20px);
 }
 
 .fade-enter-to {
   opacity: 1;
+  transform: translateY(0);
 }
 
 .fade-leave-active {
-  transition: opacity 0.15s;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.transition-container {
+    position: relative;
+    min-height: 100vh; /* 添加最小高度 */
+    display: block;
+    overflow: hidden;
 }
 
 .fade-enter-active {
-  transition: opacity .15s;
+  transition: all 0.4s ease;
   transition-delay: 0.2s;
 }
 
@@ -183,5 +198,13 @@ export default {
 
 .fade-leave-to {
   opacity: 0;
+  transform: translateY(-20px);
 }
+
+.transition-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
 </style>

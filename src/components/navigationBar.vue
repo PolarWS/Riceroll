@@ -3,14 +3,18 @@
     <div class="navigationBar">
         <div class="sideItems">
             <sideItem v-for="(item, index) in navigationBarData.titleData" :key="index"
-                @click.prevent="handleClick(item.id, item.url)" :iconSvg="item.icon">
+                @click.prevent="handleClick(item.id, item.url)" :iconSvg="item.icon" class="nav-item"
+                :style="{ '--i': index }">
                 <template #title>
                     {{ item.title }}
                 </template>
             </sideItem>
         </div>
         <!-- 选中条 -->
-        <div id="selectedItems" :style="{ marginTop: clickItem + 'rem', width: selectedItemsWidth + 'rem' }">
+        <div id="selectedItems" :style="{
+            '--click-position': clickItem + 'rem',
+            width: selectedItemsWidth + 'rem'
+        }">
         </div>
     </div>
 </template>
@@ -99,6 +103,12 @@ export default {
                     this.selectedItemsWidthAdaptation = Math.min(14.5, 5.5 + length * 0.75);
                 }
             }
+
+            requestAnimationFrame(() => {
+                this.$nextTick(() => {
+                    // 确保DOM更新后再执行动画
+                });
+            });
         }
     },
     watch: {
@@ -147,12 +157,52 @@ export default {
     height: 0.8rem;
     background-color: var(--color-theme-blue-1);
     z-index: -1;
-    transition: margin 0.35s cubic-bezier(0, 0, .58, 1), width 0.35s;
+    will-change: transform;
+    transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1),
+        width 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateY(var(--click-position)) translateX(0);
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 
 @media screen and (max-width: 1280px) {
     #selectedItems {
         margin-left: 1rem;
+    }
+}
+
+.nav-fade-enter-from {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.nav-fade-enter-to {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.nav-fade-enter-active {
+    transition: all 0.5s ease;
+}
+
+.nav-item {
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: navFadeIn 0.5s forwards;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes navFadeIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 </style>

@@ -2,14 +2,17 @@
 <template>
     <div class="informationBar" ref="informationBar" @scroll="handleScroll">
         <announcementBoard v-if="informationBarData.default.announcementBoard.display"
-            :announcementBoard="informationBarData.default.announcementBoard" />
+            :announcementBoard="informationBarData.default.announcementBoard" class="labelBarAnimation"
+            :style="{ '--i': 0 }" />
         <div v-show="!(this.markdownTocData.display && Object.keys(this.markdownTocData.data).length > 0)">
             <!-- 侧边栏组件 -->
-            <labelBar v-if="informationBarData.default.labelBar.display"
-                :labelBar="informationBarData.default.labelBar" />
-            <replyBar v-if="informationBarData.default.replyBar.display" />
+            <labelBar v-if="informationBarData.default.labelBar.display" class="labelBarAnimation"
+                :labelBar="informationBarData.default.labelBar" :style="{ '--i': 1 }" />
+            <replyBar v-if="informationBarData.default.replyBar.display" class="labelBarAnimation"
+                :style="{ '--i': 2 }" />
             <!-- 自定义组件 -->
-            <sideTemplate v-if="informationBarData.custom.display" v-for="item in informationBarData.custom.content">
+            <sideTemplate v-if="informationBarData.custom.display" v-for="item in informationBarData.custom.content"
+                class="labelBarAnimation" :style="{ '--i': 3 + index }">
                 <template #title>
                     {{ item.title }}
                 </template>
@@ -19,10 +22,12 @@
             </sideTemplate>
         </div>
         <!-- markDown[toc]组件 -->
-        <div v-show="this.markdownTocData.display && Object.keys(this.markdownTocData.data).length > 0">
+        <div v-show="this.markdownTocData.display && Object.keys(this.markdownTocData.data).length > 0"
+            class="labelBarAnimation" :style="{ '--i': 3 + informationBarData.custom.content.length }">
             <markDownToc :markDownToc="markdownTocData" :markdownTocIndex="markdownTocIndex" />
         </div>
         <!-- 脚标 -->
+
         <div v-for="item in informationBarData.footmark" class="footer">
             <a :href="item.url">{{ item.title }}</a>
         </div>
@@ -148,6 +153,23 @@ export default {
     position: sticky;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    /* opacity: 0;
+    transform: translateY(4rem);
+    animation: infoFadeIn 0.8s forwards; */
+}
+
+.labelBarAnimation {
+    opacity: 0;
+    transform: translateY(4rem);
+    animation: infoFadeIn 0.8s forwards;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes infoFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .footer a {
@@ -156,6 +178,8 @@ export default {
     margin: 1rem 1.5rem;
     padding: 0 1.5rem;
     color: var(--color-theme-grayscale4);
+    opacity: 0;
+    animation: infoFadeIn 4s forwards;
 }
 
 .footer a:hover {

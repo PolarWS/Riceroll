@@ -227,6 +227,8 @@ export default {
     word-break: break-all;
     margin-top: 0.75rem;
     white-space: pre-wrap;
+    line-height: 1.5rem;
+    letter-spacing: 0.01rem;
 }
 
 .commentItemMsg a {

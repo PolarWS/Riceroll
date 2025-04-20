@@ -465,6 +465,12 @@ export default {
    color: var(--color-theme-grayscale4);
 }
 
+@media (max-width: 1280px) {
+   .controlAreaSend button {
+      width: 6rem;
+   }
+}
+
 @media (max-width: 750px) {
    .informationSection {
       grid-template-columns: 1fr;
@@ -484,14 +490,6 @@ export default {
       padding: 0 0rem 1rem 0rem;
    }
 }
-
-
-@media (max-width: 1200px) {
-   .controlAreaSend button {
-      width: 6rem;
-   }
-}
-
 
 .fade-enter-from {
    opacity: 0;

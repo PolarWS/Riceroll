@@ -84,7 +84,7 @@ export default {
             this.commentData = [commentDataAdd, ...this.commentData];
         },
         commentDataUpdateBranch(commentDataAdd) {
-            if (commentDataAdd.pid != "") {
+            if (commentDataAdd.pid > 0) {
                 this.commentSectionDisplay(commentDataAdd.pid);
             }
             for (let i = 0; i < this.commentData.length; i++) {
@@ -146,10 +146,6 @@ export default {
     color: var(--color-theme-grayscale6);
 }
 
-/* .commentListReplyBox {
-    padding-left: 0.5rem;
-} */
-
 @media screen and (max-width: 600px) {
     .commentList {
         padding: 0 1rem 1rem 1rem;
@@ -159,8 +155,5 @@ export default {
         padding: 1.75rem 0.75rem 0.25rem 0.75rem;
     }
 
-    /* .commentListReplyBox {
-        padding-left: 0.5rem;
-    } */
 }
 </style>
