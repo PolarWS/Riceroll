@@ -161,6 +161,7 @@ export default {
 .commentItemInfoImg {
     width: 5.25rem;
     height: 5.25rem;
+    background-color: var(--color-theme-grayscale1);
 }
 
 .commentItemInfoReplyImg {

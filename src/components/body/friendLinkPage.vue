@@ -176,6 +176,10 @@ export default {
     justify-content: right;
 }
 
+.cardImg img {
+   background-color: var(--color-theme-grayscale1); 
+}
+
 @media screen and (max-width: 750px) {
     #pressed {
         grid-template-columns: 1fr;

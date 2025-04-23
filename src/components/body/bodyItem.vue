@@ -43,6 +43,7 @@ export default {
     background-position: center;
     background-repeat: no-repeat;
     transition: background-size 0.5s;
+    background-color: var(--color-theme-grayscale1);
 }
 
 .brightnessAdjustment {

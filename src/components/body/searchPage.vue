@@ -21,8 +21,7 @@
             </div>
             <loadingDynamicEffect v-show="loadingDisplay" />
             <div class="searchEmpty" v-show="emptyDisplay">
-                <!-- <span>有时候，我们需要的不是满满答案，</span>
-                <span>而是一个空白的空间，让心灵可以自由呼吸。</span> -->
+                <img src="@/assets/image/null.webp" alt="null">
             </div>
             <pagination :pageMax="this.pageMax" :page="this.page" @pageChange="pageChange"
                 v-show="searchResults && searchResults.length > 0" />
@@ -213,6 +212,11 @@ export default {
     align-items: center;
     font-size: 1.5rem;
     color: var(--color-theme-blue-3);
+}
+
+.searchEmpty img {
+    width: 30rem;
+    height: 30rem;
 }
 
 .searchItem span {

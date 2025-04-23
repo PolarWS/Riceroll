@@ -129,6 +129,7 @@ export default {
     height: 20rem;
     background-size: cover;
     background-position: center;
+    background-color: var(--color-theme-grayscale1);
 }
 
 .infBarTocWebLink {
@@ -163,6 +164,7 @@ export default {
     margin-left: 2.5rem;
     border-radius: 50%;
     border: 0.35rem solid var(--color-theme-white);
+    background-color: var(--color-theme-grayscale2);
 
     transform-origin: center;
     transform: rotate(0deg);
@@ -263,6 +265,7 @@ export default {
     background-repeat: no-repeat;
     z-index: -1;
     transition: transform 0.4s, filter 0.4s;
+    background-color: var(--color-theme-grayscale1);
 }
 
 .articleListCardBox:hover {

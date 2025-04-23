@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import bodyItem from '@/components/body/bodyItem.vue';
 import pageMD from '@/components/body/pageMD.vue';
+import NotFound from '@/components/body/notFound.vue';
 
-export function createVueRouter(config){
+export function createVueRouter(config) {
     const navigationBarData = config.navigationBarData;
-    
+
     let defaultVue = ["articlePage", "searchPage", "musicPage", "filePage", "friendLinkPage", "aboutPage"];
     let pages = [];
 
@@ -26,13 +27,13 @@ export function createVueRouter(config){
         if (allocation.url === undefined && defaultVue.includes(allocation.id)) {
             pages.push({
                 path: '/' + allocation.id,
-                props: { itemData: allocation.data},
+                props: { itemData: allocation.data },
                 component: () => import(`@/components/body/${allocation.id}.vue`)
             });
         } else {
             pages.push({
                 path: '/' + allocation.id,
-                props: { itemData: allocation.data},
+                props: { itemData: allocation.data },
                 component: bodyItem
             });
         }
@@ -41,6 +42,9 @@ export function createVueRouter(config){
     pages.push({
         path: '/articlePage/:id',
         component: pageMD
+    }, {
+        path: '/:pathMatch(.*)*',
+        component: NotFound
     });
 
     const router = createRouter({
